@@ -16,6 +16,7 @@
         }
 
         body {
+            -webkit-tap-highlight-color: transparent;
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: var(--bg-color);
@@ -132,19 +133,26 @@
     
     <script>
         function submitData() {
-            let surname = document.getElementById('surname').value.trim();
-            let name = document.getElementById('name').value.trim();
-            let patronymic = document.getElementById('patronymic').value.trim();
+    let surname = document.getElementById('surname').value.trim();
+    let name = document.getElementById('name').value.trim();
+    let patronymic = document.getElementById('patronymic').value.trim();
 
-            if (surname && name && patronymic) {
-                Telegram.WebApp.sendData(JSON.stringify({ surname, name, patronymic }));
-                Telegram.WebApp.close();
-            } else {
-                alert('Пожалуйста, заполните все поля.');
-            }
-        }
+    if (surname && name && patronymic) {
+        Telegram.WebApp.sendData(JSON.stringify({ surname, name, patronymic }));
+        Telegram.WebApp.close();
+    } else {
+        Telegram.WebApp.showPopup({
+            title: 'Ошибка',
+            message: 'Пожалуйста, заполните все поля.',
+            buttons: [
+                { id: 'ok', type: 'default', text: 'OK' }
+            ]
+        });
+    }
+}
 
-        Telegram.WebApp.ready();
+// Убедитесь, что Telegram WebApp API готов к использованию
+Telegram.WebApp.ready();
     </script>
 </body>
 </html>
