@@ -25,11 +25,14 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
 
         .container {
             text-align: center;
             width: 90%;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
         h1 {
@@ -45,11 +48,11 @@
 
         .input-group {
             margin-bottom: 16px;
+            text-align: left;
         }
 
         .input-group label {
             display: block;
-            text-align: left;
             margin-bottom: 4px;
             font-size: 14px;
             color: var(--hint-color);
@@ -63,7 +66,7 @@
             background: var(--secondary-bg-color);
             color: var(--text-color);
             font-size: 16px;
-            margin-bottom: 12px;
+            box-sizing: border-box;
         }
 
         .submit-btn {
@@ -88,10 +91,13 @@
         }
 
         .keyboard {
+            margin-top: 32px;
             display: grid;
             grid-template-columns: repeat(8, 1fr);
             gap: 8px;
-            margin-top: 32px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .keyboard button {
@@ -122,17 +128,17 @@
         
         <div class="input-group">
             <label for="surname">Фамилия</label>
-            <input id="surname" type="text" placeholder="Фамилия" readonly>
+            <input id="surname" type="text" placeholder="Фамилия" readonly onclick="focusInput('surname')">
         </div>
 
         <div class="input-group">
             <label for="name">Имя</label>
-            <input id="name" type="text" placeholder="Имя" readonly>
+            <input id="name" type="text" placeholder="Имя" readonly onclick="focusInput('name')">
         </div>
 
         <div class="input-group">
             <label for="patronymic">Отчество</label>
-            <input id="patronymic" type="text" placeholder="Отчество" readonly>
+            <input id="patronymic" type="text" placeholder="Отчество" readonly onclick="focusInput('patronymic')">
         </div>
         
         <button class="submit-btn" onclick="submitData()">→</button>
@@ -163,10 +169,6 @@
         function focusInput(inputId) {
             activeInput = inputId;
         }
-
-        document.getElementById('surname').addEventListener('click', () => focusInput('surname'));
-        document.getElementById('name').addEventListener('click', () => focusInput('name'));
-        document.getElementById('patronymic').addEventListener('click', () => focusInput('patronymic'));
 
         function addLetter(letter) {
             let input = document.getElementById(activeInput);
