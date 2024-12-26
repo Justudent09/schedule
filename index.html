@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ФИО</title>
+    <title>Фамилия, Имя, Отчество</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
@@ -44,7 +44,15 @@
         }
 
         .input-group {
-            margin-bottom: 24px;
+            margin-bottom: 16px;
+        }
+
+        .input-group label {
+            display: block;
+            text-align: left;
+            margin-bottom: 4px;
+            font-size: 14px;
+            color: var(--hint-color);
         }
 
         .input-group input {
@@ -55,6 +63,7 @@
             background: var(--secondary-bg-color);
             color: var(--text-color);
             font-size: 16px;
+            margin-bottom: 12px;
         }
 
         .submit-btn {
@@ -108,14 +117,25 @@
 </head>
 <body>
     <div class="container">
-        <h1>Введите ФИО</h1>
+        <h1>Введите данные</h1>
         <p>Пожалуйста, введите свою фамилию, имя и отчество.</p>
         
         <div class="input-group">
-            <input id="fio-input" type="text" placeholder="Фамилия Имя Отчество" readonly>
+            <label for="surname">Фамилия</label>
+            <input id="surname" type="text" placeholder="Фамилия" readonly>
+        </div>
+
+        <div class="input-group">
+            <label for="name">Имя</label>
+            <input id="name" type="text" placeholder="Имя" readonly>
+        </div>
+
+        <div class="input-group">
+            <label for="patronymic">Отчество</label>
+            <input id="patronymic" type="text" placeholder="Отчество" readonly>
         </div>
         
-        <button class="submit-btn" onclick="submitFIO()">→</button>
+        <button class="submit-btn" onclick="submitData()">→</button>
 
         <div class="keyboard">
             <button onclick="addLetter('А')">А</button>
@@ -132,52 +152,45 @@
             <button onclick="addLetter('К')">К</button>
             <button onclick="addLetter('Л')">Л</button>
             <button onclick="addLetter('М')">М</button>
-            <button onclick="addLetter('Н')">Н</button>
-            <button onclick="addLetter('О')">О</button>
-            <button onclick="addLetter('П')">П</button>
-            <button onclick="addLetter('Р')">Р</button>
-            <button onclick="addLetter('С')">С</button>
-            <button onclick="addLetter('Т')">Т</button>
-            <button onclick="addLetter('У')">У</button>
-            <button onclick="addLetter('Ф')">Ф</button>
-            <button onclick="addLetter('Х')">Х</button>
-            <button onclick="addLetter('Ц')">Ц</button>
-            <button onclick="addLetter('Ч')">Ч</button>
-            <button onclick="addLetter('Ш')">Ш</button>
-            <button onclick="addLetter('Щ')">Щ</button>
-            <button onclick="addLetter('Ъ')">Ъ</button>
-            <button onclick="addLetter('Ы')">Ы</button>
-            <button onclick="addLetter('Ь')">Ь</button>
-            <button onclick="addLetter('Э')">Э</button>
-            <button onclick="addLetter('Ю')">Ю</button>
-            <button onclick="addLetter('Я')">Я</button>
             <button onclick="addLetter(' ')">␣</button>
             <button onclick="deleteLetter()">⌫</button>
         </div>
     </div>
     
     <script>
-        let fioInput = document.getElementById('fio-input');
+        let activeInput = 'surname';
+
+        function focusInput(inputId) {
+            activeInput = inputId;
+        }
+
+        document.getElementById('surname').addEventListener('click', () => focusInput('surname'));
+        document.getElementById('name').addEventListener('click', () => focusInput('name'));
+        document.getElementById('patronymic').addEventListener('click', () => focusInput('patronymic'));
 
         function addLetter(letter) {
-            fioInput.value += letter;
+            let input = document.getElementById(activeInput);
+            input.value += letter;
         }
 
         function deleteLetter() {
-            fioInput.value = fioInput.value.slice(0, -1);
+            let input = document.getElementById(activeInput);
+            input.value = input.value.slice(0, -1);
         }
 
-        function submitFIO() {
-            let fio = fioInput.value.trim();
-            if (fio) {
-                Telegram.WebApp.sendData(fio);
+        function submitData() {
+            let surname = document.getElementById('surname').value.trim();
+            let name = document.getElementById('name').value.trim();
+            let patronymic = document.getElementById('patronymic').value.trim();
+
+            if (surname && name && patronymic) {
+                Telegram.WebApp.sendData(JSON.stringify({ surname, name, patronymic }));
                 Telegram.WebApp.close();
             } else {
-                alert('Пожалуйста, введите ФИО');
+                alert('Пожалуйста, заполните все поля.');
             }
         }
 
-        // Telegram WebApp Инициализация
         Telegram.WebApp.ready();
     </script>
 </body>
