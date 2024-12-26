@@ -6,26 +6,32 @@
     <title>Фамилия, Имя, Отчество</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
+        :root {
+            --bg-color: var(--tg-theme-bg-color, #ffffff);
+            --text-color: var(--tg-theme-text-color);
+            --hint-color: var(--tg-theme-hint-color);
+            --button-color: var(--tg-theme-button-color);
+            --button-text-color: var(--tg-theme-button-text-color);
+            --secondary-bg-color: var(--tg-theme-secondary-bg-color);
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: var(--tg-theme-bg-color);
-            color: var(--tg-theme-text-color);
+            background-color: var(--bg-color);
+            color: var(--text-color);
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
         }
 
         .container {
-            text-align: center;
             width: 90%;
             max-width: 400px;
-            margin: 0 auto;
+            text-align: center;
         }
-
+        
         h1 {
             font-size: 20px;
             margin-bottom: 8px;
@@ -38,15 +44,8 @@
         }
 
         .input-group {
-            margin-bottom: 16px;
-            text-align: left;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 4px;
-            font-size: 14px;
-            color: var(--tg-theme-hint-color);
+            position: relative;
+            margin-bottom: 24px;
         }
 
         .input-group input {
@@ -54,22 +53,42 @@
             padding: 12px;
             border-radius: 8px;
             border: 1px solid var(--tg-theme-section-separator-color);
-            background-color: var(--tg-theme-bg-color);
-            color: var(--tg-theme-text-color);
+            background-color: var(--bg-color);
+            color: var(--text-color);
             font-size: 16px;
+            outline: none;
             box-sizing: border-box;
         }
 
+        .input-group label {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--bg-color);
+            padding: 0 4px;
+            color: var(--hint-color);
+            font-size: 14px;
+            transition: all 0.2s ease-in-out;
+            pointer-events: none;
+        }
+
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label {
+            top: -8px;
+            left: 12px;
+            font-size: 12px;
+            color: var(--button-color);
+        }
+
         .input-group input:focus {
-            border-color: var(--tg-theme-button-color);
-            outline: none;
-            box-shadow: 0 0 4px var(--tg-theme-button-color);
+            border-color: var(--button-color);
         }
 
         .submit-btn {
             margin-top: 24px;
-            background-color: var(--tg-theme-button-color);
-            color: var(--tg-theme-button-text-color);
+            background-color: var(--button-color);
+            color: var(--button-text-color);
             padding: 16px;
             border: none;
             border-radius: 50%;
@@ -81,6 +100,7 @@
             align-items: center;
             margin-left: auto;
             margin-right: auto;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -90,18 +110,18 @@
         <p>Пожалуйста, введите свою фамилию, имя и отчество.</p>
         
         <div class="input-group">
+            <input id="surname" type="text" placeholder=" " required>
             <label for="surname">Фамилия</label>
-            <input id="surname" type="text">
         </div>
 
         <div class="input-group">
+            <input id="name" type="text" placeholder=" " required>
             <label for="name">Имя</label>
-            <input id="name" type="text">
         </div>
 
         <div class="input-group">
+            <input id="patronymic" type="text" placeholder=" " required>
             <label for="patronymic">Отчество</label>
-            <input id="patronymic" type="text">
         </div>
         
         <button class="submit-btn" onclick="submitData()">→</button>
