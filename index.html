@@ -6,7 +6,6 @@
     <title>Фамилия, Имя, Отчество</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -77,97 +76,32 @@
             margin-left: auto;
             margin-right: auto;
         }
-
-        .keyboard {
-            margin-top: 32px;
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
-            gap: 8px;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .keyboard button {
-            padding: 10px;
-            font-size: 16px;
-            background-color: var(--tg-theme-bg-color);
-            color: var(--tg-theme-text-color);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            text-align: center;
-        }
-
-        .keyboard button:active {
-            background: var(--tg-theme-hint-color);
-        }
-
-        .keyboard .wide {
-            grid-column: span 2;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Введите данные</h1>
         <p>Пожалуйста, введите свою фамилию, имя и отчество.</p>
-
+        
         <div class="input-group">
             <label for="surname">Фамилия</label>
-            <input id="surname" type="text" placeholder="Фамилия" readonly onclick="focusInput('surname')">
+            <input id="surname" type="text" placeholder="Фамилия">
         </div>
 
         <div class="input-group">
             <label for="name">Имя</label>
-            <input id="name" type="text" placeholder="Имя" readonly onclick="focusInput('name')">
+            <input id="name" type="text" placeholder="Имя">
         </div>
 
         <div class="input-group">
             <label for="patronymic">Отчество</label>
-            <input id="patronymic" type="text" placeholder="Отчество" readonly onclick="focusInput('patronymic')">
+            <input id="patronymic" type="text" placeholder="Отчество">
         </div>
-
+        
         <button class="submit-btn" onclick="submitData()">→</button>
-
-        <div class="keyboard">
-            <button onclick="addLetter('А')">А</button>
-            <button onclick="addLetter('Б')">Б</button>
-            <button onclick="addLetter('В')">В</button>
-            <button onclick="addLetter('Г')">Г</button>
-            <button onclick="addLetter('Д')">Д</button>
-            <button onclick="addLetter('Е')">Е</button>
-            <button onclick="addLetter('Ё')">Ё</button>
-            <button onclick="addLetter('Ж')">Ж</button>
-            <button onclick="addLetter('З')">З</button>
-            <button onclick="addLetter('И')">И</button>
-            <button onclick="addLetter('Й')">Й</button>
-            <button onclick="addLetter('К')">К</button>
-            <button onclick="addLetter('Л')">Л</button>
-            <button onclick="addLetter('М')">М</button>
-            <button onclick="addLetter(' ')">␣</button>
-            <button onclick="deleteLetter()">⌫</button>
-        </div>
     </div>
-
+    
     <script>
-        let activeInput = 'surname';
-
-        function focusInput(inputId) {
-            activeInput = inputId;
-        }
-
-        function addLetter(letter) {
-            let input = document.getElementById(activeInput);
-            input.value += letter;
-        }
-
-        function deleteLetter() {
-            let input = document.getElementById(activeInput);
-            input.value = input.value.slice(0, -1);
-        }
-
         function submitData() {
             let surname = document.getElementById('surname').value.trim();
             let name = document.getElementById('name').value.trim();
@@ -181,6 +115,7 @@
             }
         }
 
+        // Telegram WebApp Инициализация
         Telegram.WebApp.ready();
     </script>
 </body>
