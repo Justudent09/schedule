@@ -2,11 +2,30 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no">
-    <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
-    <title>shedule</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Web App Form</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  
+    <div class="container">
+        <h2>Подтверждение данных</h2>
+        <form id="userForm">
+            <label for="firstName">Имя</label>
+            <input type="text" id="firstName" placeholder="Ваше имя" required>
+            
+            <label for="lastName">Фамилия</label>
+            <input type="text" id="lastName" placeholder="Ваша фамилия" required>
+            
+            <label for="middleName">Отчество</label>
+            <input type="text" id="middleName" placeholder="Ваше отчество">
+            
+            <label for="phone">Номер телефона</label>
+            <input type="tel" id="phone" placeholder="+31XXXXXXXXX" required>
+            
+            <button type="button" id="submitButton">Отправить</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
