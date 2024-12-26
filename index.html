@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Номер телефона</title>
+    <title>ФИО</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
@@ -44,13 +44,12 @@
         }
 
         .input-group {
-            margin-bottom: 16px;
+            margin-bottom: 24px;
         }
 
-        .input-group select, .input-group input {
+        .input-group input {
             width: 100%;
             padding: 12px;
-            margin-bottom: 8px;
             border-radius: 8px;
             border: 1px solid var(--secondary-bg-color);
             background: var(--secondary-bg-color);
@@ -58,107 +57,128 @@
             font-size: 16px;
         }
 
+        .submit-btn {
+            margin-top: 24px;
+            background: var(--button-color);
+            color: var(--button-text-color);
+            padding: 16px;
+            border: none;
+            border-radius: 50%;
+            width: 64px;
+            height: 64px;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .submit-btn:active {
+            background: darken(var(--button-color), 10%);
+        }
+
         .keyboard {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(8, 1fr);
             gap: 8px;
-            margin-top: 24px;
+            margin-top: 32px;
         }
 
         .keyboard button {
-            padding: 16px;
-            font-size: 18px;
+            padding: 10px;
+            font-size: 16px;
             background: var(--secondary-bg-color);
             color: var(--text-color);
             border: none;
-            border-radius: 8px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            text-align: center;
         }
 
         .keyboard button:active {
             background: var(--hint-color);
         }
 
-        .submit-btn {
-            margin-top: 24px;
-            background: var(--button-color);
-            color: var(--button-text-color);
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            width: 100%;
-            font-size: 16px;
-        }
-
-        .submit-btn:active {
-            background: darken(var(--button-color), 10%);
+        .keyboard .wide {
+            grid-column: span 2;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Номер телефона</h1>
-        <p>Проверьте код страны и введите свой номер телефона.</p>
+        <h1>Введите ФИО</h1>
+        <p>Пожалуйста, введите свою фамилию, имя и отчество.</p>
         
         <div class="input-group">
-            <select id="country-code">
-                <option value="+7">Россия (+7)</option>
-                <option value="+1">США (+1)</option>
-                <option value="+44">Великобритания (+44)</option>
-            </select>
-            <input id="phone-number" type="text" placeholder="Номер телефона" readonly>
+            <input id="fio-input" type="text" placeholder="Фамилия Имя Отчество" readonly>
         </div>
         
+        <button class="submit-btn" onclick="submitFIO()">→</button>
+
         <div class="keyboard">
-            <button onclick="addNumber('1')">1</button>
-            <button onclick="addNumber('2')">2</button>
-            <button onclick="addNumber('3')">3</button>
-            <button onclick="addNumber('4')">4</button>
-            <button onclick="addNumber('5')">5</button>
-            <button onclick="addNumber('6')">6</button>
-            <button onclick="addNumber('7')">7</button>
-            <button onclick="addNumber('8')">8</button>
-            <button onclick="addNumber('9')">9</button>
-            <button onclick="addNumber('+')">+</button>
-            <button onclick="addNumber('0')">0</button>
-            <button onclick="deleteNumber()">⌫</button>
+            <button onclick="addLetter('А')">А</button>
+            <button onclick="addLetter('Б')">Б</button>
+            <button onclick="addLetter('В')">В</button>
+            <button onclick="addLetter('Г')">Г</button>
+            <button onclick="addLetter('Д')">Д</button>
+            <button onclick="addLetter('Е')">Е</button>
+            <button onclick="addLetter('Ё')">Ё</button>
+            <button onclick="addLetter('Ж')">Ж</button>
+            <button onclick="addLetter('З')">З</button>
+            <button onclick="addLetter('И')">И</button>
+            <button onclick="addLetter('Й')">Й</button>
+            <button onclick="addLetter('К')">К</button>
+            <button onclick="addLetter('Л')">Л</button>
+            <button onclick="addLetter('М')">М</button>
+            <button onclick="addLetter('Н')">Н</button>
+            <button onclick="addLetter('О')">О</button>
+            <button onclick="addLetter('П')">П</button>
+            <button onclick="addLetter('Р')">Р</button>
+            <button onclick="addLetter('С')">С</button>
+            <button onclick="addLetter('Т')">Т</button>
+            <button onclick="addLetter('У')">У</button>
+            <button onclick="addLetter('Ф')">Ф</button>
+            <button onclick="addLetter('Х')">Х</button>
+            <button onclick="addLetter('Ц')">Ц</button>
+            <button onclick="addLetter('Ч')">Ч</button>
+            <button onclick="addLetter('Ш')">Ш</button>
+            <button onclick="addLetter('Щ')">Щ</button>
+            <button onclick="addLetter('Ъ')">Ъ</button>
+            <button onclick="addLetter('Ы')">Ы</button>
+            <button onclick="addLetter('Ь')">Ь</button>
+            <button onclick="addLetter('Э')">Э</button>
+            <button onclick="addLetter('Ю')">Ю</button>
+            <button onclick="addLetter('Я')">Я</button>
+            <button onclick="addLetter(' ')">␣</button>
+            <button onclick="deleteLetter()">⌫</button>
         </div>
-        
-        <button class="submit-btn" onclick="submitPhoneNumber()">→</button>
     </div>
     
     <script>
-        let phoneNumberInput = document.getElementById('phone-number');
+        let fioInput = document.getElementById('fio-input');
 
-        // Инициализация Telegram WebApp
-        Telegram.WebApp.ready();
-        const themeParams = Telegram.WebApp.themeParams;
-
-        function addNumber(num) {
-            phoneNumberInput.value += num;
+        function addLetter(letter) {
+            fioInput.value += letter;
         }
 
-        function deleteNumber() {
-            phoneNumberInput.value = phoneNumberInput.value.slice(0, -1);
+        function deleteLetter() {
+            fioInput.value = fioInput.value.slice(0, -1);
         }
 
-        function submitPhoneNumber() {
-            let countryCode = document.getElementById('country-code').value;
-            let phoneNumber = phoneNumberInput.value;
-            if (phoneNumber) {
-                Telegram.WebApp.sendData(`${countryCode}${phoneNumber}`);
+        function submitFIO() {
+            let fio = fioInput.value.trim();
+            if (fio) {
+                Telegram.WebApp.sendData(fio);
                 Telegram.WebApp.close();
             } else {
-                alert('Введите номер телефона');
+                alert('Пожалуйста, введите ФИО');
             }
         }
 
-        // Адаптация под тему Telegram
-        document.documentElement.style.setProperty('--bg-color', themeParams.bg_color || '#ffffff');
-        document.documentElement.style.setProperty('--text-color', themeParams.text_color || '#000000');
-        document.documentElement.style.setProperty('--hint-color', themeParams.hint_color || '#999999');
-        document.documentElement.style.setProperty('--button-color', themeParams.button_color || '#0078FF');
-        document.documentElement.style.setProperty('--button-text-color', themeParams.button_text_color || '#ffffff');
-        document.documentElement.style.setProperty('--secondary-bg-color', themeParams.secondary_bg_color || '#f0f0f0');
+        // Telegram WebApp Инициализация
+        Telegram.WebApp.ready();
     </script>
 </body>
 </html>
