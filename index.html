@@ -10,7 +10,7 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: var(--tg-theme-bg-color);
+            background-color: var(--tg-theme-bg-color);
             color: var(--tg-theme-text-color);
             display: flex;
             flex-direction: column;
@@ -35,7 +35,7 @@
         p {
             font-size: 14px;
             margin-bottom: 24px;
-            color: var(--tg-theme-text-color);
+            color: var(--tg-theme-hint-color);
         }
 
         .input-group {
@@ -47,7 +47,7 @@
             display: block;
             margin-bottom: 4px;
             font-size: 14px;
-            color: var (--tg-theme-hint-color);
+            color: var(--tg-theme-hint-color);
         }
 
         .input-group input {
@@ -55,7 +55,7 @@
             padding: 12px;
             border-radius: 8px;
             border: 1px solid var(--tg-theme-section-separator-color);
-            background-color: var(--tg-theme-bg-color);
+            background-color: var(--tg-theme-secondary-bg-color);
             color: var(--tg-theme-text-color);
             font-size: 16px;
             box-sizing: border-box;
@@ -63,7 +63,7 @@
 
         .submit-btn {
             margin-top: 24px;
-            background:  var(--tg-theme-button-color);
+            background-color: var(--tg-theme-button-color);
             color: var(--tg-theme-button-text-color);
             padding: 16px;
             border: none;
@@ -91,7 +91,7 @@
         .keyboard button {
             padding: 10px;
             font-size: 16px;
-            background: var(--secondary-bg-color);
+            background-color: var(--tg-theme-bg-color);
             color: var(--tg-theme-text-color);
             border: none;
             border-radius: 50%;
@@ -101,7 +101,7 @@
         }
 
         .keyboard button:active {
-            background: var (--tg-theme-hint-color);
+            background: var(--tg-theme-hint-color);
         }
 
         .keyboard .wide {
@@ -113,7 +113,7 @@
     <div class="container">
         <h1>Введите данные</h1>
         <p>Пожалуйста, введите свою фамилию, имя и отчество.</p>
-        
+
         <div class="input-group">
             <label for="surname">Фамилия</label>
             <input id="surname" type="text" placeholder="Фамилия" readonly onclick="focusInput('surname')">
@@ -128,7 +128,7 @@
             <label for="patronymic">Отчество</label>
             <input id="patronymic" type="text" placeholder="Отчество" readonly onclick="focusInput('patronymic')">
         </div>
-        
+
         <button class="submit-btn" onclick="submitData()">→</button>
 
         <div class="keyboard">
@@ -150,7 +150,7 @@
             <button onclick="deleteLetter()">⌫</button>
         </div>
     </div>
-    
+
     <script>
         let activeInput = 'surname';
 
