@@ -259,6 +259,17 @@ async function submitData() {
 // 📌 Инициализация Web App
 document.querySelector('.container').style.display = 'none';
 document.getElementById('scheduleScreen').style.display = 'none';
+
+// 📌 Событие для сворачивания клавиатуры при клике вне input
+document.addEventListener('touchstart', (event) => {
+    const activeElement = document.activeElement;
+    if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
+        if (!event.target.closest('.input-group')) {
+            activeElement.blur(); // Снимаем фокус с поля ввода
+        }
+    }
+});
+
 checkTelegramId();
     </script>
 </body>
