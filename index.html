@@ -95,23 +95,24 @@
             color: var(--tg-theme-hint-color);
         }
 
-        .button-container {
+        /* Контейнер, который всегда фиксирован внизу */
+.keyboard-safe-area {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 1000;
     display: flex;
     justify-content: flex-end;
     padding: 16px;
-    box-sizing: border-box;
+    background: var(--tg-theme-bg-color); /* Фон для предотвращения прозрачности */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-out;
-    z-index: 1000;
 }
 
 .submit-btn {
     background-color: var(--tg-theme-button-color);
     color: var(--tg-theme-button-text-color);
-    padding: 16px;
     border: none;
     border-radius: 50%;
     width: 60px;
@@ -156,7 +157,7 @@
             <label for="patronymic">Отчество</label>
         </div>
    
-        <div class="button-container">
+        <div class="keyboard-safe-area">
     <button class="submit-btn" onclick="submitData()">
         <svg class="feather feather-arrow-right" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
             <line x1="5" x2="19" y1="12" y2="12"></line>
@@ -286,33 +287,33 @@ document.addEventListener('touchstart', (event) => {
 });
 
 function adjustButtonForKeyboard() {
-    const buttonContainer = document.querySelector('.button-container');
-    let initialViewportHeight = window.innerHeight;
+    const safeArea = document.querySelector('.keyboard-safe-area');
+    let initialHeight = window.innerHeight;
 
     function updateButtonPosition() {
-        const currentViewportHeight = window.innerHeight;
-        const keyboardHeight = initialViewportHeight - currentViewportHeight;
+        const currentHeight = window.innerHeight;
 
-        if (keyboardHeight > 100) {
+        if (currentHeight < initialHeight) {
             // Клавиатура открыта
-            buttonContainer.style.transform = `translateY(-${keyboardHeight}px)`;
+            const keyboardHeight = initialHeight - currentHeight;
+            safeArea.style.transform = `translateY(-${keyboardHeight}px)`;
         } else {
             // Клавиатура закрыта
-            buttonContainer.style.transform = 'translateY(0)';
+            safeArea.style.transform = 'translateY(0)';
         }
     }
 
-    // Событие resize для отслеживания изменения размера экрана
+    // Слушаем событие resize (изменение высоты viewport)
     window.addEventListener('resize', updateButtonPosition);
     window.addEventListener('orientationchange', () => {
-        initialViewportHeight = window.innerHeight;
+        initialHeight = window.innerHeight;
     });
 
     // Инициализация
     updateButtonPosition();
 }
 
-// Запускаем функцию
+// Инициализируем
 adjustButtonForKeyboard();
 
 checkTelegramId();
