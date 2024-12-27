@@ -163,6 +163,12 @@ async function submitData() {
         return;
     }
 
+    Telegram.WebApp.showPopup({
+    title: 'Отладка',
+    message: `Отправляемые данные:\nTG_ID: ${TG_ID}\nФамилия: ${surname}\nИмя: ${name}\nОтчество: ${patronymic}`,
+    buttons: [{ id: 'ok', text: 'OK' }]
+});
+
     try {
         const response = await fetch('https://telegram-bot-server-hbtr.onrender.com/api/bind-telegram-id', {
             method: 'POST',
