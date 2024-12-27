@@ -270,6 +270,29 @@ document.addEventListener('touchstart', (event) => {
     }
 });
 
+function adjustButtonForKeyboard() {
+    const submitButton = document.querySelector('.submit-btn');
+    let initialHeight = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+        const currentHeight = window.innerHeight;
+
+        // Определяем, уменьшилась ли высота (клавиатура открыта)
+        if (currentHeight < initialHeight) {
+            const keyboardHeight = initialHeight - currentHeight;
+            submitButton.style.position = 'absolute';
+            submitButton.style.bottom = `${keyboardHeight + 16}px`;
+        } else {
+            // Клавиатура закрыта, возвращаем стандартное положение
+            submitButton.style.position = 'fixed';
+            submitButton.style.bottom = '16px';
+        }
+    });
+}
+
+// Запускаем функцию
+adjustButtonForKeyboard();
+
 checkTelegramId();
     </script>
 </body>
