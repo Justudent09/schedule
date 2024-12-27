@@ -143,68 +143,52 @@
     </div>
     
     <script>
-   Telegram.WebApp.ready(); // Инициализация Telegram Web App
+   Telegram.WebApp.ready();
 
-const TG_ID = Telegram.WebApp.initDataUnsafe?.user?.id || null;
+// Проверка Telegram ID на сервере при загрузке
+async function checkTelegramId() {
+    const TG_ID = Telegram.WebApp.initDataUnsafe?.user?.id || null;
 
-
-
-async function submitData() {
-    const surname = document.getElementById('surname').value.trim();
-    const name = document.getElementById('name').value.trim();
-    const patronymic = document.getElementById('patronymic').value.trim();
-
-    if (!surname || !name || !patronymic || !TG_ID) {
+    if (!TG_ID) {
         Telegram.WebApp.showPopup({
             title: 'Ошибка',
-            message: 'Пожалуйста, заполните все поля.',
+            message: 'Не удалось получить Telegram ID.',
             buttons: [{ id: 'ok', text: 'OK' }]
         });
         return;
     }
 
-    // Проверка перед fetch
-    Telegram.WebApp.showPopup({
-        title: 'Отладка',
-        message: 'Запрос к серверу отправляется...',
-        buttons: [{ id: 'ok', text: 'OK' }]
-    });
-
     try {
-        const response = await fetch('https://telegram-bot-server-hbtr.onrender.com/api/bind-telegram-id', {
+        const response = await fetch('https://telegram-bot-server-hbtr.onrender.com/api/check-telegram-id', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ telegramId: TG_ID, surname, name, patronymic })
+            body: JSON.stringify({ telegramId: TG_ID })
         });
 
         const result = await response.json();
-        console.log('Ответ сервера:', result);
 
         if (result.success) {
-    Telegram.WebApp.showPopup({
-        title: 'Успех',
-        message: result.message,
-        buttons: [{ id: 'ok', text: 'OK' }]
-    });
-    setTimeout(() => {
-        Telegram.WebApp.openLink('https://grozny.msu.ru/');
-    }, 1000);
+            // Telegram ID уже зарегистрирован – переходим на ссылку
+            Telegram.WebApp.openLink('https://grozny.msu.ru/');
         } else {
-            Telegram.WebApp.showPopup({
-                title: 'Ошибка',
-                message: result.message || 'Неизвестная ошибка сервера',
-                buttons: [{ id: 'ok', text: 'OK' }]
-            });
+            // Telegram ID не найден – показываем форму
+            document.querySelector('.container').style.display = 'block';
         }
     } catch (error) {
-        console.error('Ошибка запроса:', error);
+        console.error('Ошибка проверки Telegram ID:', error);
         Telegram.WebApp.showPopup({
             title: 'Ошибка',
-            message: `Ошибка сети или сервера: ${error.message}`,
+            message: 'Ошибка при проверке Telegram ID.',
             buttons: [{ id: 'ok', text: 'OK' }]
         });
     }
 }
+
+// Скрываем форму по умолчанию, пока идёт проверка
+document.querySelector('.container').style.display = 'none';
+
+// Запускаем проверку Telegram ID
+checkTelegramId();
     </script>
 </body>
 </html>
