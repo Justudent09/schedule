@@ -181,14 +181,14 @@ async function submitData() {
         console.log('Ответ сервера:', result);
 
         if (result.success) {
-            Telegram.WebApp.showPopup({
-                title: 'Успех',
-                message: result.message,
-                buttons: [{ id: 'ok', text: 'OK' }]
-            });
-            setTimeout(() => {
-                window.location.href = 'https://grozny.msu.ru/';
-            }, 1000);
+    Telegram.WebApp.showPopup({
+        title: 'Успех',
+        message: result.message,
+        buttons: [{ id: 'ok', text: 'OK' }]
+    });
+    setTimeout(() => {
+        Telegram.WebApp.openLink('https://grozny.msu.ru/');
+    }, 1000);
         } else {
             Telegram.WebApp.showPopup({
                 title: 'Ошибка',
