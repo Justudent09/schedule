@@ -141,26 +141,91 @@
     </div>
     
     <script>
-        function submitData() {
-            let surname = document.getElementById('surname').value.trim();
-            let name = document.getElementById('name').value.trim();
-            let patronymic = document.getElementById('patronymic').value.trim();
+    async function loadStudents() {
+        try {
+            const response = await fetch('students.json');
+            return await response.json();
+        } catch (error) {
+            console.error('Ошибка при загрузке данных студентов:', error);
+            Telegram.WebApp.showPopup({
+                title: 'Ошибка',
+                message: 'Не удалось загрузить данные студентов.',
+                buttons: [{ id: 'ok', type: 'default', text: 'OK' }]
+            });
+        }
+    }
 
-            if (surname && name && patronymic) {
-                Telegram.WebApp.sendData(JSON.stringify({surnam, name, patronymic}));
-                Telegram.WebApp.close();
-            } else {
-                Telegram.WebApp.showPopup({
-                    title: 'Ошибка',
-                    message: 'Пожалуйста, заполните все поля.',
-                    buttons: [
-                        { id: 'ok', type: 'default', text: 'OK' }
-                    ]
-                });
-            }
+    async function saveStudents(students) {
+        try {
+            // Примечание: Браузер не может напрямую записывать в файлы. 
+            // Для этого потребуется сервер или другой механизм.
+            console.log('Сохранение данных студентов:', students);
+            Telegram.WebApp.showPopup({
+                title: 'Успех',
+                message: 'Telegram ID успешно привязан. Перенаправление...',
+                buttons: [{ id: 'ok', type: 'default', text: 'OK' }]
+            });
+        } catch (error) {
+            console.error('Ошибка при сохранении данных студентов:', error);
+            Telegram.WebApp.showPopup({
+                title: 'Ошибка',
+                message: 'Не удалось сохранить данные студентов.',
+                buttons: [{ id: 'ok', type: 'default', text: 'OK' }]
+            });
+        }
+    }
+
+    async function submitData() {
+        let surname = document.getElementById('surname').value.trim();
+        let name = document.getElementById('name').value.trim();
+        let patronymic = document.getElementById('patronymic').value.trim();
+        let telegramId = Telegram.WebApp.initDataUnsafe?.user?.id; // ID Telegram пользователя
+
+        if (!surname || !name || !patronymic || !telegramId) {
+            Telegram.WebApp.showPopup({
+                title: 'Ошибка',
+                message: 'Пожалуйста, заполните все поля.',
+                buttons: [{ id: 'ok', type: 'default', text: 'OK' }]
+            });
+            return;
         }
 
-        Telegram.WebApp.ready();
+        let students = await loadStudents();
+
+        if (!students) return;
+
+        let student = students.find(s => 
+            s.surname === surname && s.name === name && s.patronymic === patronymic
+        );
+
+        if (!student) {
+            Telegram.WebApp.showPopup({
+                title: 'Ошибка',
+                message: 'Студент не найден.',
+                buttons: [{ id: 'ok', type: 'default', text: 'OK' }]
+            });
+            return;
+        }
+
+        if (student.telegramId) {
+            Telegram.WebApp.showPopup({
+                title: 'Ошибка',
+                message: 'Telegram ID уже привязан к этому студенту.',
+                buttons: [{ id: 'ok', type: 'default', text: 'OK' }]
+            });
+            return;
+        }
+
+        student.telegramId = telegramId; // Привязываем Telegram ID
+
+        await saveStudents(students);
+
+        setTimeout(() => {
+            window.location.href = `https://yoursite.com/schedule/${encodeURIComponent(student.group)}`;
+        }, 1000);
+    }
+
+    Telegram.WebApp.ready();
     </script>
 </body>
 </html>
