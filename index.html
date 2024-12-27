@@ -144,9 +144,11 @@
     
     <script>
    
-    // Инициализация Telegram Web App
-Telegram.WebApp.ready();
+    Telegram.WebApp.ready(); // Подготовка Web App
+
 const TG_ID = Telegram.WebApp.initDataUnsafe?.user?.id || null;
+
+console.log('TG_ID:', TG_ID);
 
 async function submitData() {
     const surname = document.getElementById('surname').value.trim();
