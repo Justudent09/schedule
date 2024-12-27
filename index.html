@@ -24,14 +24,11 @@
         }
 
         .container {
-            display: none; /* По умолчанию скрыта, пока не пройдет проверка */
-        }
-
-        .forma {
             width: 85%;
             max-width: 400px;
             text-align: center;
             margin-top: 100px;
+            display: none; /* По умолчанию скрыта, пока не пройдет проверка */
         }
 
         .schedule {
@@ -99,7 +96,7 @@
         }
 
         .submit-btn {
-            position: relative;
+            position: absolute;
             bottom: 16px;
             right: 16px;
             background-color: var(--tg-theme-button-color);
@@ -131,7 +128,6 @@
 <body>
     <!-- Форма для ввода данных -->
     <div class="container">
-    <div class="forma">
         <img src="IMG_20241227_173259_289.png" class="emoji">
         <h1>Введите данные</h1>
         <p>Пожалуйста, введите свои ФИО.</p>
@@ -150,7 +146,6 @@
             <input id="patronymic" type="text" placeholder=" " required>
             <label for="patronymic">Отчество</label>
         </div>
-   </div>
    
         <button class="submit-btn" onclick="submitData()">
             <svg class="feather feather-arrow-right" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><line x1="5" x2="19" y1="12" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
