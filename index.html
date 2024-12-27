@@ -144,89 +144,53 @@
     
     <script>
    
-    const TG_ID = Telegram.WebApp.initDataUnsafe?.user?.id || null;
+    async function submitData() {
+    const surname = document.getElementById('surname').value.trim();
+    const name = document.getElementById('name').value.trim();
+    const patronymic = document.getElementById('patronymic').value.trim();
 
-        // Проверка, есть ли ID в localStorage
-        function checkLocalStorage() {
-            let telegramIds = JSON.parse(localStorage.getItem('telegramIds')) || [];
-            if (telegramIds.includes(TG_ID)) {
-                window.location.href = 'https://grozny.msu.ru/';
-            }
-        }
+    if (!surname || !name || !patronymic || !TG_ID) {
+        Telegram.WebApp.showPopup({
+            title: 'Ошибка',
+            message: 'Пожалуйста, заполните все поля.',
+            buttons: [{ id: 'ok', text: 'OK' }]
+        });
+        return;
+    }
 
-        async function loadStudents() {
-            try {
-                const response = await fetch('students.json');
-                return await response.json();
-            } catch (error) {
-                console.error('Ошибка при загрузке данных студентов:', error);
-                Telegram.WebApp.showPopup({
-                    title: 'Ошибка',
-                    message: 'Не удалось загрузить данные студентов.',
-                    buttons: [{ id: 'ok', text: 'OK' }]
-                });
-                return null;
-            }
-        }
+    try {
+        const response = await fetch('https://telegram-server.onrender.com/api/bind-telegram-id', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ telegramId: TG_ID, surname, name, patronymic })
+        });
 
-        async function submitData() {
-            const surname = document.getElementById('surname').value.trim();
-            const name = document.getElementById('name').value.trim();
-            const patronymic = document.getElementById('patronymic').value.trim();
-
-            if (!surname || !name || !patronymic || !TG_ID) {
-                Telegram.WebApp.showPopup({
-                    title: 'Ошибка',
-                    message: 'Пожалуйста, заполните все поля.',
-                    buttons: [{ id: 'ok', text: 'OK' }]
-                });
-                return;
-            }
-
-            const students = await loadStudents();
-            if (!students) return;
-
-            const student = students.find(s => 
-                s.surname === surname && s.name === name && s.patronymic === patronymic
-            );
-
-            if (!student) {
-                Telegram.WebApp.showPopup({
-                    title: 'Ошибка',
-                    message: 'Студент не найден.',
-                    buttons: [{ id: 'ok', text: 'OK' }]
-                });
-                return;
-            }
-
-            let telegramIds = JSON.parse(localStorage.getItem('telegramIds')) || Array(students.length).fill(null);
-
-            if (telegramIds[student.number]) {
-                Telegram.WebApp.showPopup({
-                    title: 'Ошибка',
-                    message: 'Этот студент уже зарегистрирован.',
-                    buttons: [{ id: 'ok', text: 'OK' }]
-                });
-                return;
-            }
-
-            // Привязка Telegram ID
-            telegramIds[student.number] = TG_ID;
-            localStorage.setItem('telegramIds', JSON.stringify(telegramIds));
-
+        const result = await response.json();
+        if (result.success) {
             Telegram.WebApp.showPopup({
                 title: 'Успех',
-                message: 'Telegram ID успешно привязан.',
+                message: result.message,
                 buttons: [{ id: 'ok', text: 'OK' }]
             });
-
             setTimeout(() => {
                 window.location.href = 'https://grozny.msu.ru/';
             }, 1000);
+        } else {
+            Telegram.WebApp.showPopup({
+                title: 'Ошибка',
+                message: result.message,
+                buttons: [{ id: 'ok', text: 'OK' }]
+            });
         }
-
-        checkLocalStorage();
-        Telegram.WebApp.ready();
+    } catch (error) {
+        console.error('Ошибка:', error);
+        Telegram.WebApp.showPopup({
+            title: 'Ошибка',
+            message: 'Произошла ошибка при отправке данных.',
+            buttons: [{ id: 'ok', text: 'OK' }]
+        });
+    }
+}
     </script>
 </body>
 </html>
