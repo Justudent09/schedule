@@ -96,24 +96,24 @@
         }
 
         .submit-btn {
-            position: absolute;
-            bottom: 16px;
-            right: 16px;
-            background-color: var(--tg-theme-button-color);
-            color: var(--tg-theme-button-text-color);
-            padding: 16px;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            font-size: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 1;
-            transition: all 0.5s ease-out;
-        }
+    position: absolute; /* Постоянно используем absolute */
+    top: calc(100vh - 80px); /* Изначально кнопка находится в нижней части экрана */
+    right: 16px;
+    background-color: var(--tg-theme-button-color);
+    color: var(--tg-theme-button-text-color);
+    padding: 16px;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1000;
+    transition: top 0.3s ease-out; /* Плавное перемещение кнопки */
+}
 
         .emoji {
             width: 150px;
@@ -273,25 +273,25 @@ document.addEventListener('touchstart', (event) => {
 
 function adjustButtonForKeyboard() {
     const submitButton = document.querySelector('.submit-btn');
-    let initialHeight = window.innerHeight;
+    let initialViewportHeight = window.innerHeight;
 
     function updateButtonPosition() {
-        const currentHeight = window.innerHeight;
+        const currentViewportHeight = window.innerHeight;
 
-        if (currentHeight < initialHeight) {
+        if (currentViewportHeight < initialViewportHeight) {
             // Клавиатура открыта
-            const keyboardHeight = initialHeight - currentHeight;
-            submitButton.style.transform = `translateY(-${keyboardHeight}px)`;
+            const keyboardHeight = initialViewportHeight - currentViewportHeight;
+            submitButton.style.top = `calc(100vh - ${keyboardHeight + 80}px)`; // 80px – отступ от клавиатуры
         } else {
             // Клавиатура закрыта
-            submitButton.style.transform = 'translateY(0)';
+            submitButton.style.top = `calc(100vh - 80px)`; // Возвращаем кнопку на место
         }
     }
 
     // Слушаем изменение размеров экрана
     window.addEventListener('resize', updateButtonPosition);
     window.addEventListener('orientationchange', () => {
-        initialHeight = window.innerHeight;
+        initialViewportHeight = window.innerHeight;
     });
 
     // Инициализация
