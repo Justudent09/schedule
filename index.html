@@ -163,41 +163,47 @@ async function submitData() {
         return;
     }
 
-    
-
-    try {
-    const response = await fetch('https://telegram-bot-server-hbtr.onrender.com/api/bind-telegram-id', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ telegramId: TG_ID, surname, name, patronymic })
+    // Проверка перед fetch
+    Telegram.WebApp.showPopup({
+        title: 'Отладка',
+        message: 'Запрос к серверу отправляется...',
+        buttons: [{ id: 'ok', text: 'OK' }]
     });
 
-    const result = await response.json();
-    console.log('Ответ сервера:', result);
-
-    if (result.success) {
-        Telegram.WebApp.showPopup({
-            title: 'Успех',
-            message: result.message,
-            buttons: [{ id: 'ok', text: 'OK' }]
+    try {
+        const response = await fetch('https://telegram-bot-server-hbtr.onrender.com/api/bind-telegram-id', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ telegramId: TG_ID, surname, name, patronymic })
         });
-        setTimeout(() => {
-            window.location.href = 'https://grozny.msu.ru/';
-        }, 1000);
-    } else {
+
+        const result = await response.json();
+        console.log('Ответ сервера:', result);
+
+        if (result.success) {
+            Telegram.WebApp.showPopup({
+                title: 'Успех',
+                message: result.message,
+                buttons: [{ id: 'ok', text: 'OK' }]
+            });
+            setTimeout(() => {
+                window.location.href = 'https://grozny.msu.ru/';
+            }, 1000);
+        } else {
+            Telegram.WebApp.showPopup({
+                title: 'Ошибка',
+                message: result.message || 'Неизвестная ошибка сервера',
+                buttons: [{ id: 'ok', text: 'OK' }]
+            });
+        }
+    } catch (error) {
+        console.error('Ошибка запроса:', error);
         Telegram.WebApp.showPopup({
             title: 'Ошибка',
-            message: result.message || 'Неизвестная ошибка сервера',
+            message: `Ошибка сети или сервера: ${error.message}`,
             buttons: [{ id: 'ok', text: 'OK' }]
         });
     }
-} catch (error) {
-    console.error('Ошибка запроса:', error);
-    Telegram.WebApp.showPopup({
-        title: 'Ошибка',
-        message: `Ошибка сети или сервера: ${error.message}`,
-        buttons: [{ id: 'ok', text: 'OK' }]
-    });
 }
     </script>
 </body>
