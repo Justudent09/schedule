@@ -290,27 +290,27 @@ function adjustButtonForKeyboard() {
     const initialViewportHeight = window.innerHeight;
 
     function updateButtonPosition() {
-        const currentViewportHeight = window.innerHeight;
-        const keyboardHeight = initialViewportHeight - currentViewportHeight;
+        const viewportHeight = window.visualViewport?.height || window.innerHeight;
+        const keyboardHeight = initialViewportHeight - viewportHeight;
 
-        if (keyboardHeight > 0) {
-            // Клавиатура открыта
-            buttonContainer.style.transform = `translateY(-${keyboardHeight}px)`;
+        if (keyboardHeight > 100) {
+            buttonContainer.style.position = 'absolute';
+            buttonContainer.style.bottom = `${keyboardHeight}px`;
         } else {
-            // Клавиатура закрыта
-            buttonContainer.style.transform = 'translateY(0)';
+            buttonContainer.style.position = 'fixed';
+            buttonContainer.style.bottom = '0';
         }
     }
 
-    // Отслеживаем изменение размера экрана
+    window.visualViewport?.addEventListener('resize', updateButtonPosition);
     window.addEventListener('resize', updateButtonPosition);
     window.addEventListener('orientationchange', () => {
-        // Обновляем первоначальную высоту при смене ориентации
         initialViewportHeight = window.innerHeight;
     });
+
+    updateButtonPosition();
 }
 
-// Инициализация
 adjustButtonForKeyboard();
 
 checkTelegramId();
