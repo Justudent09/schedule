@@ -95,10 +95,20 @@
             color: var(--tg-theme-hint-color);
         }
 
-        .submit-btn {
-    position: absolute; /* Постоянно используем absolute */
-    top: calc(100vh - 80px); /* Изначально кнопка находится в нижней части экрана */
-    right: 16px;
+        .button-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease-out;
+    z-index: 1000;
+}
+
+.submit-btn {
     background-color: var(--tg-theme-button-color);
     color: var(--tg-theme-button-text-color);
     padding: 16px;
@@ -111,8 +121,7 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    z-index: 1000;
-    transition: top 0.3s ease-out; /* Плавное перемещение кнопки */
+    transition: transform 0.3s ease-out;
 }
 
         .emoji {
@@ -147,9 +156,14 @@
             <label for="patronymic">Отчество</label>
         </div>
    
-        <button class="submit-btn" onclick="submitData()">
-            <svg class="feather feather-arrow-right" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><line x1="5" x2="19" y1="12" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </button>
+        <div class="button-container">
+    <button class="submit-btn" onclick="submitData()">
+        <svg class="feather feather-arrow-right" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+            <line x1="5" x2="19" y1="12" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+    </button>
+</div>
     </div>
 
     <!-- Экран расписания -->
@@ -272,23 +286,23 @@ document.addEventListener('touchstart', (event) => {
 });
 
 function adjustButtonForKeyboard() {
-    const submitButton = document.querySelector('.submit-btn');
+    const buttonContainer = document.querySelector('.button-container');
     let initialViewportHeight = window.innerHeight;
 
     function updateButtonPosition() {
         const currentViewportHeight = window.innerHeight;
+        const keyboardHeight = initialViewportHeight - currentViewportHeight;
 
-        if (currentViewportHeight < initialViewportHeight) {
+        if (keyboardHeight > 100) {
             // Клавиатура открыта
-            const keyboardHeight = initialViewportHeight - currentViewportHeight;
-            submitButton.style.top = `calc(100vh - ${keyboardHeight + 80}px)`; // 80px – отступ от клавиатуры
+            buttonContainer.style.transform = `translateY(-${keyboardHeight}px)`;
         } else {
             // Клавиатура закрыта
-            submitButton.style.top = `calc(100vh - 80px)`; // Возвращаем кнопку на место
+            buttonContainer.style.transform = 'translateY(0)';
         }
     }
 
-    // Слушаем изменение размеров экрана
+    // Событие resize для отслеживания изменения размера экрана
     window.addEventListener('resize', updateButtonPosition);
     window.addEventListener('orientationchange', () => {
         initialViewportHeight = window.innerHeight;
