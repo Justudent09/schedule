@@ -144,91 +144,89 @@
     
     <script>
    
-    async function loadStudents() {
-        try {
-            const response = await fetch('students.json');
-            return await response.json();
-        } catch (error) {
-            console.error('Ошибка при загрузке данных студентов:', error);
-            Telegram.WebApp.showPopup({
-                title: 'Ошибка',
-                message: 'Не удалось загрузить данные студентов.',
-                buttons: [{ id: 'ok', type: 'default', text: 'OK' }]
-            });
-        }
-    }
+    const TG_ID = Telegram.WebApp.initDataUnsafe?.user?.id || null;
 
-    async function saveStudents(students) {
-        try {
-            // Примечание: Браузер не может напрямую записывать в файлы. 
-            // Для этого потребуется сервер или другой механизм.
-            console.log('Сохранение данных студентов:', students);
+        // Проверка, есть ли ID в localStorage
+        function checkLocalStorage() {
+            let telegramIds = JSON.parse(localStorage.getItem('telegramIds')) || [];
+            if (telegramIds.includes(TG_ID)) {
+                window.location.href = 'https://grozny.msu.ru/';
+            }
+        }
+
+        async function loadStudents() {
+            try {
+                const response = await fetch('students.json');
+                return await response.json();
+            } catch (error) {
+                console.error('Ошибка при загрузке данных студентов:', error);
+                Telegram.WebApp.showPopup({
+                    title: 'Ошибка',
+                    message: 'Не удалось загрузить данные студентов.',
+                    buttons: [{ id: 'ok', text: 'OK' }]
+                });
+                return null;
+            }
+        }
+
+        async function submitData() {
+            const surname = document.getElementById('surname').value.trim();
+            const name = document.getElementById('name').value.trim();
+            const patronymic = document.getElementById('patronymic').value.trim();
+
+            if (!surname || !name || !patronymic || !TG_ID) {
+                Telegram.WebApp.showPopup({
+                    title: 'Ошибка',
+                    message: 'Пожалуйста, заполните все поля.',
+                    buttons: [{ id: 'ok', text: 'OK' }]
+                });
+                return;
+            }
+
+            const students = await loadStudents();
+            if (!students) return;
+
+            const student = students.find(s => 
+                s.surname === surname && s.name === name && s.patronymic === patronymic
+            );
+
+            if (!student) {
+                Telegram.WebApp.showPopup({
+                    title: 'Ошибка',
+                    message: 'Студент не найден.',
+                    buttons: [{ id: 'ok', text: 'OK' }]
+                });
+                return;
+            }
+
+            let telegramIds = JSON.parse(localStorage.getItem('telegramIds')) || Array(students.length).fill(null);
+
+            if (telegramIds[student.number]) {
+                Telegram.WebApp.showPopup({
+                    title: 'Ошибка',
+                    message: 'Этот студент уже зарегистрирован.',
+                    buttons: [{ id: 'ok', text: 'OK' }]
+                });
+                return;
+            }
+
+            // Привязка Telegram ID
+            telegramIds[student.number] = TG_ID;
+            localStorage.setItem('telegramIds', JSON.stringify(telegramIds));
+
             Telegram.WebApp.showPopup({
                 title: 'Успех',
-                message: 'Telegram ID успешно привязан. Перенаправление...',
-                buttons: [{ id: 'ok', type: 'default', text: 'OK' }]
+                message: 'Telegram ID успешно привязан.',
+                buttons: [{ id: 'ok', text: 'OK' }]
             });
-        } catch (error) {
-            console.error('Ошибка при сохранении данных студентов:', error);
-            Telegram.WebApp.showPopup({
-                title: 'Ошибка',
-                message: 'Не удалось сохранить данные студентов.',
-                buttons: [{ id: 'ok', type: 'default', text: 'OK' }]
-            });
-        }
-    }
 
-    async function submitData() {
-        let surname = document.getElementById('surname').value.trim();
-        let name = document.getElementById('name').value.trim();
-        let patronymic = document.getElementById('patronymic').value.trim();
-        let telegramId = Telegram.WebApp.initDataUnsafe?.user?.id; // ID Telegram пользователя
-
-        if (!surname || !name || !patronymic || !telegramId) {
-            Telegram.WebApp.showPopup({
-                title: 'Ошибка',
-                message: 'Пожалуйста, заполните все поля.',
-                buttons: [{ id: 'ok', type: 'default', text: 'OK' }]
-            });
-            return;
+            setTimeout(() => {
+                window.location.href = 'https://grozny.msu.ru/';
+            }, 1000);
         }
 
-        let students = await loadStudents();
-
-        if (!students) return;
-
-        let student = students.find(s => 
-            s.surname === surname && s.name === name && s.patronymic === patronymic
-        );
-
-        if (!student) {
-            Telegram.WebApp.showPopup({
-                title: 'Ошибка',
-                message: 'Студент не найден.',
-                buttons: [{ id: 'ok', type: 'default', text: 'OK' }]
-            });
-            return;
-        }
-
-        if (student.telegramId) {
-            Telegram.WebApp.showPopup({
-                title: 'Ошибка',
-                message: 'Telegram ID уже привязан к этому студенту.',
-                buttons: [{ id: 'ok', type: 'default', text: 'OK' }]
-            });
-            return;
-        }
-
-        student.telegramId = telegramId; // Привязываем Telegram ID
-
-        await saveStudents(students);
-
-        setTimeout(() => {
-            window.location.href = `https://grozny.msu.ru/`;
-        }, 1000);
-    }
-
-    Telegram.WebApp.ready();
+        checkLocalStorage();
+        Telegram.WebApp.ready();
     </script>
 </body>
 </html>
