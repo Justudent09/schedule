@@ -270,6 +270,46 @@ document.addEventListener('touchstart', (event) => {
     }
 });
 
+function adjustButtonForKeyboard() {
+    const submitButton = document.querySelector('.submit-btn');
+    const initialHeight = window.innerHeight;
+
+    // Используем window.visualViewport для точного определения высоты
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', () => {
+            const viewportHeight = window.visualViewport.height;
+            const keyboardHeight = window.screen.height - viewportHeight;
+
+            if (keyboardHeight > 0) {
+                // Клавиатура активна — поднимаем кнопку
+                submitButton.style.position = 'absolute';
+                submitButton.style.bottom = `${keyboardHeight + 16}px`;
+            } else {
+                // Клавиатура закрыта — возвращаем стандартное положение
+                submitButton.style.position = 'fixed';
+                submitButton.style.bottom = '16px';
+            }
+        });
+    } else {
+        // Fallback для старых браузеров
+        window.addEventListener('resize', () => {
+            const currentHeight = window.innerHeight;
+            const keyboardHeight = initialHeight - currentHeight;
+
+            if (keyboardHeight > 0) {
+                submitButton.style.position = 'absolute';
+                submitButton.style.bottom = `${keyboardHeight + 16}px`;
+            } else {
+                submitButton.style.position = 'fixed';
+                submitButton.style.bottom = '16px';
+            }
+        });
+    }
+}
+
+// Запускаем функцию
+adjustButtonForKeyboard();
+
 checkTelegramId();
     </script>
 </body>
