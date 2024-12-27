@@ -27,11 +27,11 @@
             width: 85%;
             max-width: 400px;
             text-align: center;
-            margin-top: 100px;
+            display: none; /* По умолчанию скрыта, пока не пройдет проверка */
         }
 
         .schedule {
-            display: none;
+            display: none; /* Появляется после успешной проверки или регистрации */
             font-size: 24px;
             text-align: center;
             font-weight: bold;
@@ -124,6 +124,7 @@
     </style>
 </head>
 <body>
+    <!-- Форма для ввода данных -->
     <div class="container">
         <img src="IMG_20241227_173259_289.png" class="emoji">
         <h1>Введите данные</h1>
@@ -149,6 +150,7 @@
         </button>
     </div>
 
+    <!-- Экран расписания -->
     <div class="schedule" id="scheduleScreen">
         Расписание
     </div>
@@ -200,7 +202,6 @@
             document.getElementById('scheduleScreen').style.display = 'flex';
         }
 
-        document.querySelector('.container').style.display = 'none';
         checkTelegramId();
     </script>
 </body>
