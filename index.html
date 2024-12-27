@@ -287,13 +287,13 @@ document.addEventListener('touchstart', (event) => {
 
 function adjustButtonForKeyboard() {
     const buttonContainer = document.querySelector('.button-container');
-    let initialViewportHeight = window.innerHeight;
+    const initialViewportHeight = window.innerHeight;
 
     function updateButtonPosition() {
         const currentViewportHeight = window.innerHeight;
         const keyboardHeight = initialViewportHeight - currentViewportHeight;
 
-        if (keyboardHeight > 100) {
+        if (keyboardHeight > 0) {
             // Клавиатура открыта
             buttonContainer.style.transform = `translateY(-${keyboardHeight}px)`;
         } else {
@@ -302,17 +302,15 @@ function adjustButtonForKeyboard() {
         }
     }
 
-    // Событие resize для отслеживания изменения размера экрана
+    // Отслеживаем изменение размера экрана
     window.addEventListener('resize', updateButtonPosition);
     window.addEventListener('orientationchange', () => {
+        // Обновляем первоначальную высоту при смене ориентации
         initialViewportHeight = window.innerHeight;
     });
-
-    // Инициализация
-    updateButtonPosition();
 }
 
-// Запускаем функцию
+// Инициализация
 adjustButtonForKeyboard();
 
 checkTelegramId();
