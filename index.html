@@ -143,12 +143,16 @@
     </div>
     
     <script>
-   
-    Telegram.WebApp.ready(); // Подготовка Web App
+   Telegram.WebApp.ready(); // Инициализация Telegram Web App
 
 const TG_ID = Telegram.WebApp.initDataUnsafe?.user?.id || null;
 
-console.log('TG_ID:', TG_ID);
+// Вывод TG_ID через модальное окно
+Telegram.WebApp.showPopup({
+    title: 'TG_ID Информация',
+    message: `Ваш Telegram ID: ${TG_ID || 'Не удалось получить TG_ID'}`,
+    buttons: [{ id: 'ok', text: 'OK' }]
+});
 
 async function submitData() {
     const surname = document.getElementById('surname').value.trim();
