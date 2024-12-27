@@ -116,7 +116,7 @@
 </head>
 <body>
     <div class="container">
-        <img src="LockedWithKey-ezgif.com-webp-to-gif-converter.gif" alt="Анимация" class="emoji-animation">
+        <img id="emojiAnimation" src="LockedWithKey-ezgif.com-webp-to-gif-converter.gif" alt="Анимация" class="emoji-animation">
         <h1>Введите данные</h1>
         <p>Пожалуйста, введите свои ФИО.</p>
         
@@ -141,6 +141,10 @@
     </div>
     
     <script>
+        setTimeout(() => {
+        document.getElementById('emojiAnimation').src = 'IMG_20241227_155542_942.jpg'; // Укажите путь к статическому изображению
+    }, 3500); // 3.5 секунды
+   
     async function loadStudents() {
         try {
             const response = await fetch('students.json');
