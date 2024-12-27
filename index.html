@@ -273,33 +273,28 @@ document.addEventListener('touchstart', (event) => {
 
 function adjustButtonForKeyboard() {
     const submitButton = document.querySelector('.submit-btn');
-    const initialViewportHeight = window.innerHeight;
-    let isKeyboardOpen = false;
+    let initialHeight = window.innerHeight;
 
     function updateButtonPosition() {
-        const currentViewportHeight = window.innerHeight;
-        const keyboardHeight = initialViewportHeight - currentViewportHeight;
+        const currentHeight = window.innerHeight;
 
-        if (keyboardHeight > 100) { // Если клавиатура открыта
-            if (!isKeyboardOpen) {
-                isKeyboardOpen = true;
-                submitButton.style.position = 'absolute';
-                submitButton.style.bottom = `${keyboardHeight + 16}px`;
-            }
-        } else { // Если клавиатура закрыта
-            if (isKeyboardOpen) {
-                isKeyboardOpen = false;
-                submitButton.style.position = 'absolute';
-                submitButton.style.bottom = '16px';
-            }
+        if (currentHeight < initialHeight) {
+            // Клавиатура открыта
+            const keyboardHeight = initialHeight - currentHeight;
+            submitButton.style.transform = `translateY(-${keyboardHeight}px)`;
+        } else {
+            // Клавиатура закрыта
+            submitButton.style.transform = 'translateY(0)';
         }
     }
 
-    // Слушаем изменение размеров окна
+    // Слушаем изменение размеров экрана
     window.addEventListener('resize', updateButtonPosition);
-    window.addEventListener('orientationchange', updateButtonPosition);
+    window.addEventListener('orientationchange', () => {
+        initialHeight = window.innerHeight;
+    });
 
-    // Инициализация начального состояния
+    // Инициализация
     updateButtonPosition();
 }
 
