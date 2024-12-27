@@ -1,16 +1,14 @@
 [
     {
-        "surname": "Мустафаев",
-        "name": "Зелимхан",
-        "patronymic": "Шахидович",
-        "telegramId": null,
-        "group": "ПМИ 2ой курс"
-    },
-    {
+        "number": 0,
         "surname": "Умаров",
         "name": "Зелимхан",
-        "patronymic": "Русланович",
-        "telegramId": null,
-        "group": "ПМИ 2ой курс"
+        "patronymic": "Шахидович"
+    },
+    {
+        "number": 1,
+        "surname": "Мустафаев",
+        "name": "Зелимхан",
+        "patronymic": "Шахидович"
     }
 ]
