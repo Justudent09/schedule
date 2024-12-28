@@ -213,18 +213,12 @@
     <script>
         Telegram.WebApp.ready();
 
+// Флаг для отслеживания нового пользователя
+let isNewUser = false;
+
 // 📌 Проверка Telegram ID на сервере при запуске приложения
 async function checkTelegramId() {
     const TG_ID = Telegram.WebApp.initDataUnsafe?.user?.id || null;
-
-    if (!TG_ID) {
-        Telegram.WebApp.showPopup({
-            title: 'Ошибка',
-            message: 'Не удалось получить Telegram ID.',
-            buttons: [{ id: 'ok', text: 'OK' }]
-        });
-        return;
-    }
 
     try {
         console.log('🔍 Проверка Telegram ID на сервере...');
@@ -239,36 +233,43 @@ async function checkTelegramId() {
 
         if (result.success) {
             // Если ID найден, сразу показываем расписание
-            showSchedule();
+            showSchedule(false); // false = без анимации
         } else {
             // Если ID не найден, показываем форму регистрации
             showForm();
         }
     } catch (error) {
         console.error('❌ Ошибка при проверке Telegram ID:', error);
-        Telegram.WebApp.showPopup({
-            title: 'Ошибка',
-            message: `Ошибка при проверке Telegram ID: ${error.message}`,
-            buttons: [{ id: 'ok', text: 'OK' }]
-        });
         showForm();
     }
 }
 
 // 📌 Функция для отображения расписания
-function showSchedule() {
+function showSchedule(withAnimation = false) {
     document.body.innerHTML = `
-        <div style="
+        <div id="schedule-screen" style="
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             font-size: 24px;
             font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
         ">
             Расписание
         </div>
     `;
+
+    const scheduleScreen = document.getElementById('schedule-screen');
+
+    if (withAnimation) {
+        setTimeout(() => {
+            scheduleScreen.style.opacity = '1';
+        }, 100);
+    } else {
+        scheduleScreen.style.opacity = '1';
+    }
 }
 
 // 📌 Функция для отображения формы регистрации
@@ -310,8 +311,10 @@ async function submitData() {
                 buttons: [{ id: 'ok', text: 'OK' }]
             });
 
+            isNewUser = true; // Устанавливаем флаг нового пользователя
+
             setTimeout(() => {
-                showSchedule(); // Показываем расписание сразу после регистрации
+                showSchedule(true); // true = с анимацией
             }, 500);
         } else {
             Telegram.WebApp.showPopup({
@@ -322,54 +325,14 @@ async function submitData() {
         }
     } catch (error) {
         console.error('❌ Ошибка при отправке данных:', error);
-        Telegram.WebApp.showPopup({
-            title: 'Ошибка',
-            message: `Ошибка при отправке данных: ${error.message}`,
-            buttons: [{ id: 'ok', text: 'OK' }]
-        });
-    }
-}
-
-// 📌 Автоматическое позиционирование кнопки при открытии клавиатуры
-function adjustButtonForKeyboard() {
-    const submitButton = document.querySelector('.submit-btn');
-    const initialHeight = window.innerHeight;
-
-    if (window.visualViewport) {
-        window.visualViewport.addEventListener('resize', () => {
-            const viewportHeight = window.visualViewport.height;
-            const keyboardHeight = window.screen.height - viewportHeight;
-
-            if (keyboardHeight > 0) {
-                submitButton.style.position = 'absolute';
-                submitButton.style.bottom = `${keyboardHeight + 16}px`;
-            } else {
-                submitButton.style.position = 'fixed';
-                submitButton.style.bottom = '16px';
-            }
-        });
-    } else {
-        window.addEventListener('resize', () => {
-            const currentHeight = window.innerHeight;
-            const keyboardHeight = initialHeight - currentHeight;
-
-            if (keyboardHeight > 0) {
-                submitButton.style.position = 'absolute';
-                submitButton.style.bottom = `${keyboardHeight + 16}px`;
-            } else {
-                submitButton.style.position = 'fixed';
-                submitButton.style.bottom = '16px';
-            }
-        });
     }
 }
 
 // 📌 Инициализация
 document.querySelector('.container').style.display = 'none';
 checkTelegramId();
-adjustButtonForKeyboard();
 
-// 📌 Привязываем обработчик к кнопке
+// 📌 Обработчик кнопки
 document.querySelector('.submit-btn').addEventListener('click', submitData);
     </script>
 </body>
