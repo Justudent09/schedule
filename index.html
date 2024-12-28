@@ -104,7 +104,6 @@
     justify-content: flex-end;
     padding: 16px;
     box-sizing: border-box;
-    transition: transform 0.3s ease-out;
     z-index: 1000;
 }
 
@@ -121,7 +120,6 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: transform 0.3s ease-out;
 }
 
         .emoji {
@@ -284,34 +282,6 @@ document.addEventListener('touchstart', (event) => {
         }
     }
 });
-
-function adjustButtonForKeyboard() {
-    const buttonContainer = document.querySelector('.button-container');
-    const initialViewportHeight = window.innerHeight;
-
-    function updateButtonPosition() {
-        const viewportHeight = window.visualViewport?.height || window.innerHeight;
-        const keyboardHeight = initialViewportHeight - viewportHeight;
-
-        if (keyboardHeight > 100) {
-            buttonContainer.style.position = 'absolute';
-            buttonContainer.style.bottom = `${keyboardHeight}px`;
-        } else {
-            buttonContainer.style.position = 'fixed';
-            buttonContainer.style.bottom = '0';
-        }
-    }
-
-    window.visualViewport?.addEventListener('resize', updateButtonPosition);
-    window.addEventListener('resize', updateButtonPosition);
-    window.addEventListener('orientationchange', () => {
-        initialViewportHeight = window.innerHeight;
-    });
-
-    updateButtonPosition();
-}
-
-adjustButtonForKeyboard();
 
 checkTelegramId();
     </script>
