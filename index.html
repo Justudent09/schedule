@@ -130,6 +130,42 @@
             margin-left: auto;
             margin-right: auto;
         }
+
+/* Общие стили для анимаций */
+.container, .schedule {
+    transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* Исходное положение */
+.container {
+    transform: translateX(0);
+    opacity: 1;
+    z-index: 2;
+}
+
+.schedule {
+    transform: translateX(100%);
+    opacity: 0;
+    z-index: 1;
+}
+
+/* Анимация при переключении */
+.container.hidden {
+    transform: translateX(-100%);
+    opacity: 0;
+    z-index: 1;
+}
+
+.schedule.visible {
+    transform: translateX(0);
+    opacity: 1;
+    z-index: 2;
+}
     </style>
 </head>
 <body>
@@ -170,7 +206,18 @@
     </div>
 
     <script>
-        Telegram.WebApp.ready();
+        // 📌 Инициализация Telegram WebApp
+Telegram.WebApp.ready();
+
+// 📌 Показать расписание с анимацией
+function showSchedule() {
+    const container = document.querySelector('.container');
+    const scheduleScreen = document.getElementById('scheduleScreen');
+
+    // Добавляем классы для анимации
+    container.classList.add('hidden');
+    scheduleScreen.classList.add('visible');
+}
 
 // 📌 Проверка Telegram ID на сервере при открытии Web App
 async function checkTelegramId() {
@@ -195,13 +242,11 @@ async function checkTelegramId() {
         const result = await response.json();
 
         if (result.success) {
-            // ID найден – показываем расписание
-            document.querySelector('.container').style.display = 'none';
-            document.getElementById('scheduleScreen').style.display = 'flex';
+            // ID найден – запускаем анимацию показа расписания
+            showSchedule();
         } else {
             // ID не найден – показываем форму
             document.querySelector('.container').style.display = 'block';
-            document.getElementById('scheduleScreen').style.display = 'none';
         }
     } catch (error) {
         console.error('❌ Ошибка при проверке Telegram ID:', error);
@@ -236,32 +281,23 @@ async function submitData() {
         console.log('🔄 Ответ сервера при регистрации:', result);
 
         if (result.success) {
-            // Успешная регистрация – показываем расписание
             Telegram.WebApp.showPopup({
                 title: 'Успех',
                 message: result.message,
                 buttons: [{ id: 'ok', text: 'OK' }]
             });
-            document.querySelector('.container').style.display = 'none';
-            document.getElementById('scheduleScreen').style.display = 'flex';
+            showSchedule(); // Запускаем анимацию показа расписания
         } else {
-            // Ошибка – показываем сообщение
             Telegram.WebApp.showPopup({
                 title: 'Ошибка',
                 message: result.message || 'Ошибка на сервере.',
                 buttons: [{ id: 'ok', text: 'OK' }]
             });
-            document.querySelector('.container').style.display = 'block';
-            document.getElementById('scheduleScreen').style.display = 'none';
         }
     } catch (error) {
         console.error('❌ Ошибка при регистрации:', error);
     }
 }
-
-// 📌 Инициализация Web App
-document.querySelector('.container').style.display = 'none';
-document.getElementById('scheduleScreen').style.display = 'none';
 
 // 📌 Событие для сворачивания клавиатуры при клике вне input
 document.addEventListener('touchstart', (event) => {
@@ -273,6 +309,11 @@ document.addEventListener('touchstart', (event) => {
     }
 });
 
+// 📌 Инициализация состояния экранов
+document.querySelector('.container').style.display = 'block';
+document.getElementById('scheduleScreen').style.display = 'block';
+
+// 📌 Проверка Telegram ID при загрузке
 checkTelegramId();
     </script>
 </body>
