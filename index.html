@@ -232,7 +232,7 @@ async function checkTelegramId() {
         console.log('✅ Ответ сервера (проверка ID):', result);
 
         if (result.success) {
-            // Если ID найден, сразу показываем расписание
+            // Если ID найден, показываем расписание без анимации
             showSchedule(false); // false = без анимации
         } else {
             // Если ID не найден, показываем форму регистрации
@@ -246,35 +246,27 @@ async function checkTelegramId() {
 
 // 📌 Функция для отображения расписания
 function showSchedule(withAnimation = false) {
-    document.body.innerHTML = `
-        <div id="schedule-screen" style="
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-size: 24px;
-            font-weight: bold;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        ">
-            Расписание
-        </div>
-    `;
-
-    const scheduleScreen = document.getElementById('schedule-screen');
+    const formContainer = document.querySelector('.container');
+    const scheduleContainer = document.querySelector('.schedule');
 
     if (withAnimation) {
-        setTimeout(() => {
-            scheduleScreen.style.opacity = '1';
-        }, 100);
+        // Анимация при первом входе (регистрация)
+        formContainer.classList.add('hidden');
+        scheduleContainer.classList.add('visible');
     } else {
-        scheduleScreen.style.opacity = '1';
+        // Мгновенное отображение при повторном входе
+        formContainer.style.display = 'none';
+        scheduleContainer.style.transform = 'translateX(0)';
+        scheduleContainer.style.opacity = '1';
+        scheduleContainer.style.zIndex = '2';
+        scheduleContainer.style.display = 'flex';
     }
 }
 
 // 📌 Функция для отображения формы регистрации
 function showForm() {
     document.querySelector('.container').style.display = 'block';
+    document.querySelector('.schedule').style.display = 'none';
 }
 
 // 📌 Отправка данных для регистрации
@@ -305,11 +297,6 @@ async function submitData() {
         console.log('✅ Ответ сервера (привязка данных):', result);
 
         if (result.success) {
-            Telegram.WebApp.showPopup({
-                title: 'Успех',
-                message: result.message,
-                buttons: [{ id: 'ok', text: 'OK' }]
-            });
 
             isNewUser = true; // Устанавливаем флаг нового пользователя
 
@@ -330,9 +317,10 @@ async function submitData() {
 
 // 📌 Инициализация
 document.querySelector('.container').style.display = 'none';
+document.querySelector('.schedule').style.display = 'none';
 checkTelegramId();
 
-// 📌 Обработчик кнопки
+// 📌 Привязываем обработчик к кнопке
 document.querySelector('.submit-btn').addEventListener('click', submitData);
     </script>
 </body>
