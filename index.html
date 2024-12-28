@@ -205,11 +205,6 @@ async function checkTelegramId() {
         }
     } catch (error) {
         console.error('❌ Ошибка при проверке Telegram ID:', error);
-        Telegram.WebApp.showPopup({
-            title: 'Ошибка',
-            message: `Ошибка при проверке Telegram ID: ${error.message}`,
-            buttons: [{ id: 'ok', text: 'OK' }]
-        });
     }
 }
 
@@ -261,11 +256,6 @@ async function submitData() {
         }
     } catch (error) {
         console.error('❌ Ошибка при регистрации:', error);
-        Telegram.WebApp.showPopup({
-            title: 'Ошибка',
-            message: `Ошибка при отправке данных: ${error.message}`,
-            buttons: [{ id: 'ok', text: 'OK' }]
-        });
     }
 }
 
