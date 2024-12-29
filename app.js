@@ -14,4 +14,12 @@ Telegram.WebApp.MainButton.onClick(function () {
     Telegram.WebApp.showAlert('Main Button was clicked');
 });
 
+function toggleMainButton() {
+    if (Telegram.WebApp.MainButton.isVisible) {
+        Telegram.WebApp.MainButton.hide();
+    } else {
+        Telegram.WebApp.MainButton.show();
+    }
+};
+
 Telegram.WebApp.MainButton.show();
