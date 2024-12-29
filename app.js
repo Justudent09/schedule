@@ -5,7 +5,7 @@ Telegram.WebApp.onEvent('themeChanged', function() {
 });
 
 Telegram.WebApp.MainButton.setParams({ 
-    text: 'MSUShedule' 
+    text: 'MainButton' 
 });
 
 Telegram.WebApp.MainButton.onClick(function () {
