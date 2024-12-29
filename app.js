@@ -9,6 +9,8 @@ Telegram.WebApp.MainButton.setParams({
     text: 'Main Button'
 });
 
+Telegram.WebApp.MainButton.show();
+
 // Обработчик клика
 Telegram.WebApp.MainButton.onClick(function () {
     Telegram.WebApp.showAlert('Main Button was clicked');
@@ -22,4 +24,3 @@ function toggleMainButton() {
     }
 };
 
-Telegram.WebApp.MainButton.show();
