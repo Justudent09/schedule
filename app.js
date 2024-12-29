@@ -5,7 +5,7 @@ Telegram.WebApp.onEvent('themeChanged', function() {
 });
 
 Telegram.WebApp.MainButton.setParams({ 
-    text: 'MainButton' 
+    text: 'Main Button' 
 });
 
 Telegram.WebApp.MainButton.onClick(function () {
