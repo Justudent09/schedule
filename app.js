@@ -4,17 +4,15 @@ Telegram.WebApp.onEvent('themeChanged', function() {
     document.documentElement.className = Telegram.WebApp.colorScheme;
 });
 
-// Устанавливаем параметры Main Button
 Telegram.WebApp.MainButton.setParams({ 
-    text: 'Main Button'
+    text: 'Main Button' 
 });
+
+Telegram.WebApp.MainButton.onClick(function () {
+    Telegram.WebApp.showAlert('Main Button was clicked')
+});        
 
 Telegram.WebApp.MainButton.show();
-
-// Обработчик клика
-Telegram.WebApp.MainButton.onClick(function () {
-    Telegram.WebApp.showAlert('Main Button was clicked');
-});
 
 function toggleMainButton() {
     if (Telegram.WebApp.MainButton.isVisible) {
@@ -23,4 +21,3 @@ function toggleMainButton() {
         Telegram.WebApp.MainButton.show();
     }
 };
-
