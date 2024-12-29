@@ -7,3 +7,9 @@ Telegram.WebApp.onEvent('themeChanged', function() {
 Telegram.WebApp.MainButton.setParams({ 
     text: 'Кнопка' 
 });
+
+Telegram.WebApp.MainButton.onClick(function () {
+    Telegram.WebApp.showAlert('Main Button was clicked')
+});	
+
+Telegram.WebApp.MainButton.show();
