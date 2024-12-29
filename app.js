@@ -14,6 +14,4 @@ Telegram.WebApp.MainButton.onClick(function () {
     Telegram.WebApp.showAlert('Main Button was clicked');
 });
 
-// Принудительное обновление
-Telegram.WebApp.MainButton.hide();
 Telegram.WebApp.MainButton.show();
