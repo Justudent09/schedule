@@ -8,17 +8,92 @@ body {
 }
 
 .bannerButton {
-    position: fixed;
-    bottom: 85px;
-    left: 50%;
-    width: 80%;
-    transform: translateX(-50%);
-    background-color: var(--tg-theme-button-color);
-    color: var(--tg-theme-button-text-color);
-    padding: 18px 18px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    z-index: 1000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  box-sizing: border-box;
+
+  max-inline-size: 100%;
+  min-inline-size: 80px;
+
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s ease, opacity 0.15s ease;
+}
+.bannerButton {
+  height: 42px;
+  min-width: 42px;
+  gap: 8px;
+  padding: 8px 14px;
+}
+
+.bannerButton--filled {
+  color: var(--tg-theme-button-text-color);
+  background-color: var(--tg-theme-button-color);
+}
+
+.bannerButton--filled:hover {
+  background-color: var(--tg-theme-button-color);
+}
+
+.bannerButton--outline {
+  color: var(--tg-theme-hint-color);
+  background: transparent;
+  border: 1px solid var(--tg-theme-button-color);
+}
+
+.bannerButton--outline:hover {
+  background-color: rgba(var(--tg-theme-button-color-rgb, 0, 136, 204), 0.1);
+}
+
+.bannerButton--plain {
+  color: var(--tg-theme-link-color);
+  background: transparent;
+}
+
+.bannerButton--plain:hover {
+  background: rgba(var(--tg-theme-link-color-rgb, 0, 136, 204), 0.1);
+}
+
+.bannerButton--gray {
+  color: var(--tg-theme-secondary-bg-color);
+  background-color: var(--tg-theme-bg-color);
+}
+
+.bannerButton--gray:hover {
+  background-color: var(--tg-theme-secondary-bg-color);
+}
+
+.bannerButton--white {
+  color: var(--tg-theme-text-color);
+  background-color: var(--tg-theme-bg-color);
+  border: 1px solid var(--tg-theme-hint-color);
+}
+
+.bannerButton--white:hover {
+  background-color: var(--tg-theme-secondary-bg-color);
+}
+
+.bannerButton--loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.bannerButton--loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .bannerButton:hover {
+    opacity: 0.9;
+  }
 }
