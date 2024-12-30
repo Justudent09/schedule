@@ -9,8 +9,6 @@ body {
 
 .bannerButton { 
     position: fixed; 
-    height: 42px;
-    min-width: 42px;
     bottom: 85px; 
     left: 50%; 
     width: 80%; 
