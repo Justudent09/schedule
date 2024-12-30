@@ -315,3 +315,10 @@ body {
     opacity: var(--tgui--button--hovered-opacity);
   }
 }
+
+.buttonContainer {
+  position: fixed;
+  bottom: 85px;
+  left: 50%;
+  transform: translateX(-50%);
+}
