@@ -7,6 +7,7 @@ body {
     color-scheme: var(--tg-color-scheme);
 }
 
+/* Базовый стиль кнопки */
 .bannerButton {
   display: inline-flex;
   align-items: center;
@@ -26,60 +27,87 @@ body {
   font-weight: 500;
   transition: background-color 0.2s ease, opacity 0.15s ease;
 }
-.bannerButton {
+
+/* Размеры кнопок */
+.bannerButton--s {
+  height: 36px;
+  min-width: 34px;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 20px;
+}
+
+.bannerButton--m {
   height: 42px;
   min-width: 42px;
   gap: 8px;
   padding: 8px 14px;
 }
 
+.bannerButton--l {
+  height: 50px;
+  gap: 10px;
+  padding: 10px 20px;
+}
+
+/* Заполненная кнопка (дефолтные цвета) */
 .bannerButton--filled {
-  color: var(--tg-theme-button-text-color);
-  background-color: var(--tg-theme-button-color);
+  color: #ffffff; /* белый текст */
+  background-color: #0088cc; /* синий фон */
 }
 
 .bannerButton--filled:hover {
-  background-color: var(--tg-theme-button-color);
+  background-color: #007bb5;
 }
 
+/* Обводка */
 .bannerButton--outline {
-  color: var(--tg-theme-hint-color);
+  color: #0088cc;
   background: transparent;
-  border: 1px solid var(--tg-theme-button-color);
+  border: 1px solid #0088cc;
 }
 
 .bannerButton--outline:hover {
-  background-color: rgba(var(--tg-theme-button-color-rgb, 0, 136, 204), 0.1);
+  background-color: rgba(0, 136, 204, 0.1);
 }
 
+/* Плоская кнопка */
 .bannerButton--plain {
-  color: var(--tg-theme-link-color);
+  color: #0088cc;
   background: transparent;
 }
 
 .bannerButton--plain:hover {
-  background: rgba(var(--tg-theme-link-color-rgb, 0, 136, 204), 0.1);
+  background: rgba(0, 136, 204, 0.1);
 }
 
+/* Серый фон */
 .bannerButton--gray {
-  color: var(--tg-theme-secondary-bg-color);
-  background-color: var(--tg-theme-bg-color);
+  color: #ffffff;
+  background-color: #cccccc;
 }
 
 .bannerButton--gray:hover {
-  background-color: var(--tg-theme-secondary-bg-color);
+  background-color: #bbbbbb;
 }
 
+/* Белая кнопка */
 .bannerButton--white {
-  color: var(--tg-theme-text-color);
-  background-color: var(--tg-theme-bg-color);
-  border: 1px solid var(--tg-theme-hint-color);
+  color: #000000;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
 }
 
 .bannerButton--white:hover {
-  background-color: var(--tg-theme-secondary-bg-color);
+  background-color: #f5f5f5;
 }
 
+/* iOS-стиль */
+.bannerButton--ios.bannerButton--m {
+  border-radius: 12px;
+}
+
+/* Состояние загрузки */
 .bannerButton--loading {
   pointer-events: none;
   opacity: 0.7;
@@ -92,6 +120,7 @@ body {
   background: rgba(255, 255, 255, 0.5);
 }
 
+/* Эффект при наведении */
 @media (hover: hover) and (pointer: fine) {
   .bannerButton:hover {
     opacity: 0.9;
