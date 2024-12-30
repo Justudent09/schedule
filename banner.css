@@ -10,7 +10,7 @@ body {
 
 #bannerButton {
     position: fixed;
-    bottom: 100px;
+    bottom: 80px;
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--tg-theme-button-color);
