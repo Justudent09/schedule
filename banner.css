@@ -12,7 +12,7 @@ body {
     position: fixed;
     bottom: 85px;
     left: 50%;
-    width: 75%;
+    width: 80%;
     transform: translateX(-50%);
     background-color: var(--tg-theme-button-color);
     color: var(--tg-theme-button-text-color);
