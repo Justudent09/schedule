@@ -1,6 +1,5 @@
 body {
-    -webkit-tap-highlight-color: transparent;
-    font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Verdana, sans-serif;
+    -webkit-tap-highlight-color: transparent;
     background-color: var(--tg-theme-bg-color);
     color: var(--tg-theme-text-color);
     margin: 48px 24px;
