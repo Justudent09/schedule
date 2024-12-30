@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, user-scalable=no">
-        <title>banner</title>
-        <link rel="stylesheet" href="banner.css">
-    </head>
-    <body>
-        <div class="buttonContainer">
-            <button class="wrapper wrapper--m wrapper--filled">
-                <span class="content"><b>Использовать расписание</b></span>
-            </button>
-        </div>
-        <script src="https://telegram.org/js/telegram-web-app.js"></script>
-        <script src="banner.js"></script>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Mini App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@telegram-mini-apps/ui/dist/telegram-ui.css">
+</head>
+<body>
+    <main>
+        <button class="tg-button tg-button--primary">
+            Использовать расписание
+        </button>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@telegram-mini-apps/ui/dist/telegram-ui.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        Telegram.WebApp.ready();
+
+        const button = document.querySelector('.tg-button');
+        button.addEventListener('click', () => {
+            Telegram.WebApp.showAlert('Кнопка нажата!');
+        });
+    </script>
+</body>
 </html>
