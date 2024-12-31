@@ -29,11 +29,3 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Ошибка при загрузке анимации:', error);
         });
 });
-
-// Обработка кнопки
-document.querySelector('.bannerButton').addEventListener('click', () => {
-    console.log('Кнопка "Использовать расписание" нажата');
-    if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
-        Telegram.WebApp.close(); // Закрытие мини-приложения
-    }
-});
