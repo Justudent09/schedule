@@ -26,3 +26,18 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Ошибка при загрузке анимации:', error);
         });
 });
+
+$(function() {
+      var button = $('.button');
+      var scrollContainer = $('#scroll-container');
+
+      scrollContainer.on('scroll', function() {
+        var scrollLeft = scrollContainer.scrollLeft();
+        var containerWidth = scrollContainer.width();
+
+        var sectionIndex = Math.round(scrollLeft / containerWidth);
+
+        $('.button').removeClass('active');
+        $('.button').eq(sectionIndex).addClass('active');
+      });
+    });
