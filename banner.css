@@ -13,7 +13,7 @@ body {
     left: 50%; 
     width: 80%; 
     transform: translateX(-50%); 
-    background-color: var(--tg-theme-button-color); 
+    background-color: var(--tg-theme-button-text-color); 
     color: var(--tg-theme-button-text-color); 
     padding: 17px; 
     border: none; 
