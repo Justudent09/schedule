@@ -27,3 +27,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+      const scrollContainer = document.getElementById('horizontal-scroll');
+      const scrollItems = document.querySelectorAll('.scroll-item');
+      const buttons = document.querySelectorAll('#app .button');
+
+      // Обновляем активный индикатор при прокрутке
+      scrollContainer.addEventListener('scroll', () => {
+        const containerWidth = scrollContainer.offsetWidth;
+        const scrollLeft = scrollContainer.scrollLeft;
+        const index = Math.round(scrollLeft / containerWidth);
+
+        // Обновляем активный элемент
+        scrollItems.forEach((item, i) => {
+          item.classList.toggle('active', i === index);
+        });
+
+        // Обновляем активную кнопку пагинации
+        buttons.forEach((button, i) => {
+          button.classList.toggle('active', i === index);
+        });
+      });
+    });
+
