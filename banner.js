@@ -28,16 +28,18 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 $(function() {
-      var button = $('.button');
-      var scrollContainer = $('#scroll-container');
+    var buttons = $('.button');
+    var scrollContainer = $('#scroll-container');
 
-      scrollContainer.on('scroll', function() {
-        var scrollLeft = scrollContainer.scrollLeft();
-        var containerWidth = scrollContainer.width();
+    scrollContainer.on('scroll', function() {
+        var scrollLeft = scrollContainer.scrollLeft(); // Текущее положение прокрутки
+        var containerWidth = scrollContainer.width(); // Ширина контейнера
+        var sectionIndex = Math.round(scrollLeft / containerWidth); // Индекс секции
 
-        var sectionIndex = Math.round(scrollLeft / containerWidth);
+        // Сброс активного состояния у всех кнопок
+        buttons.removeClass('active');
 
-        $('.button').removeClass('active');
-        $('.button').eq(sectionIndex).addClass('active');
-      });
+        // Добавление активного состояния к текущей кнопке
+        buttons.eq(sectionIndex).addClass('active');
     });
+});
