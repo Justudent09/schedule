@@ -103,7 +103,7 @@ main {
       height: 4px;
       float: left;
       margin-right: 4px;
-      background-color: #fff;
+      background-color: var(--tg-theme-section-header-text-color);
       border-radius: 2px;
       cursor: pointer;
       transition: 0.3s ease width;
