@@ -23,7 +23,13 @@ body {
     z-index: 1000;
 }
 
-.animation-container { 
-    width: 300px; 
+.animation-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
     height: 300px;
+    margin: 20px auto;
+    overflow: hidden;
 }
