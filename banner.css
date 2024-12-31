@@ -34,8 +34,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 150px;
-    height: 150px;
-    margin: 25vh auto 0;
+    width: 180px;
+    height: 180px;
+    margin: 20vh auto 0;
     overflow: hidden;
 }
