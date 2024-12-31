@@ -7,9 +7,9 @@ Telegram.WebApp.onEvent('themeChanged', function() {
     document.documentElement.className = Telegram.WebApp.colorScheme;
 });
 
-// Загрузка и воспроизведение Lottie-анимации
+// Загрузка Lottie-анимации
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('DuckEmoji.json') // Используем JSON вместо TGS
+    fetch('DuckEmoji.json') // Локальный JSON-файл
         .then(response => {
             if (!response.ok) {
                 throw new Error('Ошибка при загрузке файла: ' + response.statusText);
@@ -22,10 +22,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderer: 'svg',
                 loop: true,
                 autoplay: true,
-                animationData: animationData // Используем загруженные JSON-данные
+                animationData: animationData // Используем JSON-данные
             });
         })
         .catch(error => {
             console.error('Ошибка при загрузке анимации:', error);
         });
+});
+
+// Обработка кнопки
+document.querySelector('.bannerButton').addEventListener('click', () => {
+    console.log('Кнопка "Использовать расписание" нажата');
+    if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+        Telegram.WebApp.close(); // Закрытие мини-приложения
+    }
 });
