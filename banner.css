@@ -2,7 +2,6 @@ body {
     -webkit-tap-highlight-color: transparent;
     background-color: var(--tg-theme-bg-color);
     color: var(--tg-theme-text-color);
-    margin: 48px 24px;
     padding: 0;
     color-scheme: var(--tg-color-scheme);
 }
