@@ -17,7 +17,7 @@ body {
 
 .bannerButton { 
     position: fixed; 
-    bottom: 10vh; 
+    bottom: 9vh; 
     left: 50%; 
     width: 80%; 
     transform: translateX(-50%); 
