@@ -40,3 +40,45 @@ body {
     margin: 20vh auto 0;
     overflow: hidden;
 }
+
+    .horizontal-scroll {
+      width: 100vw;
+      height: 15vh;
+      margin-top: 33vh;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      white-space: nowrap;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .horizontal-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .scroll-container {
+      display: flex;
+      flex-wrap: nowrap;
+    }
+
+    .scroll-item {
+      flex: 0 0 100vw;
+      height: 15vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      text-align: center;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      box-sizing: border-box;
+      padding: 1vh 5vw;
+    }
+
+    .scroll-item div {
+      margin: 0;
+      line-height: 1.2;
+    }
