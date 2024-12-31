@@ -48,63 +48,67 @@ main {
     overflow: hidden;
 }
 
-.horizontal-scroll {
-    width: 100vw;
-    height: 15vh;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    white-space: nowrap;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    touch-action: pan-x;
-}
+    .horizontal-scroll {
+      width: 100vw;
+      height: 15vh;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory; 
+      scroll-behavior: smooth; 
+      white-space: nowrap; 
+      scrollbar-width: none; 
+      -ms-overflow-style: none; 
+      touch-action: pan-x;
+    }
 
-.horizontal-scroll::-webkit-scrollbar {
-    display: none;
-}
+    .horizontal-scroll::-webkit-scrollbar {
+      display: none;
+    }
 
-.scroll-container {
-    display: flex;
-    flex-wrap: nowrap;
-}
+    .scroll-container {
+      display: flex;
+      flex-wrap: nowrap;
+    }
 
-.scroll-item {
-    flex: 0 0 100vw;
-    height: 15vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    text-align: center;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    box-sizing: border-box;
-}
+    .scroll-item {
+      flex: 0 0 100vw;
+      height: 15vh; 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      text-align: center;
+      scroll-snap-align: start; 
+      scroll-snap-stop: always; 
+      box-sizing: border-box; 
+      padding: 10px;
+      transition: background-color 0.3s ease;
+    }
 
-.scroll-item div {
-    margin: 0;
-    line-height: 1.2;
-    color: var(--tg-theme-hint-color);
-}
+    .scroll-item div {
+      margin: 5px 0;
+      line-height: 1.2;
+      color: var(--tg-theme-hint-color);
+    }
 
+    /* Пагинация */
     #app {
       position: absolute;
-      height: 4px;
+      height: 8px;
+      margin-top: 20px;
       left: 50%;
       transform: translateX(-50%);
       overflow: hidden;
+      display: flex;
+      gap: 8px;
     }
 
     .button {
-      width: 4px;
-      height: 4px;
-      float: left;
-      margin-right: 4px;
-      background-color: var(--tg-theme-hint-color);
-      border-radius: 2px;
+      width: 8px;
+      height: 8px;
+      background-color: #fff;
+      border-radius: 4px;
       cursor: pointer;
       transition: 0.3s ease width;
     }
@@ -114,7 +118,6 @@ main {
     }
 
     .button.active {
-      width: 12px;
+      width: 24px;
       cursor: auto;
-      background-color: var(--tg-theme-accent-text-color);
     }
