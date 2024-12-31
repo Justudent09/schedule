@@ -12,6 +12,7 @@ body {
     color: var(--tg-theme-text-color);
     padding: 0;
     color-scheme: var(--tg-color-scheme);
+    overflow: hidden;
 }
 
 .bannerButton { 
