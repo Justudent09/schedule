@@ -12,7 +12,13 @@ body {
     color: var(--tg-theme-text-color);
     padding: 0;
     color-scheme: var(--tg-color-scheme);
+    touch-action: none;
     overflow: hidden;
+}
+
+main {
+    overflow: hidden;
+    touch-action: none;
 }
 
 .bannerButton { 
@@ -51,6 +57,7 @@ body {
     white-space: nowrap;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    touch-action: pan-x;
 }
 
 .horizontal-scroll::-webkit-scrollbar {
