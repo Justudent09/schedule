@@ -10,10 +10,11 @@
 body {
     background-color: var(--tg-theme-bg-color);
     color: var(--tg-theme-text-color);
-    padding: 0;
     color-scheme: var(--tg-color-scheme);
     touch-action: none;
     overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 main {
