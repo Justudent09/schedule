@@ -89,3 +89,32 @@ main {
     line-height: 1.2;
     color: var(--tg-theme-hint-color);
 }
+
+    #app {
+      position: absolute;
+      height: 8px;
+      margin-top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      overflow: hidden;
+    }
+
+    .button {
+      width: 8px;
+      height: 8px;
+      float: left;
+      margin-right: 8px;
+      background-color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: 0.3s ease width;
+    }
+
+    .button:last-child {
+      margin-right: 0;
+    }
+
+    .button.active {
+      width: 24px;
+      cursor: auto;
+    }
