@@ -116,4 +116,5 @@ main {
     .button.active {
       width: 12px;
       cursor: auto;
+      background-color: var(--tg-theme-accent-text-color);
     }
