@@ -50,8 +50,12 @@
 
     scrollContainer.on('scroll', function() {
         var scrollLeft = scrollContainer.scrollLeft(); // Текущее положение прокрутки
-        var containerWidth = scrollContainer.width(); // Ширина контейнера
+        var containerWidth = scrollContainer[0].clientWidth; // Ширина контейнера
+        var totalWidth = scrollContainer[0].scrollWidth; // Полная ширина прокрутки
         var sectionIndex = Math.round(scrollLeft / containerWidth); // Индекс секции
+
+        // Убедимся, что индекс в пределах
+        sectionIndex = Math.min(sectionIndex, buttons.length - 1);
 
         // Сброс активного состояния у всех кнопок
         buttons.removeClass('active');
