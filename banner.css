@@ -8,7 +8,7 @@ body {
 
 .bannerButton { 
     position: fixed; 
-    bottom: 85px; 
+    bottom: 15vh; 
     left: 50%; 
     width: 80%; 
     transform: translateX(-50%); 
@@ -26,8 +26,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40vw;
-    height: 40vw;
+    width: 120px;
+    height: 120px;
     margin: 200px auto 0;
     overflow: hidden;
 }
