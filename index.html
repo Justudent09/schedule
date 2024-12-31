@@ -7,70 +7,40 @@
     <title>Banner</title>
     <link rel="stylesheet" href="banner.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
     <main>
         <div class="animation-container" id="animation-container"></div>
 
-        <div class="horizontal-scroll">
-            <div class="scroll-container" id="scroll-container">
-                <div class="scroll-item">
-                    <div style="font-size: 25px; margin-bottom: 10px; color: var(--tg-theme-text-color);">47Par</div>
-                    <div>Самый простой способ просмотра</div>
-                    <div>расписания.</div>
-                </div>
-                <div class="scroll-item">
-                    <div style="font-size: 25px; margin-bottom: 10px; color: var(--tg-theme-text-color);">Быстро и удобно</div>
-                    <div>Смотрите расписание прямо</div>
-                    <div>в Telegram!</div>
-                </div>
-                <div class="scroll-item">
-                    <div style="font-size: 25px; margin-bottom: 10px; color: var(--tg-theme-text-color);">Универсально</div>
-                    <div>Подойдёт как студентам, так и</div>
-                    <div>преподавателям. Присоединяйтесь!</div>
-                </div>
-            </div>
-        </div>
+   <div class="horizontal-scroll" id="horizontal-scroll">
+    <div class="scroll-container">
+      <div class="scroll-item">
+        <div style="font-size: 25px; margin-bottom: 10px; color: var(--tg-theme-text-color);">47Par</div>
+        <div>Самый простой способ просмотра</div>
+        <div>расписания.</div>
+      </div>
+      <div class="scroll-item">
+        <div style="font-size: 25px; margin-bottom: 10px; color: var(--tg-theme-text-color);">Быстро и удобно</div>
+        <div>Смотрите расписание прямо</div>
+        <div>в Telegram!</div>
+      </div>
+      <div class="scroll-item">
+        <div style="font-size: 25px; margin-bottom: 10px; color: var(--tg-theme-text-color);">Универсально</div>
+        <div>Подойдёт как студентам, так и</div>
+        <div>преподавателям. Присоединяйтесь!</div>
+      </div>
+    </div>
+  </div>
 
-        <div id="app">
-            <div class="button active"></div>
-            <div class="button"></div>
-            <div class="button"></div>
-        </div>
+  <div id="app">
+    <div class="button active"></div>
+    <div class="button"></div>
+    <div class="button"></div>
+  </div>
 
         <button class="bannerButton">Использовать расписание</button>
     </main>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="banner.js"></script>
-    <script>
-    $(function() {
-    var buttons = $('.button');
-    var scrollContainer = $('#scroll-container');
-
-    function updateActiveButton() {
-        var scrollLeft = scrollContainer.scrollLeft(); // Текущее положение прокрутки
-        var containerWidth = scrollContainer.outerWidth(); // Ширина видимой области
-        var sectionIndex = Math.round(scrollLeft / containerWidth); // Вычисляем индекс секции
-
-        // Убедимся, что индекс в пределах массива
-        sectionIndex = Math.min(sectionIndex, buttons.length - 1);
-
-        // Сброс активного состояния у всех кнопок
-        buttons.removeClass('active');
-
-        // Добавление активного состояния к текущей кнопке
-        buttons.eq(sectionIndex).addClass('active');
-    }
-
-    // Событие прокрутки
-    scrollContainer.on('scroll', function() {
-        window.requestAnimationFrame(updateActiveButton);
-    });
-
-    // Также обновляем кнопки при изменении размеров окна
-    $(window).on('resize', updateActiveButton);
-});
-    </script>
 </body>
 </html>
