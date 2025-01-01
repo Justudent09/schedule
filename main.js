@@ -2,7 +2,6 @@ const swup = new Swup({
     cache: false
 });
 
-// Функция для динамической загрузки скрипта
 function loadScript(src, callback) {
     const script = document.createElement('script');
     script.src = src;
@@ -10,7 +9,6 @@ function loadScript(src, callback) {
     document.body.appendChild(script);
 }
 
-// Очистка анимаций перед заменой контента
 function unloadCurrentPage() {
     const path = window.location.pathname;
     if (path.includes('auth.html')) {
@@ -24,7 +22,6 @@ function unloadCurrentPage() {
     }
 }
 
-// Инициализация страниц после загрузки
 function initializePage() {
     const path = window.location.pathname;
     if (path.includes('auth.html')) {
@@ -50,7 +47,6 @@ function initializePage() {
     }
 }
 
-// Swup хуки
 swup.hooks.before('content:replace', () => {
     unloadCurrentPage();
 });
@@ -59,5 +55,4 @@ swup.hooks.on('page:view', () => {
     initializePage();
 });
 
-// Инициализация при первой загрузке
 document.addEventListener('DOMContentLoaded', initializePage);
