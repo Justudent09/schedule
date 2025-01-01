@@ -1,11 +1,5 @@
-Telegram.WebApp.ready();
-Telegram.WebApp.MainButton.hide();
+// banner.js
 
-Telegram.WebApp.onEvent('themeChanged', function () {
-    document.documentElement.className = Telegram.WebApp.colorScheme;
-});
-
-// Инициализация анимации
 function initializeBannerAnimation() {
     const container = document.getElementById('animation-container');
     if (container) {
@@ -25,15 +19,15 @@ function initializeBannerAnimation() {
     }
 }
 
-// Инициализация скроллинга
+// Прокрутка и точки
 function initializeBannerScroll() {
     const scrollContainer = document.getElementById('horizontal-scroll');
     if (scrollContainer) {
-        scrollContainer.addEventListener('scroll', handleScroll);
+        scrollContainer.addEventListener('scroll', handleBannerScroll);
     }
 }
 
-function handleScroll() {
+function handleBannerScroll() {
     const scrollContainer = document.getElementById('horizontal-scroll');
     const scrollItems = document.querySelectorAll('.scroll-item');
     const buttons = document.querySelectorAll('#app .button');
@@ -48,37 +42,19 @@ function handleScroll() {
     }
 }
 
-// Очистка обработчиков перед заменой контента
-function unloadBanner() {
-    console.log('Очистка banner.js');
+function unloadBannerAnimation() {
     const scrollContainer = document.getElementById('horizontal-scroll');
     if (scrollContainer) {
-        scrollContainer.removeEventListener('scroll', handleScroll);
+        scrollContainer.removeEventListener('scroll', handleBannerScroll);
     }
     const container = document.getElementById('animation-container');
     if (container) {
-        container.innerHTML = ''; // Очистка анимации
+        container.innerHTML = '';
     }
 }
 
-// Общая инициализация страницы
 function initBanner() {
-    if (document.getElementById('animation-container')) {
-        console.log('Инициализация banner.js');
-        initializeBannerAnimation();
-        initializeBannerScroll();
-    }
-}
-
-// Инициализация
-if (document.readyState === 'complete') {
-    initBanner();
-} else {
-    document.addEventListener('DOMContentLoaded', initBanner);
-}
-
-// Хуки Swup
-if (window.swup) {
-    swup.hooks.before('content:replace', unloadBanner);
-    swup.hooks.on('page:view', initBanner);
+    console.log('Инициализация banner.js');
+    initializeBannerAnimation();
+    initializeBannerScroll();
 }
