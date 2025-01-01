@@ -7,14 +7,13 @@ function loadScript(src, callback) {
     const script = document.createElement('script');
     script.src = src;
     script.onload = callback;
-    script.onerror = () => console.error(`Ошибка загрузки скрипта: ${src}`);
     document.body.appendChild(script);
 }
 
-// Очистка обработчиков анимаций
+// Очистка анимаций перед заменой контента
 function unloadCurrentPage() {
     const path = window.location.pathname;
-    if (path.includes('/authentication/')) {
+    if (path.includes('auth.html')) {
         if (typeof unloadAuthAnimation === 'function') {
             unloadAuthAnimation();
         }
@@ -28,9 +27,9 @@ function unloadCurrentPage() {
 // Инициализация страниц после загрузки
 function initializePage() {
     const path = window.location.pathname;
-    if (path.includes('/authentication/')) {
+    if (path.includes('auth.html')) {
         if (typeof initAuth === 'undefined') {
-            loadScript('/authentication/auth.js', () => {
+            loadScript('auth.js', () => {
                 if (typeof initAuth === 'function') {
                     initAuth();
                 }
@@ -40,7 +39,7 @@ function initializePage() {
         }
     } else {
         if (typeof initBanner === 'undefined') {
-            loadScript('/banner.js', () => {
+            loadScript('banner.js', () => {
                 if (typeof initBanner === 'function') {
                     initBanner();
                 }
