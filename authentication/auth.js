@@ -1,11 +1,5 @@
-Telegram.WebApp.ready();
-Telegram.WebApp.MainButton.hide();
+// auth.js
 
-Telegram.WebApp.onEvent('themeChanged', function () {
-    document.documentElement.className = Telegram.WebApp.colorScheme;
-});
-
-// Инициализация анимации
 function initializeAuthAnimation() {
     const container = document.getElementById('animation-container');
     if (container) {
@@ -25,15 +19,15 @@ function initializeAuthAnimation() {
     }
 }
 
-// Инициализация скроллинга
+// Прокрутка и точки
 function initializeAuthScroll() {
     const scrollContainer = document.getElementById('horizontal-scroll');
     if (scrollContainer) {
-        scrollContainer.addEventListener('scroll', handleScroll);
+        scrollContainer.addEventListener('scroll', handleAuthScroll);
     }
 }
 
-function handleScroll() {
+function handleAuthScroll() {
     const scrollContainer = document.getElementById('horizontal-scroll');
     const scrollItems = document.querySelectorAll('.scroll-item');
     const buttons = document.querySelectorAll('#app .button');
@@ -48,37 +42,19 @@ function handleScroll() {
     }
 }
 
-// Очистка обработчиков перед заменой контента
-function unloadAuth() {
-    console.log('Очистка auth.js');
+function unloadAuthAnimation() {
     const scrollContainer = document.getElementById('horizontal-scroll');
     if (scrollContainer) {
-        scrollContainer.removeEventListener('scroll', handleScroll);
+        scrollContainer.removeEventListener('scroll', handleAuthScroll);
     }
     const container = document.getElementById('animation-container');
     if (container) {
-        container.innerHTML = ''; // Очистка анимации
+        container.innerHTML = '';
     }
 }
 
-// Общая инициализация страницы
 function initAuth() {
-    if (document.getElementById('animation-container')) {
-        console.log('Инициализация auth.js');
-        initializeAuthAnimation();
-        initializeAuthScroll();
-    }
-}
-
-// Инициализация
-if (document.readyState === 'complete') {
-    initAuth();
-} else {
-    document.addEventListener('DOMContentLoaded', initAuth);
-}
-
-// Хуки Swup
-if (window.swup) {
-    swup.hooks.before('content:replace', unloadAuth);
-    swup.hooks.on('page:view', initAuth);
+    console.log('Инициализация auth.js');
+    initializeAuthAnimation();
+    initializeAuthScroll();
 }
