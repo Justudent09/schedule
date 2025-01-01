@@ -118,3 +118,12 @@ main {
     cursor: auto; 
     background-color: var(--tg-theme-button-color);
 }
+
+html.is-changing .transition-fade {
+    transition: opacity 0.25s;
+    opacity: 1;
+}
+
+html.is-animating .transition-fade {
+    opacity: 0;
+}
