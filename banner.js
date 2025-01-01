@@ -5,23 +5,30 @@ Telegram.WebApp.onEvent('themeChanged', function() {
     document.documentElement.className = Telegram.WebApp.colorScheme;
 });
 
-// Инициализация анимации
+// Инициализация анимации с отключением кэша
 function initializeAnimation() {
     const container = document.getElementById('animation-container');
     if (container) {
         container.innerHTML = '';
-        fetch('DuckEmojiStudent.json')
-            .then(response => response.json())
+        fetch('DuckEmojiStudent.json', { cache: 'reload' }) // Отключаем кэширование
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Ошибка при загрузке файла: ' + response.statusText);
+                }
+                return response.json();
+            })
             .then(animationData => {
                 lottie.loadAnimation({
                     container: container,
                     renderer: 'svg',
                     loop: true,
                     autoplay: true,
-                    animationData: animationData 
+                    animationData: animationData
                 });
             })
-            .catch(error => console.error('Ошибка при загрузке анимации:', error));
+            .catch(error => {
+                console.error('Ошибка при загрузке анимации:', error);
+            });
     }
 }
 
@@ -49,6 +56,12 @@ function initializePage() {
     initializeScroll();
 }
 
-// Запуск при загрузке страницы и при переходах через Swup
+// Запуск при первой загрузке
 document.addEventListener('DOMContentLoaded', initializePage);
-document.addEventListener('swup:page:view', initializePage);
+
+// Запуск при каждом переходе Swup
+if (window.swup) {
+    swup.hooks.on('page:view', () => {
+        initializePage();
+    });
+}
