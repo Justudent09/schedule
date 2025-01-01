@@ -5,25 +5,17 @@ Telegram.WebApp.onEvent('themeChanged', function() {
     document.documentElement.className = Telegram.WebApp.colorScheme;
 });
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('swup:contentReplaced', () => {
     fetch('DuckEmojiTeacher.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Ошибка при загрузке файла: ' + response.statusText);
-            }
-            return response.json(); 
-        })
+        .then(response => response.json())
         .then(animationData => {
             lottie.loadAnimation({
                 container: document.getElementById('animation-container'),
                 renderer: 'svg',
                 loop: true,
                 autoplay: true,
-                animationData: animationData 
+                animationData: animationData
             });
-        })
-        .catch(error => {
-            console.error('Ошибка при загрузке анимации:', error);
         });
 });
 
