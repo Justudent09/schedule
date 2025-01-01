@@ -38,12 +38,15 @@
             <div class="button"></div>
         </div>
 
-        <a href="auth.html">
-            <button class="bannerButton">Присоединиться</button>
-        </a>
+        <button class="bannerButton" id="joinButton">Присоединиться</button>
     </main>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://unpkg.com/swup@4"></script>
     <script src="main.js"></script>
+    <script>
+    document.getElementById('joinButton').addEventListener('click', function () {
+            window.location.href = 'auth.html';
+        });
+    </script>
 </body>
 </html>
