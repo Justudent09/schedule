@@ -5,19 +5,39 @@ Telegram.WebApp.onEvent('themeChanged', function() {
     document.documentElement.className = Telegram.WebApp.colorScheme;
 });
 
-document.addEventListener('swup:contentReplaced', () => {
-    fetch('DuckEmojiTeacher.json')
-        .then(response => response.json())
+function initAnimation() {
+    fetch('DuckEmojiTeacher.json?' + new Date().getTime()) // предотвращаем кэширование
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка при загрузке JSON: ' + response.statusText);
+            }
+            return response.json();
+        })
         .then(animationData => {
-            lottie.loadAnimation({
-                container: document.getElementById('animation-container'),
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
-                animationData: animationData
-            });
+            const container = document.getElementById('animation-container');
+            if (container) {
+                container.innerHTML = ''; // Очищаем контейнер перед новой анимацией
+                lottie.loadAnimation({
+                    container: container,
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    animationData: animationData
+                });
+            } else {
+                console.error('Контейнер анимации не найден.');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка при загрузке анимации:', error);
         });
-});
+}
+
+// Инициализация при первой загрузке
+document.addEventListener('DOMContentLoaded', initAnimation);
+
+// Инициализация после каждого перехода Swup
+document.addEventListener('swup:contentReplaced', initAnimation);
 
 document.addEventListener('DOMContentLoaded', () => {
     const scrollContainer = document.getElementById('horizontal-scroll');
