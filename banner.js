@@ -1,22 +1,17 @@
 Telegram.WebApp.ready();
 Telegram.WebApp.MainButton.hide();
 
-Telegram.WebApp.onEvent('themeChanged', function() {
+Telegram.WebApp.onEvent('themeChanged', function () {
     document.documentElement.className = Telegram.WebApp.colorScheme;
 });
 
-// Инициализация анимации с отключением кэша
-function initializeAnimation() {
+// Инициализация анимации
+function initializeBannerAnimation() {
     const container = document.getElementById('animation-container');
     if (container) {
         container.innerHTML = '';
-        fetch('DuckEmojiStudent.json', { cache: 'reload' }) // Отключаем кэширование
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Ошибка при загрузке файла: ' + response.statusText);
-                }
-                return response.json();
-            })
+        fetch('DuckEmojiStudent.json', { cache: 'reload' })
+            .then(response => response.json())
             .then(animationData => {
                 lottie.loadAnimation({
                     container: container,
@@ -26,14 +21,12 @@ function initializeAnimation() {
                     animationData: animationData
                 });
             })
-            .catch(error => {
-                console.error('Ошибка при загрузке анимации:', error);
-            });
+            .catch(error => console.error('Ошибка при загрузке анимации:', error));
     }
 }
 
 // Инициализация скроллинга
-function initializeScroll() {
+function initializeBannerScroll() {
     const scrollContainer = document.getElementById('horizontal-scroll');
     const scrollItems = document.querySelectorAll('.scroll-item');
     const buttons = document.querySelectorAll('#app .button');
@@ -50,18 +43,22 @@ function initializeScroll() {
     }
 }
 
-// Инициализация страницы
-function initializePage() {
-    initializeAnimation();
-    initializeScroll();
+// Общая инициализация страницы
+function initBanner() {
+    if (document.body.contains(document.getElementById('animation-container'))) {
+        console.log('Инициализация banner.js');
+        initializeBannerAnimation();
+        initializeBannerScroll();
+    }
 }
 
-// Запуск при первой загрузке
-document.addEventListener('DOMContentLoaded', initializePage);
+// Инициализация при загрузке страницы и при переходах через Swup
+if (document.readyState === 'complete') {
+    initBanner();
+} else {
+    document.addEventListener('DOMContentLoaded', initBanner);
+}
 
-// Запуск при каждом переходе Swup
 if (window.swup) {
-    swup.hooks.on('page:view', () => {
-        initializePage();
-    });
+    swup.hooks.on('page:view', initBanner);
 }
