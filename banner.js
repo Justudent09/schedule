@@ -1,5 +1,3 @@
-// banner.js
-
 function initializeBannerAnimation() {
     const container = document.getElementById('animation-container');
     if (container) {
@@ -19,7 +17,6 @@ function initializeBannerAnimation() {
     }
 }
 
-// Прокрутка и точки
 function initializeBannerScroll() {
     const scrollContainer = document.getElementById('horizontal-scroll');
     if (scrollContainer) {
