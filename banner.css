@@ -120,7 +120,7 @@ main {
 }
 
 html.is-changing .transition-fade {
-    transition: opacity 0.25s;
+    transition: opacity 0.4s;
     opacity: 1;
 }
 
