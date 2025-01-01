@@ -28,37 +28,57 @@ function initializeBannerAnimation() {
 // Инициализация скроллинга
 function initializeBannerScroll() {
     const scrollContainer = document.getElementById('horizontal-scroll');
+    if (scrollContainer) {
+        scrollContainer.addEventListener('scroll', handleScroll);
+    }
+}
+
+function handleScroll() {
+    const scrollContainer = document.getElementById('horizontal-scroll');
     const scrollItems = document.querySelectorAll('.scroll-item');
     const buttons = document.querySelectorAll('#app .button');
 
     if (scrollContainer) {
-        scrollContainer.addEventListener('scroll', () => {
-            const containerWidth = scrollContainer.offsetWidth;
-            const scrollLeft = scrollContainer.scrollLeft;
-            const index = Math.round(scrollLeft / containerWidth);
+        const containerWidth = scrollContainer.offsetWidth;
+        const scrollLeft = scrollContainer.scrollLeft;
+        const index = Math.round(scrollLeft / containerWidth);
 
-            scrollItems.forEach((item, i) => item.classList.toggle('active', i === index));
-            buttons.forEach((button, i) => button.classList.toggle('active', i === index));
-        });
+        scrollItems.forEach((item, i) => item.classList.toggle('active', i === index));
+        buttons.forEach((button, i) => button.classList.toggle('active', i === index));
+    }
+}
+
+// Очистка обработчиков перед заменой контента
+function unloadBanner() {
+    console.log('Очистка banner.js');
+    const scrollContainer = document.getElementById('horizontal-scroll');
+    if (scrollContainer) {
+        scrollContainer.removeEventListener('scroll', handleScroll);
+    }
+    const container = document.getElementById('animation-container');
+    if (container) {
+        container.innerHTML = ''; // Очистка анимации
     }
 }
 
 // Общая инициализация страницы
 function initBanner() {
-    if (document.body.contains(document.getElementById('animation-container'))) {
+    if (document.getElementById('animation-container')) {
         console.log('Инициализация banner.js');
         initializeBannerAnimation();
         initializeBannerScroll();
     }
 }
 
-// Инициализация при загрузке страницы и при переходах через Swup
+// Инициализация
 if (document.readyState === 'complete') {
     initBanner();
 } else {
     document.addEventListener('DOMContentLoaded', initBanner);
 }
 
+// Хуки Swup
 if (window.swup) {
+    swup.hooks.before('content:replace', unloadBanner);
     swup.hooks.on('page:view', initBanner);
 }
