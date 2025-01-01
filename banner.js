@@ -9,9 +9,16 @@ Telegram.WebApp.onEvent('themeChanged', function () {
 function initializeBannerAnimation() {
     const container = document.getElementById('animation-container');
     if (container) {
-        container.innerHTML = '';
-        fetch('DuckEmojiStudent.json', { cache: 'reload' })
-            .then(response => response.json())
+        container.innerHTML = ''; // Очистка контейнера
+        const timestamp = new Date().getTime(); // Генерация уникального параметра
+
+        fetch(`DuckEmojiStudent.json?cacheBust=${timestamp}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Ошибка при загрузке файла: ' + response.statusText);
+                }
+                return response.json();
+            })
             .then(animationData => {
                 lottie.loadAnimation({
                     container: container,
@@ -21,63 +28,36 @@ function initializeBannerAnimation() {
                     animationData: animationData
                 });
             })
-            .catch(error => console.error('Ошибка при загрузке анимации:', error));
+            .catch(error => {
+                console.error('Ошибка при загрузке анимации:', error);
+            });
     }
 }
 
-// Инициализация скроллинга
-function initializeBannerScroll() {
-    const scrollContainer = document.getElementById('horizontal-scroll');
-    if (scrollContainer) {
-        scrollContainer.addEventListener('scroll', handleScroll);
-    }
-}
-
-function handleScroll() {
-    const scrollContainer = document.getElementById('horizontal-scroll');
-    const scrollItems = document.querySelectorAll('.scroll-item');
-    const buttons = document.querySelectorAll('#app .button');
-
-    if (scrollContainer) {
-        const containerWidth = scrollContainer.offsetWidth;
-        const scrollLeft = scrollContainer.scrollLeft;
-        const index = Math.round(scrollLeft / containerWidth);
-
-        scrollItems.forEach((item, i) => item.classList.toggle('active', i === index));
-        buttons.forEach((button, i) => button.classList.toggle('active', i === index));
-    }
-}
-
-// Очистка обработчиков перед заменой контента
+// Очистка анимации перед заменой контента
 function unloadBanner() {
     console.log('Очистка banner.js');
-    const scrollContainer = document.getElementById('horizontal-scroll');
-    if (scrollContainer) {
-        scrollContainer.removeEventListener('scroll', handleScroll);
-    }
     const container = document.getElementById('animation-container');
     if (container) {
-        container.innerHTML = ''; // Очистка анимации
+        container.innerHTML = '';
     }
 }
 
-// Общая инициализация страницы
+// Инициализация страницы
 function initBanner() {
     if (document.getElementById('animation-container')) {
         console.log('Инициализация banner.js');
         initializeBannerAnimation();
-        initializeBannerScroll();
     }
 }
 
-// Инициализация
+// Инициализация при первой загрузке и переходах Swup
 if (document.readyState === 'complete') {
     initBanner();
 } else {
     document.addEventListener('DOMContentLoaded', initBanner);
 }
 
-// Хуки Swup
 if (window.swup) {
     swup.hooks.before('content:replace', unloadBanner);
     swup.hooks.on('page:view', initBanner);
