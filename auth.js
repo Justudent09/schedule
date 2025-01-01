@@ -1,5 +1,3 @@
-// auth.js
-
 function initializeAuthAnimation() {
     const container = document.getElementById('animation-container');
     if (container) {
@@ -19,7 +17,6 @@ function initializeAuthAnimation() {
     }
 }
 
-// Прокрутка и точки
 function initializeAuthScroll() {
     const scrollContainer = document.getElementById('horizontal-scroll');
     if (scrollContainer) {
