@@ -46,7 +46,10 @@
     <script src="banner.js"></script>
     <script src="https://unpkg.com/swup@4"></script>
     <script>
-        const swup = new Swup();
+        const swup = new Swup({
+            cache: false, // Отключаем кэширование
+             animationSelector: '[class*="transition-"]',
+        });
     </script>
 </body>
 </html>
