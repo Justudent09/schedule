@@ -6,7 +6,7 @@ Telegram.WebApp.onEvent('themeChanged', function() {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('DuckEmoji.json')
+    fetch('DuckEmojiStudent.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Ошибка при загрузке файла: ' + response.statusText);
