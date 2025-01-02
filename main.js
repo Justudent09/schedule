@@ -3,7 +3,7 @@ const swup = new Swup({
     animationSelector: '[class*="transition-"]'
 });
 
-// Функция для динамической загрузки скрипта
+// Динамическая загрузка скрипта
 function loadScript(src, callback) {
     const script = document.createElement('script');
     script.src = src;
@@ -11,20 +11,20 @@ function loadScript(src, callback) {
     document.body.appendChild(script);
 }
 
-// Функция для выгрузки скриптов страницы
+// Выгрузка текущих анимаций и событий
 function unloadCurrentPage() {
     const path = window.location.pathname;
 
-    if (path.includes('auth.html') && typeof unloadAuth === 'function') {
-        unloadAuth();
-    } else if (path.includes('schedule.html') && typeof unloadSchedule === 'function') {
-        unloadSchedule();
-    } else if (typeof unloadBanner === 'function') {
-        unloadBanner();
+    if (path.includes('auth.html') && typeof unloadAuthAnimation === 'function') {
+        unloadAuthAnimation();
+    } else if (path.includes('index.html') && typeof unloadBannerAnimation === 'function') {
+        unloadBannerAnimation();
+    } else if (path.includes('schedule.html') && typeof unloadScheduleAnimation === 'function') {
+        unloadScheduleAnimation();
     }
 }
 
-// Функция для инициализации скриптов страницы
+// Инициализация страниц
 function initializePage() {
     const path = window.location.pathname;
 
@@ -38,6 +38,16 @@ function initializePage() {
         } else {
             initAuth();
         }
+    } else if (path.includes('index.html')) {
+        if (typeof initBanner === 'undefined') {
+            loadScript('banner.js', () => {
+                if (typeof initBanner === 'function') {
+                    initBanner();
+                }
+            });
+        } else {
+            initBanner();
+        }
     } else if (path.includes('schedule.html')) {
         if (typeof initSchedule === 'undefined') {
             loadScript('schedule.js', () => {
@@ -48,27 +58,17 @@ function initializePage() {
         } else {
             initSchedule();
         }
-    } else {
-        if (typeof initBanner === 'undefined') {
-            loadScript('banner.js', () => {
-                if (typeof initBanner === 'function') {
-                    initBanner();
-                }
-            });
-        } else {
-            initBanner();
-        }
     }
 }
 
 // Swup хуки
 swup.hooks.before('content:replace', () => {
-    unloadCurrentPage(); // Выгрузка текущих скриптов
+    unloadCurrentPage(); // Выгрузка текущих анимаций
 });
 
 swup.hooks.on('page:view', () => {
-    initializePage(); // Инициализация новых скриптов
+    initializePage(); // Инициализация новой страницы
 });
 
-// Первичная инициализация при загрузке страницы
+// Первичная инициализация
 document.addEventListener('DOMContentLoaded', initializePage);
