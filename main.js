@@ -3,11 +3,10 @@ const swup = new Swup({
     animationSelector: '[class*="transition-"]'
 });
 
-// --- Динамическая загрузка скрипта ---
+// --- Управление скриптами ---
 function loadScript(src, callback) {
-    const existingScript = document.querySelector(`script[src="${src}"]`);
-    if (existingScript) {
-        console.log(`[INFO] Script ${src} already loaded.`);
+    if (document.querySelector(`script[src="${src}"]`)) {
+        console.log(`Script ${src} already loaded.`);
         if (callback) callback();
         return;
     }
@@ -16,29 +15,29 @@ function loadScript(src, callback) {
     script.src = src;
     script.onload = callback;
     document.body.appendChild(script);
-    console.log(`[INFO] Script ${src} loaded.`);
+    console.log(`Script ${src} loaded dynamically.`);
 }
 
-// --- Удаление скрипта ---
 function unloadScript(src) {
     const script = document.querySelector(`script[src="${src}"]`);
     if (script) {
         script.remove();
-        console.log(`[INFO] Script ${src} removed.`);
+        console.log(`Script ${src} removed.`);
     }
 }
 
-// --- Чистка анимаций и событий ---
+// --- Выгрузка анимаций и событий ---
 function unloadCurrentPage() {
-    console.log('[INFO] Unloading current page animations and events.');
+    const path = window.location.pathname;
 
-    if (typeof unloadAuthAnimation === 'function') {
+    if (path.includes('auth.html') && typeof unloadAuthAnimation === 'function') {
+        console.log('Unloading auth animations');
         unloadAuthAnimation();
-    }
-    if (typeof unloadBannerAnimation === 'function') {
+    } else if (path.includes('index.html') && typeof unloadBannerAnimation === 'function') {
+        console.log('Unloading banner animations');
         unloadBannerAnimation();
-    }
-    if (typeof unloadScheduleAnimation === 'function') {
+    } else if (path.includes('schedule.html') && typeof unloadScheduleAnimation === 'function') {
+        console.log('Unloading schedule animations');
         unloadScheduleAnimation();
     }
 
@@ -47,30 +46,33 @@ function unloadCurrentPage() {
     unloadScript('schedule.js');
 }
 
-// --- Инициализация страницы ---
+// --- Флаги инициализации ---
+let isPageInitialized = false;
+
+// --- Инициализация страниц ---
 function initializePage() {
     const path = window.location.pathname;
-    console.log(`[INFO] Initializing page: ${path}`);
+    console.log(`Initializing page: ${path}`);
 
     if (path.includes('auth.html')) {
         loadScript('auth.js', () => {
             if (typeof initAuth === 'function') {
                 initAuth();
-                console.log('[INFO] Auth page initialized.');
+                console.log('Auth page initialized');
             }
         });
     } else if (path.includes('index.html') || path === '/' || path === '/index.html') {
         loadScript('banner.js', () => {
             if (typeof initBanner === 'function') {
                 initBanner();
-                console.log('[INFO] Index page initialized.');
+                console.log('Index page initialized');
             }
         });
     } else if (path.includes('schedule.html')) {
         loadScript('schedule.js', () => {
             if (typeof initSchedule === 'function') {
                 initSchedule();
-                console.log('[INFO] Schedule page initialized.');
+                console.log('Schedule page initialized');
             }
         });
     }
@@ -78,29 +80,44 @@ function initializePage() {
 
 // --- Гарантированная первичная инициализация ---
 function initialPageLoad() {
-    console.log('[INFO] Performing initial page load.');
+    if (isPageInitialized) {
+        console.log('Page already initialized, skipping...');
+        return;
+    }
+
+    console.log('Performing guaranteed initial page load');
     initializePage();
+    isPageInitialized = true;
 }
 
 // --- Swup хуки ---
 swup.hooks.before('content:replace', () => {
-    console.log('[INFO] Before content replace: cleaning up current page.');
+    console.log('Before content replace: unloading current page');
     unloadCurrentPage();
+    isPageInitialized = false;
 });
 
 swup.hooks.on('page:view', () => {
-    console.log('[INFO] Page view: initializing new page via Swup.');
+    console.log('Page view: initializing new page via Swup');
     initializePage();
+    isPageInitialized = true;
 });
 
-// --- DOMContentLoaded (Гарантия при первой загрузке) ---
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('[INFO] DOM fully loaded. Performing guaranteed initialization.');
+// --- Гарантированная проверка DOM ---
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('DOM fully loaded, running initialPageLoad');
+        initialPageLoad();
+    });
+} else {
+    console.log('Document already loaded, running initialPageLoad');
     initialPageLoad();
-});
+}
 
-// --- Window Load (Резервная страховка) ---
+// --- Дополнительная страховка на случай сбоя ---
 window.addEventListener('load', () => {
-    console.log('[INFO] Window fully loaded. Ensuring initialization.');
-    initialPageLoad();
+    if (!isPageInitialized) {
+        console.log('Window fully loaded, forcing initialPageLoad');
+        initialPageLoad();
+    }
 });
