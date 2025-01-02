@@ -44,6 +44,10 @@
     <script src="https://unpkg.com/swup@4"></script>
     <script src="banner.js"></script>
     <script>
+        const swup = new Swup({
+            cache: false,
+            animationSelector: '[class*="transition-"]'
+        });
         document.getElementById('joinButton').addEventListener('click', function () {
             window.location.href = 'auth.html';
         });
