@@ -38,7 +38,7 @@ function initializePage() {
         } else {
             initAuth();
         }
-    } else if (path.includes('index.html')) {
+    } else if (path.includes('index.html') || path === '/' || path === '/index.html') {
         if (typeof initBanner === 'undefined') {
             loadScript('banner.js', () => {
                 if (typeof initBanner === 'function') {
@@ -71,4 +71,19 @@ swup.hooks.on('page:view', () => {
 });
 
 // Первичная инициализация
-document.addEventListener('DOMContentLoaded', initializePage);
+document.addEventListener('DOMContentLoaded', () => {
+    initializePage();
+
+    // Явная инициализация banner.js при первой загрузке index.html
+    if (window.location.pathname === '/' || window.location.pathname.includes('index.html')) {
+        if (typeof initBanner === 'undefined') {
+            loadScript('banner.js', () => {
+                if (typeof initBanner === 'function') {
+                    initBanner();
+                }
+            });
+        } else {
+            initBanner();
+        }
+    }
+});
