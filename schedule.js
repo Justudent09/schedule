@@ -4,7 +4,7 @@ function initializeScheduleAnimation() {
     const container = document.getElementById('animation-container');
     if (container) {
         container.innerHTML = '';
-        fetch('DuckEmojiSchedule.json', { cache: 'reload' })
+        fetch('DuckEmojiLunch.json', { cache: 'reload' })
             .then(response => response.json())
             .then(animationData => {
                 scheduleAnimationInstance = lottie.loadAnimation({
