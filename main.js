@@ -27,53 +27,44 @@ function unloadScript(src) {
     }
 }
 
-// --- Состояние загрузки страниц ---
-let pageLoadStep = 0; // Счётчик этапов загрузки
-
-// --- Инициализация страниц ---
-function initializePage() {
-    pageLoadStep++;
-
-    switch (pageLoadStep) {
-        case 1:
-            console.log('Step 1: Loading banner.js');
-            loadScript('banner.js', () => {
-                if (typeof initBanner === 'function') {
-                    initBanner();
-                }
-            });
-            break;
-
-        case 2:
-            console.log('Step 2: Loading auth.js');
-            loadScript('auth.js', () => {
-                if (typeof initAuth === 'function') {
-                    initAuth();
-                }
-            });
-            break;
-
-        case 3:
-            console.log('Step 3: Loading schedule.js');
-            loadScript('schedule.js', () => {
-                if (typeof initSchedule === 'function') {
-                    initSchedule();
-                }
-            });
-            break;
-
-        default:
-            console.log('All scripts have been loaded');
-            break;
-    }
-}
-
 // --- Выгрузка скриптов при смене страницы ---
 function unloadCurrentPage() {
     console.log('Unloading all scripts for page swap');
     unloadScript('banner.js');
     unloadScript('auth.js');
     unloadScript('schedule.js');
+}
+
+// --- Инициализация страницы на основе пути ---
+function initializePage() {
+    const path = window.location.pathname;
+
+    console.log(`Current path: ${path}`);
+
+    if (path === '/' || path.endsWith('/index.html')) {
+        console.log('Loading banner.js for Index page');
+        loadScript('banner.js', () => {
+            if (typeof initBanner === 'function') {
+                initBanner();
+            }
+        });
+    } else if (path.endsWith('/auth.html')) {
+        console.log('Loading auth.js for Auth page');
+        loadScript('auth.js', () => {
+            if (typeof initAuth === 'function') {
+                initAuth();
+            }
+        });
+    } else if (path.endsWith('/schedule.html')) {
+        console.log('Loading schedule.js for Schedule page');
+        loadScript('schedule.js', () => {
+            if (typeof initSchedule === 'function') {
+                initSchedule();
+            }
+        });
+    } else {
+        console.log('No specific script for this page');
+    }
 }
 
 // --- Swup хуки ---
@@ -83,7 +74,7 @@ swup.hooks.before('content:replace', () => {
 });
 
 swup.hooks.on('page:view', () => {
-    console.log('Page view: initializing next page');
+    console.log('Page view: initializing the page based on path');
     initializePage();
 });
 
