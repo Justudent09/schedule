@@ -3,10 +3,11 @@ const swup = new Swup({
     animationSelector: '[class*="transition-"]'
 });
 
-// --- Управление скриптами ---
+// --- Динамическая загрузка скрипта ---
 function loadScript(src, callback) {
-    if (document.querySelector(`script[src="${src}"]`)) {
-        console.log(`Script ${src} already loaded.`);
+    const existingScript = document.querySelector(`script[src="${src}"]`);
+    if (existingScript) {
+        console.log(`Script ${src} already loaded`);
         if (callback) callback();
         return;
     }
@@ -15,18 +16,18 @@ function loadScript(src, callback) {
     script.src = src;
     script.onload = callback;
     document.body.appendChild(script);
-    console.log(`Script ${src} loaded dynamically.`);
 }
 
+// --- Удаление динамически загруженных скриптов ---
 function unloadScript(src) {
     const script = document.querySelector(`script[src="${src}"]`);
     if (script) {
+        console.log(`Removing script: ${src}`);
         script.remove();
-        console.log(`Script ${src} removed.`);
     }
 }
 
-// --- Выгрузка анимаций и событий ---
+// --- Выгрузка текущих анимаций и событий ---
 function unloadCurrentPage() {
     const path = window.location.pathname;
 
@@ -41,83 +42,106 @@ function unloadCurrentPage() {
         unloadScheduleAnimation();
     }
 
+    // Удаляем динамически загруженные скрипты
     unloadScript('auth.js');
     unloadScript('banner.js');
     unloadScript('schedule.js');
 }
 
-// --- Флаги инициализации ---
-let isPageInitialized = false;
+// --- Флаги для предотвращения дублирования ---
+let isBannerInitialized = false;
+let isAuthInitialized = false;
+let isScheduleInitialized = false;
 
 // --- Инициализация страниц ---
 function initializePage() {
     const path = window.location.pathname;
-    console.log(`Initializing page: ${path}`);
 
     if (path.includes('auth.html')) {
-        loadScript('auth.js', () => {
-            if (typeof initAuth === 'function') {
-                initAuth();
-                console.log('Auth page initialized');
-            }
-        });
+        if (!isAuthInitialized) {
+            console.log('Initializing Auth page');
+            loadScript('auth.js', () => {
+                if (typeof initAuth === 'function') {
+                    initAuth();
+                    isAuthInitialized = true;
+                }
+            });
+        }
     } else if (path.includes('index.html') || path === '/' || path === '/index.html') {
-        loadScript('banner.js', () => {
-            if (typeof initBanner === 'function') {
-                initBanner();
-                console.log('Index page initialized');
-            }
-        });
+        if (!isBannerInitialized) {
+            console.log('Initializing Index page');
+            loadScript('banner.js', () => {
+                if (typeof initBanner === 'function') {
+                    initBanner();
+                    isBannerInitialized = true;
+                }
+            });
+        }
     } else if (path.includes('schedule.html')) {
-        loadScript('schedule.js', () => {
-            if (typeof initSchedule === 'function') {
-                initSchedule();
-                console.log('Schedule page initialized');
-            }
-        });
+        if (!isScheduleInitialized) {
+            console.log('Initializing Schedule page');
+            loadScript('schedule.js', () => {
+                if (typeof initSchedule === 'function') {
+                    initSchedule();
+                    isScheduleInitialized = true;
+                }
+            });
+        }
     }
-}
-
-// --- Гарантированная первичная инициализация ---
-function initialPageLoad() {
-    if (isPageInitialized) {
-        console.log('Page already initialized, skipping...');
-        return;
-    }
-
-    console.log('Performing guaranteed initial page load');
-    initializePage();
-    isPageInitialized = true;
 }
 
 // --- Swup хуки ---
 swup.hooks.before('content:replace', () => {
     console.log('Before content replace: unloading current page');
     unloadCurrentPage();
-    isPageInitialized = false;
+
+    // Сбрасываем флаги
+    isBannerInitialized = false;
+    isAuthInitialized = false;
+    isScheduleInitialized = false;
 });
 
 swup.hooks.on('page:view', () => {
-    console.log('Page view: initializing new page via Swup');
+    console.log('Page view: initializing new page');
     initializePage();
-    isPageInitialized = true;
 });
 
-// --- Гарантированная проверка DOM ---
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        console.log('DOM fully loaded, running initialPageLoad');
-        initialPageLoad();
-    });
-} else {
-    console.log('Document already loaded, running initialPageLoad');
-    initialPageLoad();
+// --- Прямая инициализация при первой загрузке ---
+function initialPageLoad() {
+    const path = window.location.pathname;
+
+    console.log('Initial page load detected');
+
+    if (path.includes('auth.html')) {
+        console.log('Direct load on Auth page');
+        loadScript('auth.js', () => {
+            if (typeof initAuth === 'function') {
+                initAuth();
+                isAuthInitialized = true;
+            }
+        });
+    } else if (path.includes('index.html') || path === '/' || path === '/index.html') {
+        console.log('Direct load on Index page');
+        loadScript('banner.js', () => {
+            if (typeof initBanner === 'function') {
+                initBanner();
+                isBannerInitialized = true;
+            }
+        });
+    } else if (path.includes('schedule.html')) {
+        console.log('Direct load on Schedule page');
+        loadScript('schedule.js', () => {
+            if (typeof initSchedule === 'function') {
+                initSchedule();
+                isScheduleInitialized = true;
+            }
+        });
+    }
 }
 
-// --- Дополнительная страховка на случай сбоя ---
-window.addEventListener('load', () => {
-    if (!isPageInitialized) {
-        console.log('Window fully loaded, forcing initialPageLoad');
-        initialPageLoad();
-    }
-});
+// --- Проверка готовности DOM ---
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initialPageLoad);
+} else {
+    initialPageLoad();
+}
