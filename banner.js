@@ -1,3 +1,5 @@
+let bannerAnimationInstance = null;
+
 function initializeBannerAnimation() {
     const container = document.getElementById('animation-container');
     if (container) {
@@ -5,7 +7,7 @@ function initializeBannerAnimation() {
         fetch('DuckEmojiStudent.json', { cache: 'reload' })
             .then(response => response.json())
             .then(animationData => {
-                lottie.loadAnimation({
+                bannerAnimationInstance = lottie.loadAnimation({
                     container: container,
                     renderer: 'svg',
                     loop: true,
@@ -43,6 +45,10 @@ function unloadBannerAnimation() {
     const scrollContainer = document.getElementById('horizontal-scroll');
     if (scrollContainer) {
         scrollContainer.removeEventListener('scroll', handleBannerScroll);
+    }
+    if (bannerAnimationInstance) {
+        bannerAnimationInstance.destroy();
+        bannerAnimationInstance = null;
     }
     const container = document.getElementById('animation-container');
     if (container) {
