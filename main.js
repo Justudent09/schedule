@@ -5,10 +5,27 @@ const swup = new Swup({
 
 // --- Динамическая загрузка скрипта ---
 function loadScript(src, callback) {
+    // Проверяем, есть ли уже скрипт на странице
+    const existingScript = document.querySelector(`script[src="${src}"]`);
+    if (existingScript) {
+        console.log(`Script ${src} already loaded`);
+        if (callback) callback();
+        return;
+    }
+
     const script = document.createElement('script');
     script.src = src;
     script.onload = callback;
     document.body.appendChild(script);
+}
+
+// --- Удаление динамически загруженных скриптов ---
+function unloadScript(src) {
+    const script = document.querySelector(`script[src="${src}"]`);
+    if (script) {
+        console.log(`Removing script: ${src}`);
+        script.remove();
+    }
 }
 
 // --- Выгрузка текущих анимаций и событий ---
@@ -25,6 +42,11 @@ function unloadCurrentPage() {
         console.log('Unloading schedule animations');
         unloadScheduleAnimation();
     }
+
+    // Удаляем динамически загруженные скрипты
+    unloadScript('auth.js');
+    unloadScript('banner.js');
+    unloadScript('schedule.js');
 }
 
 // --- Флаги для предотвращения дублирования ---
@@ -38,51 +60,33 @@ function initializePage() {
 
     if (path.includes('auth.html')) {
         if (!isAuthInitialized) {
-            if (typeof initAuth === 'undefined') {
-                loadScript('auth.js', () => {
-                    if (typeof initAuth === 'function') {
-                        console.log('Initializing Auth page dynamically');
-                        initAuth();
-                        isAuthInitialized = true;
-                    }
-                });
-            } else {
-                console.log('Initializing Auth page');
-                initAuth();
-                isAuthInitialized = true;
-            }
+            console.log('Initializing Auth page');
+            loadScript('auth.js', () => {
+                if (typeof initAuth === 'function') {
+                    initAuth();
+                    isAuthInitialized = true;
+                }
+            });
         }
     } else if (path.includes('index.html') || path === '/' || path === '/index.html') {
         if (!isBannerInitialized) {
-            if (typeof initBanner === 'undefined') {
-                loadScript('banner.js', () => {
-                    if (typeof initBanner === 'function') {
-                        console.log('Initializing Index page dynamically');
-                        initBanner();
-                        isBannerInitialized = true;
-                    }
-                });
-            } else {
-                console.log('Initializing Index page');
-                initBanner();
-                isBannerInitialized = true;
-            }
+            console.log('Initializing Index page');
+            loadScript('banner.js', () => {
+                if (typeof initBanner === 'function') {
+                    initBanner();
+                    isBannerInitialized = true;
+                }
+            });
         }
     } else if (path.includes('schedule.html')) {
         if (!isScheduleInitialized) {
-            if (typeof initSchedule === 'undefined') {
-                loadScript('schedule.js', () => {
-                    if (typeof initSchedule === 'function') {
-                        console.log('Initializing Schedule page dynamically');
-                        initSchedule();
-                        isScheduleInitialized = true;
-                    }
-                });
-            } else {
-                console.log('Initializing Schedule page');
-                initSchedule();
-                isScheduleInitialized = true;
-            }
+            console.log('Initializing Schedule page');
+            loadScript('schedule.js', () => {
+                if (typeof initSchedule === 'function') {
+                    initSchedule();
+                    isScheduleInitialized = true;
+                }
+            });
         }
     }
 }
@@ -112,19 +116,12 @@ function guaranteedInit() {
     const path = window.location.pathname;
     if (path === '/' || path.includes('index.html')) {
         if (!isBannerInitialized) {
-            if (typeof initBanner === 'undefined') {
-                loadScript('banner.js', () => {
-                    if (typeof initBanner === 'function') {
-                        console.log('Guaranteed init: initializing Index page');
-                        initBanner();
-                        isBannerInitialized = true;
-                    }
-                });
-            } else {
-                console.log('Guaranteed init: initializing Index page directly');
-                initBanner();
-                isBannerInitialized = true;
-            }
+            loadScript('banner.js', () => {
+                if (typeof initBanner === 'function') {
+                    initBanner();
+                    isBannerInitialized = true;
+                }
+            });
         }
     }
 }
