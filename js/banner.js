@@ -1,63 +1,48 @@
-let bannerAnimationInstance = null;
+// Инициализация анимации Lottie
+const animationContainer = document.getElementById('animation-container');
 
-function initializeBannerAnimation() {
-    const container = document.getElementById('animation-container');
-    if (container) {
-        container.innerHTML = '';
-        fetch('../assets/DuckEmojiStudent.json', { cache: 'reload' })
-            .then(response => response.json())
-            .then(animationData => {
-                bannerAnimationInstance = lottie.loadAnimation({
-                    container: container,
-                    renderer: 'svg',
-                    loop: true,
-                    autoplay: true,
-                    animationData: animationData
-                });
-            })
-            .catch(error => console.error('Ошибка при загрузке анимации:', error));
-    }
+if (animationContainer) {
+    fetch('../assets/DuckEmojiStudent.json', { cache: 'reload' })
+        .then(response => response.json())
+        .then(animationData => {
+            lottie.loadAnimation({
+                container: animationContainer,
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                animationData: animationData
+            });
+            console.log('Анимация баннера успешно загружена');
+        })
+        .catch(error => console.error('Ошибка при загрузке анимации:', error));
 }
 
-function initializeBannerScroll() {
-    const scrollContainer = document.getElementById('horizontal-scroll');
-    if (scrollContainer) {
-        scrollContainer.addEventListener('scroll', handleBannerScroll);
-    }
-}
+// Логика горизонтальной прокрутки
+const scrollContainer = document.getElementById('horizontal-scroll');
+const scrollItems = document.querySelectorAll('.scroll-item');
+const buttons = document.querySelectorAll('#app .button');
 
-function handleBannerScroll() {
-    const scrollContainer = document.getElementById('horizontal-scroll');
-    const scrollItems = document.querySelectorAll('.scroll-item');
-    const buttons = document.querySelectorAll('#app .button');
-
-    if (scrollContainer) {
+if (scrollContainer) {
+    scrollContainer.addEventListener('scroll', () => {
         const containerWidth = scrollContainer.offsetWidth;
         const scrollLeft = scrollContainer.scrollLeft;
         const index = Math.round(scrollLeft / containerWidth);
 
         scrollItems.forEach((item, i) => item.classList.toggle('active', i === index));
         buttons.forEach((button, i) => button.classList.toggle('active', i === index));
-    }
+    });
+    console.log('Событие прокрутки успешно добавлено');
 }
 
-function unloadBannerAnimation() {
-    const scrollContainer = document.getElementById('horizontal-scroll');
-    if (scrollContainer) {
-        scrollContainer.removeEventListener('scroll', handleBannerScroll);
-    }
-    if (bannerAnimationInstance) {
-        bannerAnimationInstance.destroy();
-        bannerAnimationInstance = null;
-    }
-    const container = document.getElementById('animation-container');
-    if (container) {
-        container.innerHTML = '';
-    }
+// Обработчик нажатия на кнопку
+const joinButton = document.getElementById('joinButton');
+
+if (joinButton) {
+    joinButton.addEventListener('click', () => {
+        window.location.href = 'auth.html';
+    });
+    console.log('Кнопка перехода к auth.html активирована');
 }
 
-function initBanner() {
-    console.log('Инициализация banner.js');
-    initializeBannerAnimation();
-    initializeBannerScroll();
-}
+// Лог для успешной инициализации
+console.log('Скрипт banner.js успешно загружен и выполнен');
