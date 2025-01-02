@@ -49,11 +49,7 @@ const joinButton = document.getElementById('joinButton');
 
 if (joinButton) {
     joinButton.addEventListener('click', () => {
-        if (window.Telegram && Telegram.WebApp) {
-            Telegram.WebApp.openLink('auth.html');
-        } else {
-            window.location.href = 'auth.html';
-        }
+        window.location.href = 'auth.html';
     });
 } else {
     Telegram.WebApp.showAlert('⚠️ Кнопка перехода не найдена');
