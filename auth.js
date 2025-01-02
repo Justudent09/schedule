@@ -1,3 +1,5 @@
+let authAnimationInstance = null;
+
 function initializeAuthAnimation() {
     const container = document.getElementById('animation-container');
     if (container) {
@@ -5,7 +7,7 @@ function initializeAuthAnimation() {
         fetch('DuckEmojiTeacher.json', { cache: 'reload' })
             .then(response => response.json())
             .then(animationData => {
-                lottie.loadAnimation({
+                authAnimationInstance = lottie.loadAnimation({
                     container: container,
                     renderer: 'svg',
                     loop: true,
@@ -43,6 +45,10 @@ function unloadAuthAnimation() {
     const scrollContainer = document.getElementById('horizontal-scroll');
     if (scrollContainer) {
         scrollContainer.removeEventListener('scroll', handleAuthScroll);
+    }
+    if (authAnimationInstance) {
+        authAnimationInstance.destroy();
+        authAnimationInstance = null;
     }
     const container = document.getElementById('animation-container');
     if (container) {
