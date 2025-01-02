@@ -112,6 +112,7 @@ function initialPageLoad() {
 
     console.log('Initial page load detected');
 
+    // Если Swup не обработал первую загрузку, инициализируем вручную
     if (path.includes('auth.html')) {
         console.log('Direct load on Auth page');
         loadScript('auth.js', () => {
@@ -139,9 +140,26 @@ function initialPageLoad() {
     }
 }
 
-// --- Проверка готовности DOM ---
+// --- Гарантированная первичная инициализация ---
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initialPageLoad);
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('DOM fully loaded, initializing initialPageLoad');
+        initialPageLoad();
+    });
 } else {
+    console.log('Document already loaded, initializing initialPageLoad');
     initialPageLoad();
 }
+
+// --- Страховка на случай полного отсутствия Swup ---
+window.addEventListener('load', () => {
+    console.log('Window fully loaded, forcing initialPageLoad if needed');
+    if (!isBannerInitialized && window.location.pathname.includes('index.html')) {
+        loadScript('banner.js', () => {
+            if (typeof initBanner === 'function') {
+                initBanner();
+                isBannerInitialized = true;
+            }
+        });
+    }
+});
