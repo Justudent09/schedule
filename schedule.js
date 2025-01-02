@@ -1,6 +1,6 @@
 let scheduleAnimationInstance = null;
 
-function initializeSheduleAnimation() {
+function initializeScheduleAnimation() {
     const container = document.getElementById('animation-container');
     if (container) {
         container.innerHTML = '';
@@ -19,14 +19,14 @@ function initializeSheduleAnimation() {
     }
 }
 
-function initializeSheduleScroll() {
+function initializeScheduleScroll() {
     const scrollContainer = document.getElementById('horizontal-scroll');
     if (scrollContainer) {
-        scrollContainer.addEventListener('scroll', handleSheduleScroll);
+        scrollContainer.addEventListener('scroll', handleScheduleScroll);
     }
 }
 
-function handleSheduleScroll() {
+function handleScheduleScroll() {
     const scrollContainer = document.getElementById('horizontal-scroll');
     const scrollItems = document.querySelectorAll('.scroll-item');
     const buttons = document.querySelectorAll('#app .button');
@@ -41,10 +41,10 @@ function handleSheduleScroll() {
     }
 }
 
-function unloadSheduleAnimation() {
+function unloadScheduleAnimation() {
     const scrollContainer = document.getElementById('horizontal-scroll');
     if (scrollContainer) {
-        scrollContainer.removeEventListener('scroll', handleSheduleScroll);
+        scrollContainer.removeEventListener('scroll', handleScheduleScroll);
     }
     if (scheduleAnimationInstance) {
         scheduleAnimationInstance.destroy();
@@ -56,8 +56,8 @@ function unloadSheduleAnimation() {
     }
 }
 
-function initShedule() {
+function initSchedule() {
     console.log('Инициализация schedule.js');
-    initializeSheduleAnimation();
-    initializeSheduleScroll();
+    initializeScheduleAnimation();
+    initializeScheduleScroll();
 }
