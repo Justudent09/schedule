@@ -4,7 +4,7 @@ function initializeBannerAnimation() {
     const container = document.getElementById('animation-container');
     if (container) {
         container.innerHTML = '';
-        fetch('DuckEmojiStudent.json', { cache: 'reload' })
+        fetch('../assets/DuckEmojiStudent.json', { cache: 'reload' })
             .then(response => response.json())
             .then(animationData => {
                 bannerAnimationInstance = lottie.loadAnimation({
