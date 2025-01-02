@@ -70,12 +70,13 @@ swup.hooks.on('page:view', () => {
     initializePage(); // Инициализация новой страницы
 });
 
-// Первичная инициализация
-document.addEventListener('DOMContentLoaded', () => {
+// Гарантированная первичная инициализация
+function guaranteedInit() {
     initializePage();
 
-    // Явная инициализация banner.js при первой загрузке index.html
-    if (window.location.pathname === '/' || window.location.pathname.includes('index.html')) {
+    // Дополнительная явная проверка для index.html и корневого пути
+    const path = window.location.pathname;
+    if (path === '/' || path.includes('index.html')) {
         if (typeof initBanner === 'undefined') {
             loadScript('banner.js', () => {
                 if (typeof initBanner === 'function') {
@@ -86,4 +87,11 @@ document.addEventListener('DOMContentLoaded', () => {
             initBanner();
         }
     }
-});
+}
+
+// Проверка готовности DOM
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', guaranteedInit);
+} else {
+    guaranteedInit();
+}
