@@ -1,27 +1,3 @@
-const swup = new Swup({
-    cache: false
-});
-
-function loadScript(src, callback) {
-    const script = document.createElement('script');
-    script.src = src;
-    script.onload = callback;
-    document.body.appendChild(script);
-}
-
-function unloadCurrentPage() {
-    const path = window.location.pathname;
-    if (path.includes('auth.html')) {
-        if (typeof unloadAuthAnimation === 'function') {
-            unloadAuthAnimation();
-        }
-    } else {
-        if (typeof unloadBannerAnimation === 'function') {
-            unloadBannerAnimation();
-        }
-    }
-}
-
 function initializePage() {
     const path = window.location.pathname;
     if (path.includes('auth.html')) {
@@ -33,6 +9,16 @@ function initializePage() {
             });
         } else {
             initAuth();
+        }
+    } else if (path.includes('schedule.html')) {
+        if (typeof initSchedule === 'undefined') {
+            loadScript('schedule.js', () => {
+                if (typeof initSchedule === 'function') {
+                    initSchedule();
+                }
+            });
+        } else {
+            initSchedule();
         }
     } else {
         if (typeof initBanner === 'undefined') {
@@ -46,13 +32,3 @@ function initializePage() {
         }
     }
 }
-
-swup.hooks.before('content:replace', () => {
-    unloadCurrentPage();
-});
-
-swup.hooks.on('page:view', () => {
-    initializePage();
-});
-
-document.addEventListener('DOMContentLoaded', initializePage);
