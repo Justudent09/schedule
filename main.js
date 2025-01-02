@@ -7,7 +7,7 @@ const swup = new Swup({
 function loadScript(src, callback) {
     const existingScript = document.querySelector(`script[src="${src}"]`);
     if (existingScript) {
-        console.log(`Script ${src} already loaded.`);
+        console.log(`[INFO] Script ${src} already loaded.`);
         if (callback) callback();
         return;
     }
@@ -16,94 +16,91 @@ function loadScript(src, callback) {
     script.src = src;
     script.onload = callback;
     document.body.appendChild(script);
-    console.log(`Script ${src} loaded.`);
+    console.log(`[INFO] Script ${src} loaded.`);
 }
 
-// --- Удаление скриптов ---
+// --- Удаление скрипта ---
 function unloadScript(src) {
     const script = document.querySelector(`script[src="${src}"]`);
     if (script) {
         script.remove();
-        console.log(`Script ${src} removed.`);
+        console.log(`[INFO] Script ${src} removed.`);
     }
 }
 
-// --- Очистка текущей страницы ---
+// --- Чистка анимаций и событий ---
 function unloadCurrentPage() {
-    const path = window.location.pathname;
+    console.log('[INFO] Unloading current page animations and events.');
 
-    if (path.includes('auth.html') && typeof unloadAuthAnimation === 'function') {
+    if (typeof unloadAuthAnimation === 'function') {
         unloadAuthAnimation();
-    } else if (path.includes('index.html') && typeof unloadBannerAnimation === 'function') {
+    }
+    if (typeof unloadBannerAnimation === 'function') {
         unloadBannerAnimation();
-    } else if (path.includes('schedule.html') && typeof unloadScheduleAnimation === 'function') {
+    }
+    if (typeof unloadScheduleAnimation === 'function') {
         unloadScheduleAnimation();
     }
 
     unloadScript('auth.js');
     unloadScript('banner.js');
     unloadScript('schedule.js');
-    console.log('Current page unloaded.');
 }
 
-// --- Инициализация страниц ---
+// --- Инициализация страницы ---
 function initializePage() {
     const path = window.location.pathname;
+    console.log(`[INFO] Initializing page: ${path}`);
 
     if (path.includes('auth.html')) {
-        console.log('Initializing Auth page...');
         loadScript('auth.js', () => {
             if (typeof initAuth === 'function') {
                 initAuth();
+                console.log('[INFO] Auth page initialized.');
             }
         });
     } else if (path.includes('index.html') || path === '/' || path === '/index.html') {
-        console.log('Initializing Index page...');
         loadScript('banner.js', () => {
             if (typeof initBanner === 'function') {
                 initBanner();
+                console.log('[INFO] Index page initialized.');
             }
         });
     } else if (path.includes('schedule.html')) {
-        console.log('Initializing Schedule page...');
         loadScript('schedule.js', () => {
             if (typeof initSchedule === 'function') {
                 initSchedule();
+                console.log('[INFO] Schedule page initialized.');
             }
         });
     }
 }
 
-// --- Первичная инициализация страницы ---
+// --- Гарантированная первичная инициализация ---
 function initialPageLoad() {
-    console.log('Performing initial page load...');
+    console.log('[INFO] Performing initial page load.');
     initializePage();
 }
 
 // --- Swup хуки ---
 swup.hooks.before('content:replace', () => {
-    console.log('Before content replace: cleaning up current page');
+    console.log('[INFO] Before content replace: cleaning up current page.');
     unloadCurrentPage();
 });
 
 swup.hooks.on('page:view', () => {
-    console.log('Page view: initializing new page');
+    console.log('[INFO] Page view: initializing new page via Swup.');
     initializePage();
 });
 
-// --- Гарантированная инициализация ---
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        console.log('DOMContentLoaded: Initializing initialPageLoad');
-        initialPageLoad();
-    });
-} else {
-    console.log('Document already loaded: Initializing initialPageLoad');
+// --- DOMContentLoaded (Гарантия при первой загрузке) ---
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('[INFO] DOM fully loaded. Performing guaranteed initialization.');
     initialPageLoad();
-}
+});
 
-// --- Дополнительная страховка ---
+// --- Window Load (Резервная страховка) ---
 window.addEventListener('load', () => {
-    console.log('Window fully loaded: Ensuring initialPageLoad was called');
+    console.log('[INFO] Window fully loaded. Ensuring initialization.');
     initialPageLoad();
 });
