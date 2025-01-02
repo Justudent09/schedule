@@ -27,116 +27,70 @@ function unloadScript(src) {
     }
 }
 
-// --- Выгрузка текущих анимаций и событий ---
-function unloadCurrentPage() {
-    const path = window.location.pathname;
-
-    if (path.includes('auth.html') && typeof unloadAuthAnimation === 'function') {
-        console.log('Unloading auth animations');
-        unloadAuthAnimation();
-    } else if (path.includes('index.html') && typeof unloadBannerAnimation === 'function') {
-        console.log('Unloading banner animations');
-        unloadBannerAnimation();
-    } else if (path.includes('schedule.html') && typeof unloadScheduleAnimation === 'function') {
-        console.log('Unloading schedule animations');
-        unloadScheduleAnimation();
-    }
-
-    // Удаляем динамически загруженные скрипты
-    unloadScript('auth.js');
-    unloadScript('banner.js');
-    unloadScript('schedule.js');
-}
-
-// --- Флаги для предотвращения дублирования ---
-let isBannerInitialized = false;
-let isAuthInitialized = false;
-let isScheduleInitialized = false;
+// --- Состояние загрузки страниц ---
+let pageLoadStep = 0; // Счётчик этапов загрузки
 
 // --- Инициализация страниц ---
 function initializePage() {
-    const path = window.location.pathname;
+    pageLoadStep++;
 
-    if (path.includes('auth.html')) {
-        if (!isAuthInitialized) {
-            console.log('Initializing Auth page');
-            loadScript('auth.js', () => {
-                if (typeof initAuth === 'function') {
-                    initAuth();
-                    isAuthInitialized = true;
-                }
-            });
-        }
-    } else if (path.includes('index.html') || path === '/' || path === '/index.html') {
-        if (!isBannerInitialized) {
-            console.log('Initializing Index page');
+    switch (pageLoadStep) {
+        case 1:
+            console.log('Step 1: Loading banner.js');
             loadScript('banner.js', () => {
                 if (typeof initBanner === 'function') {
                     initBanner();
-                    isBannerInitialized = true;
                 }
             });
-        }
-    } else if (path.includes('schedule.html')) {
-        if (!isScheduleInitialized) {
-            console.log('Initializing Schedule page');
+            break;
+
+        case 2:
+            console.log('Step 2: Loading auth.js');
+            loadScript('auth.js', () => {
+                if (typeof initAuth === 'function') {
+                    initAuth();
+                }
+            });
+            break;
+
+        case 3:
+            console.log('Step 3: Loading schedule.js');
             loadScript('schedule.js', () => {
                 if (typeof initSchedule === 'function') {
                     initSchedule();
-                    isScheduleInitialized = true;
                 }
             });
-        }
+            break;
+
+        default:
+            console.log('All scripts have been loaded');
+            break;
     }
+}
+
+// --- Выгрузка скриптов при смене страницы ---
+function unloadCurrentPage() {
+    console.log('Unloading all scripts for page swap');
+    unloadScript('banner.js');
+    unloadScript('auth.js');
+    unloadScript('schedule.js');
 }
 
 // --- Swup хуки ---
 swup.hooks.before('content:replace', () => {
     console.log('Before content replace: unloading current page');
     unloadCurrentPage();
-
-    // Сбрасываем флаги
-    isBannerInitialized = false;
-    isAuthInitialized = false;
-    isScheduleInitialized = false;
 });
 
 swup.hooks.on('page:view', () => {
-    console.log('Page view: initializing new page');
+    console.log('Page view: initializing next page');
     initializePage();
 });
 
 // --- Прямая инициализация при первой загрузке ---
 function initialPageLoad() {
-    const path = window.location.pathname;
-
     console.log('Initial page load detected');
-
-    if (path.includes('auth.html')) {
-        console.log('Direct load on Auth page');
-        loadScript('auth.js', () => {
-            if (typeof initAuth === 'function') {
-                initAuth();
-                isAuthInitialized = true;
-            }
-        });
-    } else if (path.includes('index.html') || path === '/' || path === '/index.html') {
-        console.log('Direct load on Index page');
-        loadScript('banner.js', () => {
-            if (typeof initBanner === 'function') {
-                initBanner();
-                isBannerInitialized = true;
-            }
-        });
-    } else if (path.includes('schedule.html')) {
-        console.log('Direct load on Schedule page');
-        loadScript('schedule.js', () => {
-            if (typeof initSchedule === 'function') {
-                initSchedule();
-                isScheduleInitialized = true;
-            }
-        });
-    }
+    initializePage();
 }
 
 // --- Проверка готовности DOM ---
