@@ -2,6 +2,16 @@ if (window.Telegram && Telegram.WebApp) {
     Telegram.WebApp.expand();
 }
 
+function navigateToPage(url) {
+            if (document.startViewTransition) {
+                document.startViewTransition(() => {
+                    window.location.href = url;
+                });
+            } else {
+                window.location.href = url; // Fallback для старых браузеров
+            }
+        }
+
 const animationContainer = document.getElementById('animation-container');
 
 if (animationContainer) {
@@ -45,12 +55,4 @@ if (scrollContainer) {
     Telegram.WebApp.showAlert('⚠️ Контейнер прокрутки не найден');
 }
 
-const joinButton = document.getElementById('joinButton');
 
-if (joinButton) {
-    joinButton.addEventListener('click', () => {
-        window.location.href = 'auth.html';
-    });
-} else {
-    Telegram.WebApp.showAlert('⚠️ Кнопка перехода не найдена');
-}
