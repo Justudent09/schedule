@@ -120,37 +120,35 @@ main {
 }
 
 @view-transition {
-            navigation: auto;
-        }
+    navigation: auto;
+}
 
-        /* Анимация для старого контента (уходит влево) */
-        ::view-transition-old(root) {
-            animation: slideLeftOut 0.5s ease-in forwards;
-        }
+::view-transition-old(root) {
+    animation: slideLeftOut 0.5s ease-in forwards;
+}
 
-        /* Анимация для нового контента (появляется справа) */
-        ::view-transition-new(root) {
-            animation: slideRightIn 0.5s ease-out forwards;
-        }
+::view-transition-new(root) {
+    animation: slideRightIn 0.5s ease-out forwards;
+}
 
-        @keyframes slideLeftOut {
-            from {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-        }
+@keyframes slideLeftOut {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+}
 
-        @keyframes slideRightIn {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+@keyframes slideRightIn {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
