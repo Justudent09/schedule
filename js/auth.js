@@ -2,6 +2,32 @@ if (window.Telegram && Telegram.WebApp) {
     Telegram.WebApp.expand();
 }
 
+const animationContainer = document.getElementById('animation-container');
+
+if (animationContainer) {
+    fetch('assets/DuckEmojiTeacher.json', { cache: 'reload' })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(animationData => {
+            lottie.loadAnimation({
+                container: animationContainer,
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                animationData: animationData
+            });
+        })
+        .catch(error => {
+            Telegram.WebApp.showAlert(`❌ Ошибка при загрузке анимации: ${error.message}`);
+        });
+} else {
+    Telegram.WebApp.showAlert('⚠️ Контейнер анимации не найден');
+}
+
 const inactiveSVG = `
     <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" {...restProps}>
         <path
