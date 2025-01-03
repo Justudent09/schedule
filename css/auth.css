@@ -43,9 +43,8 @@ main {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    max-width: 200px;
-    margin: 50px auto;
-    font-family: Arial, sans-serif;
+    margin: 20vh auto 0;
+    width: 80vw;
 }
 
 .option {
