@@ -57,6 +57,13 @@ main {
     overflow: hidden;
 }
 
+.question {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
 .option {
     display: flex;
     align-items: center;
