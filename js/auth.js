@@ -25,7 +25,7 @@ document.querySelectorAll('.option').forEach(option => {
 });
 
 function selectOption(selected) {
-      document.querySelectorAll('.option').forEach(option => {
+    document.querySelectorAll('.option').forEach(option => {
         option.querySelector('.icon').innerHTML = inactiveSVG;
     });
 
