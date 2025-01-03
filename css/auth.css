@@ -43,6 +43,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 80vw;
     margin: 20vh 10vw 0 10vw;
     overflow: hidden;
 }
