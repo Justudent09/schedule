@@ -39,13 +39,33 @@ main {
     z-index: 1000;
 }
 
-.role {
+.container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 200px;
+    margin: 50px auto;
+    font-family: Arial, sans-serif;
+}
+
+.option {
+    display: flex;
     align-items: center;
-    width: 80vw;
-    margin: 20vh 10vw 0 10vw;
-    overflow: hidden;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.option.selected .icon .inactive {
+    display: none;
+}
+
+.option:not(.selected) .icon .active {
+    display: none;
 }
 
 
