@@ -57,3 +57,5 @@ function selectOption(selected) {
 
     selected.querySelector('.icon').innerHTML = activeSVG;
 }
+
+document.querySelector('.option[data-role="student"] .icon').innerHTML = activeSVG;
