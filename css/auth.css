@@ -44,7 +44,7 @@ main {
     flex-direction: column;
     gap: 16px;
     margin: 20vh auto 0;
-    width: 80vw;
+    width: 70vw;
 }
 
 .animation-container {
@@ -61,14 +61,14 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
+    margin: 0 auto 20px;
     font-size: 25px;
 }
 
 .option {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
     cursor: pointer;
     color: var(--tg-theme-hint-color);
 }
