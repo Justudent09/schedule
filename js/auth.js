@@ -50,6 +50,8 @@ document.querySelectorAll('.option').forEach(option => {
     option.querySelector('.icon').innerHTML = inactiveSVG;
 });
 
+document.querySelector('.option[data-role="student"] .icon').innerHTML = activeSVG;
+
 function selectOption(selected) {
     document.querySelectorAll('.option').forEach(option => {
         option.querySelector('.icon').innerHTML = inactiveSVG;
@@ -58,4 +60,3 @@ function selectOption(selected) {
     selected.querySelector('.icon').innerHTML = activeSVG;
 }
 
-document.querySelector('.option[data-role="student"] .icon').innerHTML = activeSVG;
