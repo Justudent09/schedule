@@ -17,6 +17,6 @@ body {
     padding: 0;
 }
 
-main {
-    
+@view-transition {
+    navigation: auto;
 }
