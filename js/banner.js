@@ -8,7 +8,7 @@ function navigateToPage(url) {
             window.location.href = url;
         });
     } else {
-        window.location.href = url; // Fallback для старых браузеров
+        window.location.href = url;
     }
 }
 
