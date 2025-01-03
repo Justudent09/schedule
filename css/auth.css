@@ -22,10 +22,13 @@ main {
     touch-action: none;
 }
 
-p {
+main p {
     display: flex; 
-    justify-content: center; 
-    align-items: center;
+    justify-content: center; /* Горизонтальное центрирование */
+    align-items: center; /* Вертикальное центрирование */
+    text-align: center; /* Текст по центру */
+    height: 100vh; /* Высота на весь экран */
+    margin: 0; /* Убираем стандартные отступы */
 }
 
 
