@@ -42,7 +42,7 @@ main {
 .container {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
     margin: 20vh auto 0;
     width: 70vw;
 }
