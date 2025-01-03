@@ -60,3 +60,13 @@ function selectOption(selected) {
     selected.querySelector('.icon').innerHTML = activeSVG;
 }
 
+document.getElementById('joinButton').addEventListener('click', () => {
+    const selectedOption = document.querySelector('.option.selected');
+    const role = selectedOption ? selectedOption.getAttribute('data-role') : null;
+
+    if (role === 'student') {
+        window.location.href = 'student.html';
+    } else if (role === 'teacher') {
+        window.location.href = 'teacher.html';
+    }
+});
