@@ -15,6 +15,7 @@ body {
     overflow: hidden;
     margin: 0;
     padding: 0;
+    font-family: var(--tg-theme-text-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif);
 }
 
 main {
