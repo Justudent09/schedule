@@ -76,6 +76,8 @@ main {
 .icon svg {
     width: 20px;
     height: 20px;
+    display: block;
+    vertical-align: middle;
     margin: auto 0;
 }
 
