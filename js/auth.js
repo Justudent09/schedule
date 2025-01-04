@@ -46,7 +46,6 @@ const activeSVG = `
     </svg>
 `;
 
-// Инициализация: сбрасываем все опции и устанавливаем student как активный
 document.querySelectorAll('.option').forEach(option => {
     option.querySelector('.icon').innerHTML = inactiveSVG;
     option.classList.remove('selected');
@@ -56,18 +55,16 @@ const defaultOption = document.querySelector('.option[data-role="student"]');
 defaultOption.querySelector('.icon').innerHTML = activeSVG;
 defaultOption.classList.add('selected');
 
-// Функция выбора опции
 function selectOption(selected) {
     document.querySelectorAll('.option').forEach(option => {
         option.querySelector('.icon').innerHTML = inactiveSVG;
-        option.classList.remove('selected'); // Убираем selected у всех
+        option.classList.remove('selected');
     });
 
-    selected.querySelector('.icon').innerHTML = activeSVG; // Активируем иконку
-    selected.classList.add('selected'); // Добавляем selected к выбранной опции
+    selected.querySelector('.icon').innerHTML = activeSVG; 
+    selected.classList.add('selected'); 
 }
 
-// Обработчик нажатия на кнопку
 document.getElementById('joinButton').addEventListener('click', () => {
     const selectedOption = document.querySelector('.option.selected');
     const role = selectedOption ? selectedOption.getAttribute('data-role') : null;
