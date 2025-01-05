@@ -18,7 +18,7 @@ document.querySelectorAll('.option').forEach(option => {
     option.classList.remove('selected');
 });
 
-const defaultOption = document.querySelector('.option[data-role="Первый"]');
+const defaultOption = document.querySelector('.option[data-role="1"]');
 defaultOption.querySelector('.icon').innerHTML = activeSVG;
 defaultOption.classList.add('selected');
 
@@ -36,11 +36,5 @@ document.getElementById('joinButton').addEventListener('click', () => {
     const selectedOption = document.querySelector('.option.selected');
     const role = selectedOption ? selectedOption.getAttribute('data-role') : null;
 
-    if (role === 'student') {
-        window.location.href = 'student.html';
-    } else if (role === 'teacher') {
-        window.location.href = 'teacher.html';
-    } else {
-        alert('Выберите роль перед продолжением');
-    }
+    window.location.href = 'teacher.html';
 });
