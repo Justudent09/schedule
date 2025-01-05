@@ -13,22 +13,14 @@ const activeSVG = `
     <circle cx="10" cy="10" r="5" fill="var(--tg-theme-accent-text-color)"/>
 </svg>`;
 
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.option').forEach(option => {
-        if (option.classList.contains('disabled')) {
-            option.querySelector('.icon').innerHTML = inactiveSVG;
-        } else {
-            option.querySelector('.icon').innerHTML = inactiveSVG;
-        }
-        option.classList.remove('selected');
-    });
-
-    const defaultOption = document.querySelector('.option[data-role="1"]:not(.disabled)');
-    if (defaultOption) {
-        defaultOption.querySelector('.icon').innerHTML = activeSVG;
-        defaultOption.classList.add('selected');
-    }
+document.querySelectorAll('.option').forEach(option => {
+    option.querySelector('.icon').innerHTML = inactiveSVG;
+    option.classList.remove('selected');
 });
+
+const defaultOption = document.querySelector('.option[data-role="1"]');
+defaultOption.querySelector('.icon').innerHTML = activeSVG;
+defaultOption.classList.add('selected');
 
 document.querySelectorAll('.option[data-role="3"], .option[data-role="4"], .option[data-role="5"], .option[data-role="6"]')
     .forEach(option => option.classList.add('disabled'));
