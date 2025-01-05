@@ -44,7 +44,6 @@ document.getElementById('joinButton').addEventListener('click', () => {
     const role = selectedOption ? selectedOption.getAttribute('data-role') : null;
 
     if (role) {
-        // Сохраняем выбранный курс в CloudStorage
         Telegram.CloudStorage.setItem('selectedCourse', role, (error, success) => {
             if (error) {
                 Telegram.WebApp.showAlert(`Ошибка сохранения данных: ${error}`);
