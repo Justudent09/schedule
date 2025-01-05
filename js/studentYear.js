@@ -44,14 +44,20 @@ document.getElementById('joinButton').addEventListener('click', () => {
     const role = selectedOption ? selectedOption.getAttribute('data-role') : null;
 
     if (role) {
+        // Сохраняем выбранный курс в CloudStorage
         Telegram.CloudStorage.setItem('selectedCourse', role, (error, success) => {
             if (error) {
+                // Отображаем ошибку через Telegram Alert
                 Telegram.WebApp.showAlert(`Ошибка сохранения данных: ${error}`);
             } else {
+                // Отображаем сообщение об успешном сохранении и переходим
                 Telegram.WebApp.showAlert(`Выбранный курс (${role}) успешно сохранён!`, () => {
                     window.location.href = 'studentDirection.html';
                 });
             }
         });
+    } else {
+        // Показываем предупреждение, если курс не выбран
+        Telegram.WebApp.showAlert('Пожалуйста, выберите курс перед продолжением.');
     }
 });
