@@ -43,5 +43,5 @@ document.getElementById('joinButton').addEventListener('click', () => {
     const selectedOption = document.querySelector('.option.selected');
     const role = selectedOption ? selectedOption.getAttribute('data-role') : null;
 
-    window.location.href = 'teacher.html';
+    window.location.href = 'studentDirection.html';
 });
