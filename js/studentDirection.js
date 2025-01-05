@@ -22,7 +22,7 @@ const defaultOption = document.querySelector('.option[data-role="1"]');
 defaultOption.querySelector('.icon').innerHTML = activeSVG;
 defaultOption.classList.add('selected');
 
-document.querySelectorAll('.option[data-role="3"], .option[data-role="4"], .option[data-role="5"]')
+document.querySelectorAll('.option[data-role="4"], .option[data-role="5"]')
     .forEach(option => option.classList.add('disabled'));
 
 function selectOption(selected) {
