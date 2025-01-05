@@ -1,1 +1,53 @@
-.
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Student</title>
+    <link rel="stylesheet" href="css/studentDirection.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
+</head>
+<body>
+    <main>
+        <div class="container">
+            <div class="question" style="margin-bottom: -10px;">На каком курсе</div>
+            <div class="question">вы учитесь?</div>
+
+            <div class="option selected" onclick="selectOption(this)" data-role="1">
+                <div class="icon"></div>
+                <span>Первый</span>
+            </div>
+
+            <div class="option" onclick="selectOption(this)" data-role="2">
+                <div class="icon"></div>
+                <span>Второй</span>
+            </div>
+
+            <div class="option" onclick="selectOption(this)" data-role="3">
+                <div class="icon"></div>
+                <span>Третий</span>
+            </div>
+
+            <div class="option" onclick="selectOption(this)" data-role="4">
+                <div class="icon"></div>
+                <span>Четвёртый</span>
+            </div>
+
+            <div class="option" onclick="selectOption(this)" data-role="5">
+                <div class="icon"></div>
+                <span>Пятый</span>
+            </div>
+
+            <div class="option" onclick="selectOption(this)" data-role="6">
+                <div class="icon"></div>
+                <span>Шестой</span>
+            </div>
+        </div>
+
+        <button class="authButton" id="joinButton">Продолжить</button>
+    </main>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="js/studentDirection.js"></script>
+</body>
+</html>
