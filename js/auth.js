@@ -60,7 +60,7 @@ document.getElementById('joinButton').addEventListener('click', () => {
     const role = selectedOption ? selectedOption.getAttribute('data-role') : null;
 
     if (role === 'student') {
-        window.location.href = 'student.html';
+        window.location.href = 'studentYear.html';
     } else if (role === 'teacher') {
         window.location.href = 'teacher.html';
     } else {
