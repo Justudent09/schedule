@@ -13,7 +13,6 @@ const activeSVG = `
     <circle cx="10" cy="10" r="5" fill="var(--tg-theme-accent-text-color)"/>
 </svg>`;
 
-// Инициализация всех иконок при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.option').forEach(option => {
         if (option.classList.contains('disabled')) {
@@ -24,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
         option.classList.remove('selected');
     });
 
-    // Активируем первую опцию по умолчанию, если она не disabled
     const defaultOption = document.querySelector('.option[data-role="1"]:not(.disabled)');
     if (defaultOption) {
         defaultOption.querySelector('.icon').innerHTML = activeSVG;
@@ -37,7 +35,7 @@ document.querySelectorAll('.option[data-role="3"], .option[data-role="4"], .opti
 
 function selectOption(selected) {
     if (selected.classList.contains('disabled')) {
-        return; // Не реагируем на клик по disabled элементам
+        return;
     }
 
     document.querySelectorAll('.option').forEach(option => {
