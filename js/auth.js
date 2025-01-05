@@ -21,9 +21,6 @@ if (animationContainer) {
                 animationData: animationData
             });
         })
-        .catch(error => {
-            Telegram.WebApp.showAlert(`❌ произошла ошибка, обновите страницу бота!`);
-        });
 } else {
     Telegram.WebApp.showAlert('⚠️ Контейнер анимации не найден');
 }
