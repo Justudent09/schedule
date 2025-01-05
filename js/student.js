@@ -13,16 +13,15 @@ const activeSVG = `
     <circle cx="10" cy="10" r="5" fill="var(--tg-theme-accent-text-color)"/>
 </svg>`;
 
-document.querySelectorAll('.option').forEach(option => {
-    option.querySelector('.icon').innerHTML = inactiveSVG;
-    option.classList.remove('selected');
-});
-
 const defaultOption = document.querySelector('.option[data-role="1"]');
 defaultOption.querySelector('.icon').innerHTML = activeSVG;
 defaultOption.classList.add('selected');
 
 function selectOption(selected) {
+    if (selected.classList.contains('disabled')) {
+        return; // Не реагируем на клик по disabled элементам
+    }
+
     document.querySelectorAll('.option').forEach(option => {
         option.querySelector('.icon').innerHTML = inactiveSVG;
         option.classList.remove('selected');
