@@ -10,7 +10,22 @@
 </head>
 <body>
     <main>
-        student
+        <div class="container">
+            <div class="question">На каком курсе</div>
+            <div class="question">вы учитесь?</div>
+
+            <div class="option selected" onclick="selectOption(this)" data-role="student">
+                <div class="icon"></div>
+                <span>Первый</span>
+            </div>
+
+            <div class="option" onclick="selectOption(this)" data-role="teacher">
+                <div class="icon"></div>
+                <span>Второй</span>
+            </div>
+        </div>
+
+        <button class="authButton" id="joinButton">Продолжить</button>
     </main>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="js/student.js"></script>
