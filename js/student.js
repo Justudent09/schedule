@@ -17,6 +17,9 @@ const defaultOption = document.querySelector('.option[data-role="1"]');
 defaultOption.querySelector('.icon').innerHTML = activeSVG;
 defaultOption.classList.add('selected');
 
+document.querySelectorAll('.option[data-role="3"], .option[data-role="4"], .option[data-role="5"], .option[data-role="6"]')
+    .forEach(option => option.classList.add('disabled'));
+
 function selectOption(selected) {
     if (selected.classList.contains('disabled')) {
         return; // Не реагируем на клик по disabled элементам
