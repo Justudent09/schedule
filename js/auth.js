@@ -81,7 +81,7 @@ function linkButton() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function showSavedItem() {
     const key = 'userYear';
 
     Telegram.WebApp.CloudStorage.getItem(key, (error, value) => {
@@ -93,5 +93,4 @@ document.addEventListener('DOMContentLoaded', () => {
             Telegram.WebApp.showAlert('Значение не найдено');
         }
     });
-});
-
+}
