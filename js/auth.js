@@ -55,7 +55,21 @@ function selectOption(selected) {
     selected.classList.add('selected'); 
 }
 
-document.getElementById('joinButton').addEventListener('click', () => {
+function saveItem() {
+    const selectedOption = document.querySelector('.option.selected');
+    const key = 'userYear';
+    const value = selectedOption ? selectedOption.getAttribute('data-role') : null;
+
+            Telegram.WebApp.CloudStorage.setItem(key, value, (error, success) => {
+        if (error) {
+                    Telegram.WebApp.showAlert('Ошибка сохранения: ' + error);
+        } else {
+                    Telegram.WebApp.showAlert('Элемент успешно сохранён');
+        }
+    });         
+}
+
+function linkButton() {
     const selectedOption = document.querySelector('.option.selected');
     const role = selectedOption ? selectedOption.getAttribute('data-role') : null;
 
@@ -64,6 +78,6 @@ document.getElementById('joinButton').addEventListener('click', () => {
     } else if (role === 'teacher') {
         window.location.href = 'teacher.html';
     }
-});
+}
 
 
