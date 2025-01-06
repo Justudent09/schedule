@@ -57,7 +57,7 @@ function selectOption(selected) {
 
 function saveItem() {
     const selectedOption = document.querySelector('.option.selected');
-    const key = 'userYear';
+    const key = 'userRole';
     const value = selectedOption ? selectedOption.getAttribute('data-role') : null;
 
     Telegram.WebApp.CloudStorage.setItem(key, value, (error, success) => {
@@ -79,18 +79,4 @@ function linkButton() {
     } else if (role === 'teacher') {
         window.location.href = 'teacher.html';
     }
-}
-
-function showSavedItem() {
-    const key = 'userYear';
-
-    Telegram.WebApp.CloudStorage.getItem(key, (error, value) => {
-        if (error) {
-            Telegram.WebApp.showAlert('Ошибка при получении данных: ' + error);
-        } else if (value) {
-            Telegram.WebApp.showAlert('Сохранённое значение: ' + value);
-        } else {
-            Telegram.WebApp.showAlert('Значение не найдено');
-        }
-    });
 }
