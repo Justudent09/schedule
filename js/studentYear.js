@@ -51,7 +51,7 @@ function saveItem() {
             Telegram.WebApp.showAlert('Элемент успешно сохранён');
         }
     });      
-    showSavedItem()   
+    showSavedItem();
     linkButton();
 }
 
