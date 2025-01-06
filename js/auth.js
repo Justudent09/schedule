@@ -60,11 +60,11 @@ function saveItem() {
     const key = 'userYear';
     const value = selectedOption ? selectedOption.getAttribute('data-role') : null;
 
-            Telegram.WebApp.CloudStorage.setItem(key, value, (error, success) => {
+    Telegram.WebApp.CloudStorage.setItem(key, value, (error, success) => {
         if (error) {
-                    Telegram.WebApp.showAlert('Ошибка сохранения: ' + error);
+            Telegram.WebApp.showAlert('Ошибка сохранения: ' + error);
         } else {
-                    Telegram.WebApp.showAlert('Элемент успешно сохранён');
+            Telegram.WebApp.showAlert('Элемент успешно сохранён');
         }
     });         
     linkButton();
