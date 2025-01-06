@@ -43,21 +43,5 @@ document.getElementById('joinButton').addEventListener('click', () => {
     const selectedOption = document.querySelector('.option.selected');
     const role = selectedOption ? selectedOption.getAttribute('data-role') : null;
 
-    if (role) {
-        // Сохраняем выбранный курс в CloudStorage
-        Telegram.CloudStorage.setItem('selectedCourse', role, (error, success) => {
-            if (error) {
-                // Отображаем ошибку через Telegram Alert
-                Telegram.WebApp.showAlert(`Ошибка сохранения данных: ${error}`);
-            } else {
-                // Отображаем сообщение об успешном сохранении и переходим
-                Telegram.WebApp.showAlert(`Выбранный курс (${role}) успешно сохранён!`, () => {
-                    window.location.href = 'studentDirection.html';
-                });
-            }
-        });
-    } else {
-        // Показываем предупреждение, если курс не выбран
-        Telegram.WebApp.showAlert('Пожалуйста, выберите курс перед продолжением.');
-    }
+    window.location.href = 'studentDirection.html';
 });
