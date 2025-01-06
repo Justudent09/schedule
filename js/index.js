@@ -5,7 +5,7 @@ if (window.Telegram && Telegram.WebApp) {
     Telegram.WebApp.CloudStorage.getItem(key, (error, value) => {
         if (error) {
             window.location.href = 'banner.html';
-        } else if (value) {
+        } else if (value === '') {
             
         } else {
             Telegram.WebApp.showAlert('Значение не найдено');
