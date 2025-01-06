@@ -27,5 +27,9 @@ function deleteItem() {
         }
     });
 
+    linkButton();
+}
+
+function linkButton() {
     window.location.href = 'banner.html';
 }
