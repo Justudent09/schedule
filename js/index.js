@@ -4,9 +4,9 @@ if (window.Telegram && Telegram.WebApp) {
     const key = 'userRole';
     Telegram.WebApp.CloudStorage.getItem(key, (error, value) => {
         if (error) {
-            Telegram.WebApp.showAlert('Ошибка при получении данных: ' + error);
+            window.location.href = 'banner.html';
         } else if (value) {
-            Telegram.WebApp.showAlert('Сохранённое значение: ' + value);
+            
         } else {
             Telegram.WebApp.showAlert('Значение не найдено');
         }
