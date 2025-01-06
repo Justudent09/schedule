@@ -24,7 +24,7 @@ defaultOption.classList.add('selected');
 
 Telegram.WebApp.CloudStorage.getItem('userYear', (error, value) => {
     if (error) {
-        console.error('Ошибка при получении userYear:', error);
+        Telegram.WebApp.showAlert('Ошибка сохранения: ' + error);
         return;
     }
 
