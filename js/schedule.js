@@ -3,13 +3,29 @@ if (window.Telegram && Telegram.WebApp) {
 }
 
 function deleteItem() {
-    const key1 = '';
+    const key1 = 'userRole';
 
-    Telegram.WebApp.CloudStorage.removeItem(key, (error, success) => {
+    Telegram.WebApp.CloudStorage.removeItem(key1, (error, success) => {
         if (error) {
             Telegram.WebApp.showAlert('Ошибка удаления: ' + error);
-        } else {
-            Telegram.WebApp.showAlert('Элемент успешно удалён');
+        } 
+    });
+
+    const key2 = 'userYear';
+
+    Telegram.WebApp.CloudStorage.removeItem(key2, (error, success) => {
+        if (error) {
+            Telegram.WebApp.showAlert('Ошибка удаления: ' + error);
         }
     });
+
+    const key3 = 'userDirection';
+
+    Telegram.WebApp.CloudStorage.removeItem(key3, (error, success) => {
+        if (error) {
+            Telegram.WebApp.showAlert('Ошибка удаления: ' + error);
+        }
+    });
+
+    window.location.href = 'banner.html';
 }
