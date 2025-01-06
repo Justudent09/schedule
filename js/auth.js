@@ -67,6 +67,7 @@ function saveItem() {
                     Telegram.WebApp.showAlert('Элемент успешно сохранён');
         }
     });         
+    linkButton();
 }
 
 function linkButton() {
