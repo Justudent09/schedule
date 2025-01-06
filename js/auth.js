@@ -59,11 +59,27 @@ document.getElementById('joinButton').addEventListener('click', () => {
     const selectedOption = document.querySelector('.option.selected');
     const role = selectedOption ? selectedOption.getAttribute('data-role') : null;
 
-    if (role === 'student') {
-        window.location.href = 'studentYear.html';
-    } else if (role === 'teacher') {
-        window.location.href = 'teacher.html';
+    if (role) {
+        // Проверяем, доступен ли Telegram WebApp API
+        if (window.Telegram && Telegram.WebApp) {
+            Telegram.WebApp.CloudStorage.setItem('userRole', role)
+                .then(() => {
+                    Telegram.WebApp.showAlert(`Роль "${role}" успешно сохранена.`);
+                    if (role === 'student') {
+                        window.location.href = 'studentYear.html';
+                    } else if (role === 'teacher') {
+                        window.location.href = 'teacher.html';
+                    }
+                })
+                .catch((error) => {
+                    Telegram.WebApp.showAlert('Ошибка при сохранении роли. Попробуйте снова.');
+                });
+        } else {
+            Telegram.WebApp.showAlert('Telegram WebApp API недоступен. Убедитесь, что приложение запущено в Telegram.');
+        }
     } else {
-        alert('Выберите роль перед продолжением');
+        Telegram.WebApp.showAlert('Выберите роль перед продолжением.');
     }
 });
+
+
