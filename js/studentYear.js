@@ -55,5 +55,5 @@ function saveItem() {
 }
 
 function linkButton() {
-    window.location.href = 'studentDirect.html';
+    window.location.href = 'studentDirection.html';
 }
