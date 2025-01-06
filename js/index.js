@@ -1,6 +1,7 @@
-function showSavedRole() {
+if (window.Telegram && Telegram.WebApp) {
+    Telegram.WebApp.expand();
+
     const key = 'userRole';
-
     Telegram.WebApp.CloudStorage.getItem(key, (error, value) => {
         if (error) {
             Telegram.WebApp.showAlert('Ошибка при получении данных: ' + error);
@@ -10,11 +11,8 @@ function showSavedRole() {
             Telegram.WebApp.showAlert('Значение не найдено');
         }
     });
-}
 
-function showSavedYear() {
     const key = 'userYear';
-
     Telegram.WebApp.CloudStorage.getItem(key, (error, value) => {
         if (error) {
             Telegram.WebApp.showAlert('Ошибка при получении данных: ' + error);
@@ -24,11 +22,8 @@ function showSavedYear() {
             Telegram.WebApp.showAlert('Значение не найдено');
         }
     });
-}
 
-function showSavedDirection() {
     const key = 'userDirection';
-
     Telegram.WebApp.CloudStorage.getItem(key, (error, value) => {
         if (error) {
             Telegram.WebApp.showAlert('Ошибка при получении данных: ' + error);
@@ -39,3 +34,5 @@ function showSavedDirection() {
         }
     });
 }
+
+    
