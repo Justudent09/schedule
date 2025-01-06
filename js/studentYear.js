@@ -51,24 +51,9 @@ function saveItem() {
             Telegram.WebApp.showAlert('Элемент успешно сохранён');
         }
     });      
-    showSavedItem();
     linkButton();
 }
 
 function linkButton() {
     window.location.href = 'studentDirection.html';
-}
-
-function showSavedItem() {
-    const key = 'userYear';
-
-    Telegram.WebApp.CloudStorage.getItem(key, (error, value) => {
-        if (error) {
-            Telegram.WebApp.showAlert('Ошибка при получении данных: ' + error);
-        } else if (value) {
-            Telegram.WebApp.showAlert('Сохранённое значение: ' + value);
-        } else {
-            Telegram.WebApp.showAlert('Значение не найдено');
-        }
-    });
 }
