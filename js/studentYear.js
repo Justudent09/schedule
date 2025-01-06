@@ -47,8 +47,6 @@ function saveItem() {
     Telegram.WebApp.CloudStorage.setItem(key, value, (error, success) => {
         if (error) {
             Telegram.WebApp.showAlert('Ошибка сохранения: ' + error);
-        } else {
-            Telegram.WebApp.showAlert('Элемент успешно сохранён');
         }
     });      
     linkButton();
