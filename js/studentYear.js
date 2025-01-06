@@ -42,13 +42,20 @@ function selectOption(selected) {
 function saveItem() {
     const selectedOption = document.querySelector('.option.selected');
     const key = 'userYear';
-    const value = selectedOption ? selectedOption.getAttribute('data-role') : null;
+    const course = selectedOption ? parseInt(selectedOption.getAttribute('data-role')) : null;
 
-    Telegram.WebApp.CloudStorage.setItem(key, value, (error, success) => {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1;
+
+    const value = currentMonth <= 6 ? currentYear - course : currentYear - course + 1;
+
+    Telegram.WebApp.CloudStorage.setItem(key, value.toString(), (error, success) => {
         if (error) {
             Telegram.WebApp.showAlert('Ошибка сохранения: ' + error);
         }
-    });      
+    });
+
     linkButton();
 }
 
