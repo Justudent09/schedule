@@ -1,38 +1,34 @@
 if (window.Telegram && Telegram.WebApp) {
     Telegram.WebApp.expand();
 
-    const key = 'userRole';
-    Telegram.WebApp.CloudStorage.getItem(key, (error, value) => {
+    const key1 = 'userRole';
+    Telegram.WebApp.CloudStorage.getItem(key1, (error, value) => {
         if (error) {
             window.location.href = 'banner.html';
         } else if (value === '') {
-            
-        } else {
-            Telegram.WebApp.showAlert('Значение не найдено');
+            window.location.href = 'banner.html';
         }
     });
 
-    const key = 'userYear';
-    Telegram.WebApp.CloudStorage.getItem(key, (error, value) => {
+    const key2 = 'userYear';
+    Telegram.WebApp.CloudStorage.getItem(key2, (error, value) => {
         if (error) {
-            Telegram.WebApp.showAlert('Ошибка при получении данных: ' + error);
-        } else if (value) {
-            Telegram.WebApp.showAlert('Сохранённое значение: ' + value);
-        } else {
-            Telegram.WebApp.showAlert('Значение не найдено');
+            window.location.href = 'banner.html';
+        } else if (value ==='') {
+            window.location.href = 'banner.html';
         }
     });
 
-    const key = 'userDirection';
-    Telegram.WebApp.CloudStorage.getItem(key, (error, value) => {
+    const key3 = 'userDirection';
+    Telegram.WebApp.CloudStorage.getItem(key3, (error, value) => {
         if (error) {
-            Telegram.WebApp.showAlert('Ошибка при получении данных: ' + error);
-        } else if (value) {
-            Telegram.WebApp.showAlert('Сохранённое значение: ' + value);
-        } else {
-            Telegram.WebApp.showAlert('Значение не найдено');
+            window.location.href = 'banner.html';
+        } else if (value === '') {
+            window.location.href = 'banner.html';
         }
     });
+    
+    window.location.href = 'schedule.html';
 }
 
     
