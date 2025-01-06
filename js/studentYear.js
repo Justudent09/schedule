@@ -39,9 +39,21 @@ function selectOption(selected) {
     selected.classList.add('selected'); 
 }
 
-document.getElementById('joinButton').addEventListener('click', () => {
+function saveItem() {
     const selectedOption = document.querySelector('.option.selected');
-    const role = selectedOption ? selectedOption.getAttribute('data-role') : null;
+    const key = 'userYear';
+    const value = selectedOption ? selectedOption.getAttribute('data-role') : null;
 
-    window.location.href = 'studentDirection.html';
-});
+    Telegram.WebApp.CloudStorage.setItem(key, value, (error, success) => {
+        if (error) {
+            Telegram.WebApp.showAlert('Ошибка сохранения: ' + error);
+        } else {
+            Telegram.WebApp.showAlert('Элемент успешно сохранён');
+        }
+    });         
+    linkButton();
+}
+
+function linkButton() {
+    window.location.href = 'studentDirect.html';
+}
