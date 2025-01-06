@@ -25,7 +25,7 @@ main {
 
 .oneButton { 
     position: fixed; 
-    bottom: 30vh; 
+    bottom: 40vh; 
     left: 50%; 
     width: 80%; 
     transform: translateX(-50%); 
@@ -40,6 +40,22 @@ main {
 }
 
 .twoButton { 
+    position: fixed; 
+    bottom: 25vh; 
+    left: 50%; 
+    width: 80%; 
+    transform: translateX(-50%); 
+    background-color: var(--tg-theme-button-color); 
+    color: var(--tg-theme-button-text-color); 
+    padding: 17px; 
+    border: none; 
+    border-radius: 5px; 
+    font-size: 16px; 
+    cursor: pointer; 
+    z-index: 1000;
+}
+
+.threeButton { 
     position: fixed; 
     bottom: 10vh; 
     left: 50%; 
