@@ -62,17 +62,24 @@ document.getElementById('joinButton').addEventListener('click', () => {
     if (role) {
         // Проверяем, доступен ли Telegram WebApp API
         if (window.Telegram && Telegram.WebApp) {
+            // Сохраняем роль в CloudStorage
             Telegram.WebApp.CloudStorage.setItem('userRole', role)
                 .then(() => {
+                    // Показываем уведомление об успешном сохранении
                     Telegram.WebApp.showAlert(`Роль "${role}" успешно сохранена.`);
-                    if (role === 'student') {
-                        window.location.href = 'studentYear.html';
-                    } else if (role === 'teacher') {
-                        window.location.href = 'teacher.html';
-                    }
+
+                    // Переход на соответствующую страницу
+                    setTimeout(() => {
+                        if (role === 'student') {
+                            window.location.href = 'studentYear.html';
+                        } else if (role === 'teacher') {
+                            window.location.href = 'teacher.html';
+                        }
+                    }, 500); // Небольшая задержка для корректного отображения alert
                 })
                 .catch((error) => {
                     Telegram.WebApp.showAlert('Ошибка при сохранении роли. Попробуйте снова.');
+                    console.error('Ошибка CloudStorage:', error);
                 });
         } else {
             Telegram.WebApp.showAlert('Telegram WebApp API недоступен. Убедитесь, что приложение запущено в Telegram.');
