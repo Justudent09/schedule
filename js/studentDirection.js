@@ -29,7 +29,7 @@ Telegram.WebApp.CloudStorage.getItem('userYear', (error, value) => {
     }
 
     if (value === '2023') {
-        document.querySelectorAll('.option[data-role="4"], .option[data-role="5"]')
+        document.querySelectorAll('.option[data-role="phr"], .option[data-role="bio"]')
             .forEach(option => option.classList.add('disabled'));
     }
 });
