@@ -83,7 +83,7 @@ function linkButton() {
 }
 
 function showSavedItem() {
-    const key = 'userYear';
+    const key = 'userRole';
 
     Telegram.WebApp.CloudStorage.getItem(key, (error, value) => {
         if (error) {
