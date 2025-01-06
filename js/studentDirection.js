@@ -18,7 +18,7 @@ document.querySelectorAll('.option').forEach(option => {
     option.classList.remove('selected');
 });
 
-const defaultOption = document.querySelector('.option[data-role="1"]');
+const defaultOption = document.querySelector('.option[data-role="pmi"]');
 defaultOption.querySelector('.icon').innerHTML = activeSVG;
 defaultOption.classList.add('selected');
 
