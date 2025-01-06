@@ -2,44 +2,14 @@ if (window.Telegram && Telegram.WebApp) {
     Telegram.WebApp.expand();
 }
 
-function showSavedRole() {
-    const key = 'userRole';
+function deleteItem() {
+    const key1 = '';
 
-    Telegram.WebApp.CloudStorage.getItem(key, (error, value) => {
+    Telegram.WebApp.CloudStorage.removeItem(key, (error, success) => {
         if (error) {
-            Telegram.WebApp.showAlert('Ошибка при получении данных: ' + error);
-        } else if (value) {
-            Telegram.WebApp.showAlert('Сохранённое значение: ' + value);
+            Telegram.WebApp.showAlert('Ошибка удаления: ' + error);
         } else {
-            Telegram.WebApp.showAlert('Значение не найдено');
-        }
-    });
-}
-
-function showSavedYear() {
-    const key = 'userYear';
-
-    Telegram.WebApp.CloudStorage.getItem(key, (error, value) => {
-        if (error) {
-            Telegram.WebApp.showAlert('Ошибка при получении данных: ' + error);
-        } else if (value) {
-            Telegram.WebApp.showAlert('Сохранённое значение: ' + value);
-        } else {
-            Telegram.WebApp.showAlert('Значение не найдено');
-        }
-    });
-}
-
-function showSavedDirection() {
-    const key = 'userDirection';
-
-    Telegram.WebApp.CloudStorage.getItem(key, (error, value) => {
-        if (error) {
-            Telegram.WebApp.showAlert('Ошибка при получении данных: ' + error);
-        } else if (value) {
-            Telegram.WebApp.showAlert('Сохранённое значение: ' + value);
-        } else {
-            Telegram.WebApp.showAlert('Значение не найдено');
+            Telegram.WebApp.showAlert('Элемент успешно удалён');
         }
     });
 }
