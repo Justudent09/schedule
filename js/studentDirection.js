@@ -13,11 +13,6 @@ const activeSVG = `
     <circle cx="10" cy="10" r="5" fill="var(--tg-theme-accent-text-color)"/>
 </svg>`;
 
-document.querySelectorAll('.option').forEach(option => {
-    option.querySelector('.icon').innerHTML = inactiveSVG;
-    option.classList.remove('selected');
-});
-
 const defaultOption = document.querySelector('.option[data-role="pmi"]');
 defaultOption.querySelector('.icon').innerHTML = activeSVG;
 defaultOption.classList.add('selected');
