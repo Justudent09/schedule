@@ -24,17 +24,8 @@ Telegram.WebApp.CloudStorage.getItem('userYear', (error, value) => {
     }
 
     if (value === '2023') {
-        document.querySelectorAll('.option').forEach(option => {
-            option.querySelector('.icon').innerHTML = inactiveSVG;
-            option.classList.remove('selected');
-        });
         document.querySelectorAll('.option[data-role="phr"], .option[data-role="bio"]')
             .forEach(option => option.classList.add('disabled'));
-    }else{
-        document.querySelectorAll('.option').forEach(option => {
-            option.querySelector('.icon').innerHTML = inactiveSVG;
-            option.classList.remove('selected');
-        });
     }
 });
 
