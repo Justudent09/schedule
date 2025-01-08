@@ -90,4 +90,39 @@ main {
     display: none;
 }
 
+/* View Transitions */
+@view-transition {
+    navigation: auto;
+}
+
+/* Анимация для старой страницы (уходящей) */
+::view-transition-old(root) {
+    animation: slideOutLeft 500ms forwards ease-in-out;
+    z-index: 1;
+}
+
+/* Анимация для новой страницы (появляющейся справа) */
+::view-transition-new(root) {
+    animation: slideInRight 500ms forwards ease-in-out;
+    z-index: 2;
+}
+
+/* Определение анимаций */
+@keyframes slideOutLeft {
+    to {
+        transform: translateX(-100%);
+        opacity: 0.5;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0.5;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
 
