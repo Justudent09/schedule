@@ -37,7 +37,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto 20px;
+    margin: 0 auto 10px;
     font-size: 25px;
 }
 
