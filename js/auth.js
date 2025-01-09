@@ -2,12 +2,6 @@ if (window.Telegram && Telegram.WebApp) {
     Telegram.WebApp.expand();
 }
 
-Telegram.WebApp.BackButton.show();
-
-Telegram.WebApp.BackButton.onClick(() => {
-    window.location.href = 'banner.html';
-});
-
 const animationContainer = document.getElementById('animation-container');
 
 if (animationContainer) {
