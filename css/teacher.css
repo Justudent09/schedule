@@ -23,6 +23,16 @@ main {
     touch-action: none;
 }
 
+.animation-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 180px;
+    height: 180px;
+    margin: 20vh auto 0;
+    overflow: hidden;
+}
+
 @view-transition {
     navigation: auto;
 }
