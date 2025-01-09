@@ -33,6 +33,14 @@ main {
     overflow: hidden;
 }
 
+.question {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px;
+    font-size: 25px;
+}
+
 @view-transition {
     navigation: auto;
 }
