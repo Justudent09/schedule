@@ -90,24 +90,20 @@ main {
     display: none;
 }
 
-/* View Transitions */
 @view-transition {
     navigation: auto;
 }
 
-/* Анимация для старой страницы (уходящей) */
 ::view-transition-old(root) {
-    animation: slideOutLeft 300ms forwards ease-in-out;
+    animation: slideOutLeft 150ms forwards ease-in-out;
     z-index: 1;
 }
 
-/* Анимация для новой страницы (появляющейся справа) */
 ::view-transition-new(root) {
-    animation: slideInRight 300ms forwards ease-in-out;
+    animation: slideInRight 150ms forwards ease-in-out;
     z-index: 2;
 }
 
-/* Определение анимаций */
 @keyframes slideOutLeft {
     to {
         transform: translateX(-100%);
