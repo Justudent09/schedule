@@ -76,12 +76,12 @@ main {
 }
 
 ::view-transition-old(root) {
-    animation: slideOutLeft 150ms forwards ease-in-out;
+    animation: slideOutLeft 300ms forwards ease-in-out;
     z-index: 1;
 }
 
 ::view-transition-new(root) {
-    animation: slideInRight 150ms forwards ease-in-out;
+    animation: slideInRight 300ms forwards ease-in-out;
     z-index: 2;
 }
 
