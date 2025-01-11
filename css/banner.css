@@ -51,7 +51,7 @@ main {
 
 .horizontal-scroll {
     width: 100vw;
-    height: 15vh;
+    height: 120px;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory; 
