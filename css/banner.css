@@ -46,7 +46,7 @@ main {
     align-items: center;
     width: 180px;
     height: 180px;
-    margin: 0 auto;
+    margin: 10vw auto 0;
     overflow: hidden;
 }
 
