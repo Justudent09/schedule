@@ -28,10 +28,10 @@ main {
     bottom: 10vw; 
     left: 50%; 
     width: 80%; 
+    height: 60px;
     transform: translateX(-50%); 
     background-color: var(--tg-theme-button-color); 
     color: var(--tg-theme-button-text-color); 
-    padding: 17px; 
     border: none; 
     border-radius: 5px; 
     font-size: 16px; 
