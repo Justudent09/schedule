@@ -19,6 +19,7 @@ body {
 }
 
 main {
+    margin-top: calc(var(--tg-content-safe-area-inset-top) + var(--tg-safe-area-inset-top));
     overflow: hidden;
     touch-action: none;
 }
@@ -45,7 +46,7 @@ main {
     align-items: center;
     width: 180px;
     height: 180px;
-    margin: 20vh auto 0;
+    margin: 0 auto;
     overflow: hidden;
 }
 
