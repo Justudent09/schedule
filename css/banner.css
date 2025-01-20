@@ -22,11 +22,11 @@ main {
     margin-top: calc(var(--tg-content-safe-area-inset-top) + var(--tg-safe-area-inset-top));
     overflow: hidden;
     touch-action: none;
-    padding: 10vw;
 }
 
 .bannerButton { 
     position: fixed; 
+    bottom: 10vw;
     left: 50%; 
     width: 80%; 
     height: 60px;
