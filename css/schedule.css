@@ -20,6 +20,7 @@ body {
 
 main {
     margin-top: calc(var(--tg-content-safe-area-inset-top) + var(--tg-safe-area-inset-top));
+    margin-bottom: var(--tg-safe-area- inset-bottom);
     overflow: hidden;
     touch-action: none;
 }
