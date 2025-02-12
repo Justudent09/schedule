@@ -6,7 +6,7 @@ if (window.Telegram && Telegram.WebApp) {
 const animationContainer = document.getElementById('animation-container');
 
 if (animationContainer) {
-    fetch('assets/DuckEmojiStudent.json', { cache: 'reload' })
+    fetch('assets/DuckEmojiStudent.json', { cache: 'default' })
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
