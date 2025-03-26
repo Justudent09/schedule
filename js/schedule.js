@@ -4,31 +4,22 @@ if (window.Telegram && Telegram.WebApp) {
 }
 
 function deleteItem() {
-    const key1 = 'userRole';
+    Telegram.WebApp.showConfirm("Вы уверены, что хотите выйти?", function (confirmed) {
+        if (confirmed) {
+            const keys = ['userRole', 'userYear', 'userDirection'];
 
-    Telegram.WebApp.CloudStorage.removeItem(key1, (error, success) => {
-        if (error) {
-            Telegram.WebApp.showAlert('Ошибка удаления: ' + error);
-        } 
-    });
+            keys.forEach(key => {
+                Telegram.WebApp.CloudStorage.removeItem(key, (error, success) => {
+                    if (error) {
+                        Telegram.WebApp.showAlert('Ошибка удаления: ' + error);
+                    }
+                });
+            });
 
-    const key2 = 'userYear';
-
-    Telegram.WebApp.CloudStorage.removeItem(key2, (error, success) => {
-        if (error) {
-            Telegram.WebApp.showAlert('Ошибка удаления: ' + error);
+            linkButton();
+        } else {
         }
     });
-
-    const key3 = 'userDirection';
-
-    Telegram.WebApp.CloudStorage.removeItem(key3, (error, success) => {
-        if (error) {
-            Telegram.WebApp.showAlert('Ошибка удаления: ' + error);
-        }
-    });
-
-    linkButton();
 }
 
 function linkButton() {
