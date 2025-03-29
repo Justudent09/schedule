@@ -5,7 +5,7 @@ if (window.Telegram && Telegram.WebApp) {
 }
 
 function deleteItem() {
-    Telegram.WebApp.showConfirm("Выйти из аккаунта?", function (confirmed) {
+    Telegram.WebApp.showConfirm("Вы точно хотите выйти?", function (confirmed) {
         if (confirmed) {
             const keys = ['userRole', 'userYear', 'userDirection'];
 
