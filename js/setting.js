@@ -6,9 +6,8 @@ if (window.Telegram && Telegram.WebApp) {
 }
 
 Telegram.WebApp.onEvent('backButtonClicked', function() { 
-        window.location.href = 'schedule.html';       
-    });
-}
+    window.location.href = 'schedule.html';       
+});
 
 function deleteItem() {
     Telegram.WebApp.showConfirm("Выйти из аккаунта?", function (confirmed) {
