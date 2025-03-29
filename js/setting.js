@@ -5,8 +5,8 @@ if (window.Telegram && Telegram.WebApp) {
     Telegram.WebApp.SettingsButton.hide();
 }
 
-Telegram.WebApp.onEvent('backButtonClicked', function() { 
-    window.location.href = 'schedule.html';       
+Telegram.WebApp.BackButton.onClick(function(){ 
+    window.location.href = 'schedule.html'; 
 });
 
 function deleteItem() {
