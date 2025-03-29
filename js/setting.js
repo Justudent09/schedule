@@ -1,8 +1,10 @@
 if (window.Telegram && Telegram.WebApp) {
-    Telegram.WebApp.expand();
-    Telegram.WebApp.lockOrientation();
-    Telegram.WebApp.BackButton.show();
-    Telegram.WebApp.SettingsButton.hide();
+    Telegram.WebApp.onEvent("ready", function () {
+        Telegram.WebApp.expand();
+        Telegram.WebApp.lockOrientation();
+        Telegram.WebApp.BackButton.show();
+        Telegram.WebApp.SettingsButton.hide();
+    });
 }
 
 Telegram.WebApp.BackButton.onClick(function(){ 
