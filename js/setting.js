@@ -4,10 +4,6 @@ if (window.Telegram && Telegram.WebApp) {
     Telegram.WebApp.SettingsButton.hide();
 }
 
-Telegram.WebApp.BackButton.onClick(function(){ 
-    window.location.href = 'schedule.html'; 
-});
-
 function deleteItem() {
     Telegram.WebApp.showConfirm("Выйти из аккаунта?", function (confirmed) {
         if (confirmed) {
