@@ -1,7 +1,7 @@
 if (window.Telegram && Telegram.WebApp) {
     Telegram.WebApp.expand();
     Telegram.WebApp.lockOrientation();
-    Telegram.WebApp.SettingButton.show();
+    Telegram.WebApp.SettingsButton.show();
 }
 
 Telegram.WebApp.onEvent('settingsButtonClicked', function() { 
