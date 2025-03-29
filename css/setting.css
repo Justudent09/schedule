@@ -31,7 +31,7 @@ main {
     left: 50%; 
     width: 80%; 
     transform: translateX(-50%); 
-    background-color: var(--tg-theme-button-color); 
+    background-color: red; 
     color: var(--tg-theme-button-text-color); 
     padding: 17px; 
     border: none; 
