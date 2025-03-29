@@ -2,7 +2,6 @@ if (window.Telegram && Telegram.WebApp) {
     Telegram.WebApp.expand();
     Telegram.WebApp.lockOrientation();
     Telegram.WebApp.SettingsButton.show();
-    
 }
 
 function deleteItem() {
