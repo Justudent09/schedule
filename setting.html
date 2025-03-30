@@ -7,11 +7,32 @@
     <title>Setting</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/schedule.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
 </head>
 <body>
     <main>
-        <button class="threeButton" onclick="deleteItem()">Выйти</button>
+        <div class="animation-container" id="animation-container"></div>
+        <div class="block" style="color: var(--tg-theme-accent-text-color); padding-bottom: 0;">
+            Профиль
+        </div>
+        <div class="block">
+            <i class="fa-regular fa-user"></i> Статус <div class="info">Студент</div>
+        </div>
+        <div class="line"></div>
+        <div class="block">
+            <i class="fa-regular fa-calendar"></i> Год поступления <div class="info">2023</div>
+        </div>
+        <div class="line"></div>
+        <div class="block">
+            <i class="fa-regular fa-clone"></i> Направление <div class="info">ПМИ</div>
+        </div>
+        <button class="threeButton" onclick="deleteItem()">
+            Выход
+        </button>
+        <div class="block" style="color: var(--tg-theme-hint-color); background-color: var(--tg-theme-secondary-bg-color); font-size: 14px;">
+            Нажмите "выход" и зарегистрируйтесь заново, чтобы поменять ваш статус, направление или год поступления
+        </div>
     </main>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="js/schedule.js"></script>
