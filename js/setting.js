@@ -35,7 +35,7 @@ function linkButton() {
 const animationContainer = document.getElementById('animation-container');
 
 if (animationContainer) {
-    fetch('assets/DuckEmojiStudent.json', { cache: 'default' })
+    fetch('assets/DuckEmojiProfile.json', { cache: 'default' })
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
