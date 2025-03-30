@@ -44,7 +44,7 @@ main {
 .line {
     background: linear-gradient(to right, var(--tg-theme-bg-color) 70px, var(--tg-theme-secondary-bg-color) 50px);
     width: 100%;
-    height: 0.5px;
+    height: 0.7px;
 }
 
 .threeButton { 
