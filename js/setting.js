@@ -5,6 +5,10 @@ if (window.Telegram && Telegram.WebApp) {
     Telegram.WebApp.BackButton.show();
 }
 
+Telegram.WebApp.BackButton.onClick(function(){ 
+    window.location.href = 'schedule.html'; 
+});
+
 function deleteItem() {
     Telegram.WebApp.showConfirm("Вы точно хотите выйти?", function (confirmed) {
         if (confirmed) {
