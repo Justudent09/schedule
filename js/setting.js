@@ -14,7 +14,7 @@ if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.CloudStorage.getItem(item.key, (error, value) => {
             const element = document.getElementById(item.elementId);
             
-            if (key === "userRole") {
+            if (item.key === "userRole") {
                 switch (value) {
                     case "student":
                         element.innerHTML = "Студент";
@@ -23,8 +23,7 @@ if (window.Telegram && Telegram.WebApp) {
                         element.innerHTML = "Препод";
                         break;
                 }
-            }
-            if (key === "userDirection") {
+            }else if (item.key === "userDirection") {
                 switch (value) {
                     case "pmi": 
                         element.innerHTML = "ПМИ";
