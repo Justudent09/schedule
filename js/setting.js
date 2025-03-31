@@ -23,7 +23,7 @@ if (window.Telegram && Telegram.WebApp) {
                         element.innerHTML = "Препод";
                         break;
                 }
-            }else if (item.key === "userDirection") {
+            } else if (item.key === "userDirection") {
                 switch (value) {
                     case "pmi": 
                         element.innerHTML = "ПМИ";
