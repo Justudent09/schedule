@@ -13,11 +13,29 @@ if (window.Telegram && Telegram.WebApp) {
     items.forEach(item => {
         Telegram.WebApp.CloudStorage.getItem(item.key, (error, value) => {
             const element = document.getElementById(item.elementId);
-            if (error) {
-                console.error(`Ошибка при получении ${item.key}:`, error);
-                element.innerHTML = `Ошибка загрузки ${item.key}`;
-            } else {
-                element.innerHTML = value || `${item.key} не задано`;
+            element.innerHTML = value || `${item.key} не задано`;
+            if (key === "userRole") {
+                switch (value) {
+                    case "student":
+                        element.innerHTML = "Студент";
+                        break;
+                    case "teacher":
+                        element.innerHTML = "Препод";
+                }
+            }
+            if (key === "userDirection") {
+                switch (value) {
+                    case "pmi": 
+                        element.innerHTML = "ПМИ";
+                    case "mng": 
+                        element.innerHTML = "Менеджмент";
+                    case "jur": 
+                        element.innerHTML = "Юриспруденция";
+                    case "phr": 
+                        element.innerHTML = "Фармация";
+                    case "bio": 
+                        element.innerHTML = "Биотехнология";
+                }
             }
         });
     });
