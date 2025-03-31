@@ -13,7 +13,7 @@ if (window.Telegram && Telegram.WebApp) {
     items.forEach(item => {
         Telegram.WebApp.CloudStorage.getItem(item.key, (error, value) => {
             const element = document.getElementById(item.elementId);
-            element.innerHTML = value || `${item.key} не задано`;
+            
             if (key === "userRole") {
                 switch (value) {
                     case "student":
@@ -21,21 +21,30 @@ if (window.Telegram && Telegram.WebApp) {
                         break;
                     case "teacher":
                         element.innerHTML = "Препод";
+                        break;
                 }
             }
             if (key === "userDirection") {
                 switch (value) {
                     case "pmi": 
                         element.innerHTML = "ПМИ";
+                        break;
                     case "mng": 
                         element.innerHTML = "Менеджмент";
+                        break;
                     case "jur": 
                         element.innerHTML = "Юриспруденция";
+                        break;
                     case "phr": 
                         element.innerHTML = "Фармация";
+                        break;
                     case "bio": 
                         element.innerHTML = "Биотехнология";
+                        break;
                 }
+            }
+            else {
+                element.innerHTML = value;
             }
         });
     });
