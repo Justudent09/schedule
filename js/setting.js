@@ -41,8 +41,7 @@ if (window.Telegram && Telegram.WebApp) {
                         element.innerHTML = "Биотехнология";
                         break;
                 }
-            }
-            else {
+            } else {
                 element.innerHTML = value;
             }
         });
