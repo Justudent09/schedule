@@ -11,16 +11,16 @@ if (window.Telegram && Telegram.WebApp) {
     ];
 
     items.forEach(item => {
-    Telegram.WebApp.CloudStorage.getItem(item.key, (error, value) => {
-      const element = document.getElementById(item.elementId);
-      if (error) {
-        console.error(`Ошибка при получении ${item.key}:`, error);
-        element.innerHTML = `Ошибка загрузки ${item.key}`;
-      } else {
-        element.innerHTML = value || `${item.key} не задано`;
-      }
+        Telegram.WebApp.CloudStorage.getItem(item.key, (error, value) => {
+            const element = document.getElementById(item.elementId);
+            if (error) {
+                console.error(`Ошибка при получении ${item.key}:`, error);
+                element.innerHTML = `Ошибка загрузки ${item.key}`;
+            } else {
+                element.innerHTML = value || `${item.key} не задано`;
+            }
+        });
     });
-  });
 }
 
 Telegram.WebApp.BackButton.onClick(function(){ 
