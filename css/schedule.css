@@ -24,11 +24,12 @@ main {
     margin-bottom: var(--tg-safe-area-inset-bottom);
     overflow: hidden;
     touch-action: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .test {
-    display: flex;
-    margin: auto;
     font-size: 20px; 
 }
 
