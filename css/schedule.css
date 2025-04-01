@@ -27,6 +27,7 @@ main {
 }
 
 .test {
+    display: flex;
     margin: auto;
     font-size: 20px; 
 }
