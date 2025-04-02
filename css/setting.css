@@ -52,7 +52,7 @@ main {
 }
 
 .line {
-    background: linear-gradient(to right, var(--tg-theme-bg-color) 16vw, var(--tg-theme-secondary-bg-color) 50px);
+    background: linear-gradient(to right, var(--tg-theme-bg-color) 16vw, var(--tg-theme-secondary-bg-color) 74vw);
     margin-left: 5vw;
     width: 90vw;
     height: 0.7px;
