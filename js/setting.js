@@ -53,7 +53,7 @@ if (window.Telegram && Telegram.WebApp) {
                         element.innerHTML = course + "-ый";
                         break;
                     case 2, 6: 
-                        element.innerHTML = course + "-ой";
+                        element.innerHTML = course;
                         break;
                     case 3: 
                         element.innerHTML = course + "-ий";
