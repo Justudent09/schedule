@@ -82,7 +82,6 @@ function deleteItem() {
             });
 
             linkButton();
-        } else {
         }
     });
 }
