@@ -30,7 +30,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 90%;
+    width: 90vw;
     margin: 0 auto 0;
     overflow: hidden;
 }
@@ -39,7 +39,7 @@ main {
     margin-left: 5vw;
     width: 90vw;
     background-color: var(--tg-theme-bg-color);
-    padding: 3vw 5vw;
+    padding: 4vw 6vw;
     display: flex;
     align-items: center;
 }
@@ -61,10 +61,10 @@ main {
 .threeButton { 
     margin-left: 5vw;
     width: 90vw; 
-    margin-top: 3vw;
+    margin-top: 4vw;
     background-color: var(--tg-theme-bg-color); 
     color: var(--tg-theme-destructive-text-color); 
-    padding: 3vw 5vw; 
+    padding: 4vw 6vw; 
     border: none; 
     font-size: 16px; 
     cursor: pointer; 
