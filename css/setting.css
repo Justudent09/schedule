@@ -41,6 +41,7 @@ main {
     padding: 15px 25px;
     display: flex;
     align-items: center;
+    box-sizing: border-box;
 }
 
 .block i {
