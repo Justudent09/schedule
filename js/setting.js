@@ -42,7 +42,12 @@ if (window.Telegram && Telegram.WebApp) {
                         break;
                 }
             } else {
-                element.innerHTML = value;
+                const currentDate = new Date();
+                const currentYear = currentDate.getFullYear();
+                const currentMonth = currentDate.getMonth() + 1;
+
+                const course = currentMonth <= 6 ? currentYear - value : currentYear - value + 1;
+                element.innerHTML = course;
             }
         });
     });
