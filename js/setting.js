@@ -49,13 +49,13 @@ if (window.Telegram && Telegram.WebApp) {
                 const course = currentMonth <= 6 ? currentYear - value : currentYear - value + 1;
 
                 switch (course) {
-                    case "1", "4", "5": 
+                    case 1, 4, 5: 
                         element.innerHTML = course + "-ый";
                         break;
-                    case "2", "6": 
+                    case 2, 6: 
                         element.innerHTML = course + "-ой";
                         break;
-                    case "3": 
+                    case 3: 
                         element.innerHTML = course + "-ий";
                         break;
                 }
