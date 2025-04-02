@@ -5,6 +5,7 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    box-sizing: border-box;
 }
 
 body {
@@ -15,7 +16,6 @@ body {
     overflow: hidden;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     font-family: 'Inter', sans-serif;
 }
 
@@ -41,7 +41,6 @@ main {
     padding: 15px 25px;
     display: flex;
     align-items: center;
-    box-sizing: border-box;
 }
 
 .block i {
