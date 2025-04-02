@@ -45,14 +45,14 @@ main {
 }
 
 .block i {
-    margin-right: 5vw;
+    margin-right: 6vw;
     width: 4vw;
     text-align: center;
     color: var(--tg-theme-hint-color); 
 }
 
 .line {
-    background: linear-gradient(to right, var(--tg-theme-bg-color) 70px, var(--tg-theme-secondary-bg-color) 50px);
+    background: linear-gradient(to right, var(--tg-theme-bg-color) 16vw, var(--tg-theme-secondary-bg-color) 50px);
     margin-left: 5vw;
     width: 90vw;
     height: 0.7px;
