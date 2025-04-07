@@ -29,16 +29,16 @@ if (window.Telegram && Telegram.WebApp) {
                         element.innerHTML = "ПМИ";
                         break;
                     case "mng": 
-                        element.innerHTML = "Менеджмент";
+                        element.innerHTML = "Мен.";
                         break;
                     case "jur": 
-                        element.innerHTML = "Юриспруденция";
+                        element.innerHTML = "Юр.";
                         break;
                     case "phr": 
-                        element.innerHTML = "Фармация";
+                        element.innerHTML = "Фарм.";
                         break;
                     case "bio": 
-                        element.innerHTML = "Биотехнология";
+                        element.innerHTML = "Био.";
                         break;
                 }
             } else {
