@@ -2,8 +2,12 @@ if (window.Telegram && Telegram.WebApp) {
     Telegram.WebApp.expand();
     Telegram.WebApp.lockOrientation();
     Telegram.WebApp.SettingsButton.hide();
-    Telegram.WebApp.BackButton.hide();
+    Telegram.WebApp.BackButton.show();
 }
+
+Telegram.WebApp.BackButton.onClick(function(){ 
+    window.location.href = 'studentYear.html'; 
+});
 
 const inactiveSVG = `
 <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
