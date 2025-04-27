@@ -1,9 +1,3 @@
-main {
-    margin-top: calc(var(--tg-content-safe-area-inset-top) + var(--tg-safe-area-inset-top));
-    overflow: hidden;
-    touch-action: none;
-}
-
 .animation-container {
     display: flex;
     justify-content: center;
