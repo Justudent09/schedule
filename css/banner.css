@@ -11,8 +11,8 @@ main {
     width: 80%; 
     height: 60px;
     transform: translateX(-50%); 
-    background-color: var(--tg-theme-button-color); 
-    color: var(--tg-theme-button-text-color); 
+    background-color: --button-color; 
+    color: --button-text-color; 
     border: none; 
     border-radius: 10px; 
     font-size: 16px; 
@@ -69,7 +69,7 @@ main {
 
 .scroll-item div {
     line-height: 1.2;
-    color: var(--tg-theme-hint-color);
+    color: --hint-color);
 }
 
 #app {
@@ -85,7 +85,7 @@ main {
 .button {
     width: 4px;
     height: 4px;
-    background-color: var(--tg-theme-hint-color);
+    background-color: --hint-color;
     border-radius: 2px;
     cursor: pointer;
     transition: 0.3s ease width;
@@ -98,7 +98,7 @@ main {
 .button.active {
     width: 12px;
     cursor: auto; 
-    background-color: var(--tg-theme-accent-text-color);
+    background-color: --accent-text-color;
 }
 
 @view-transition {
