@@ -1,9 +1,3 @@
-main {
-    margin-top: calc(var(--tg-content-safe-area-inset-top) + var(--tg-safe-area-inset-top));
-    overflow: hidden;
-    touch-action: none;
-}
-
 .authButton { 
     position: fixed; 
     bottom: 10vw; 
