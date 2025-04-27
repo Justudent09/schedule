@@ -11,8 +11,8 @@ main {
     width: 80%; 
     height: 60px;
     transform: translateX(-50%); 
-    background-color: --button-color; 
-    color: --button-text-color; 
+    background-color: var(--button-color); 
+    color: var(--button-text-color); 
     border: none; 
     border-radius: 10px; 
     font-size: 16px; 
@@ -69,7 +69,7 @@ main {
 
 .scroll-item div {
     line-height: 1.2;
-    color: --hint-color);
+    color: var(--hint-color);
 }
 
 #app {
@@ -85,7 +85,7 @@ main {
 .button {
     width: 4px;
     height: 4px;
-    background-color: --hint-color;
+    background-color: var(--hint-color);
     border-radius: 2px;
     cursor: pointer;
     transition: 0.3s ease width;
@@ -98,7 +98,7 @@ main {
 .button.active {
     width: 12px;
     cursor: auto; 
-    background-color: --accent-text-color;
+    background-color: var(--accent-text-color);
 }
 
 @view-transition {
