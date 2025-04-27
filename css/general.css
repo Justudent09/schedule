@@ -21,7 +21,7 @@
 }
 
 body {
-    background-color: --bg-color;
+    background-color: --secondary-bg-color;
     color: --text-color;
     color-scheme: --color-scheme;
     touch-action: none;
