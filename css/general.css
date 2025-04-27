@@ -8,6 +8,7 @@
     --color-scheme: var(--tg-color-scheme);
     --button-color: var(--tg-theme-button-color);
     --button-text-color: var(--tg-theme-button-text-color);
+    --subtitle-text-color: var(--tg-theme-subtitle-text-color);
 }
 
 * {
