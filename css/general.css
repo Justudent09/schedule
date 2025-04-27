@@ -1,3 +1,13 @@
+:root {
+    --bg-color: var(--tg-theme-secondary-bg-color);
+    --secondary-bg-color: var(--tg-theme-bg-color);
+    --text-color: var(--tg-theme-text-color);
+    --hint-color: var(--tg-theme-hint-color); 
+    --accent-text-color: var(--tg-theme-accent-text-color);
+    --destructive-text-color: var(--tg-theme-destructive-text-color);
+    --color-scheme: var(--tg-color-scheme);
+}
+
 * {
     -webkit-tap-highlight-color: transparent;
     -webkit-user-select: none;
@@ -9,9 +19,9 @@
 }
 
 body {
-    background-color: var(--tg-theme-secondary-bg-color);
-    color: var(--tg-theme-text-color);
-    color-scheme: var(--tg-color-scheme);
+    background-color: --bg-color;
+    color: --text-color;
+    color-scheme: --color-scheme;
     touch-action: none;
     overflow: hidden;
     margin: 0;
