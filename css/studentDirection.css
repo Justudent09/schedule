@@ -8,8 +8,8 @@ main {
     position: fixed; 
     bottom: 10vw; 
     right: 10vw;
-    background-color: var(--tg-theme-button-color);
-    color: var(--tg-theme-button-text-color);
+    background-color: var(--button-color);
+    color: var(--button-text-color);
     border: none;
     border-radius: 50%;
     width: 60px;
@@ -44,7 +44,7 @@ main {
     align-items: center;
     gap: 20px;
     cursor: pointer;
-    color: var(--tg-theme-hint-color);
+    color: var(--hint-color);
     font-size: 16px;
 }
 
