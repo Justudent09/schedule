@@ -21,9 +21,9 @@
 }
 
 body {
-    background-color: --secondary-bg-color;
-    color: --text-color;
-    color-scheme: --color-scheme;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    color-scheme: var(--color-scheme);
     touch-action: none;
     overflow: hidden;
     margin: 0;
