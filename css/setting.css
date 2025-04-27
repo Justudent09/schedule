@@ -17,7 +17,7 @@ main {
 .block {
     margin-left: 5vw;
     width: 90vw;
-    background-color: var(--tg-theme-bg-color);
+    background-color: var(--bg-color);
     padding: 4vw 6vw;
     display: flex;
     align-items: center;
@@ -27,11 +27,11 @@ main {
     margin-right: 6vw;
     width: 4vw;
     text-align: center;
-    color: var(--tg-theme-hint-color); 
+    color: var(--hint-color); 
 }
 
 .line {
-    background: linear-gradient(to right, var(--tg-theme-bg-color) 16vw, var(--tg-theme-secondary-bg-color) 1px);
+    background: linear-gradient(to right, var(--bg-color) 16vw, var(--secondary-bg-color) 1px);
     margin-left: 5vw;
     width: 90vw;
     height: 0.7px;
@@ -41,8 +41,8 @@ main {
     margin-left: 5vw;
     width: 90vw; 
     margin-top: 4vw;
-    background-color: var(--tg-theme-bg-color); 
-    color: var(--tg-theme-destructive-text-color); 
+    background-color: var(--bg-color); 
+    color: var(--destructive-text-color); 
     padding: 4vw 6vw; 
     border: none; 
     font-size: 16px; 
@@ -56,7 +56,7 @@ main {
 .info {
     display: flex;
     margin-left: auto;
-    color: var(--tg-theme-accent-text-color);
+    color: var(--accent-text-color);
 }
 
 @view-transition {
