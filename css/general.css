@@ -6,6 +6,8 @@
     --accent-text-color: var(--tg-theme-accent-text-color);
     --destructive-text-color: var(--tg-theme-destructive-text-color);
     --color-scheme: var(--tg-color-scheme);
+    --button-color: var(--tg-theme-button-color);
+    --button-text-color: var(--tg-theme-button-text-color);
 }
 
 * {
