@@ -17,7 +17,7 @@ main {
 .block {
     margin-left: 5vw;
     width: 90vw;
-    background-color: var(--bg-color);
+    background-color: var(--secondary-bg-color);
     padding: 4vw 6vw;
     display: flex;
     align-items: center;
@@ -31,7 +31,7 @@ main {
 }
 
 .line {
-    background: linear-gradient(to right, var(--bg-color) 16vw, var(--secondary-bg-color) 1px);
+    background: linear-gradient(to right, var(--secondary-bg-color) 16vw, var(--bg-color) 1px);
     margin-left: 5vw;
     width: 90vw;
     height: 0.7px;
@@ -41,7 +41,7 @@ main {
     margin-left: 5vw;
     width: 90vw; 
     margin-top: 4vw;
-    background-color: var(--bg-color); 
+    background-color: var(--secondary-bg-color); 
     color: var(--destructive-text-color); 
     padding: 4vw 6vw; 
     border: none; 
