@@ -31,3 +31,9 @@ body {
     padding: 0;
     font-family: 'Inter', sans-serif;
 }
+
+main {
+    margin-top: calc(var(--tg-content-safe-area-inset-top) + var(--tg-safe-area-inset-top));
+    overflow: hidden;
+    touch-action: none;
+}
