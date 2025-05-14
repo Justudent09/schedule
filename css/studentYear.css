@@ -68,7 +68,6 @@
     navigation: auto;
 }
 
-/* Анимация для перехода ВПЕРЁД */
 ::view-transition-old(root) {
     animation: slideOutLeft 300ms forwards ease-out;
     z-index: 1;
@@ -77,15 +76,6 @@
 ::view-transition-new(root) {
     animation: slideInRight 300ms forwards ease-out;
     z-index: 2;
-}
-
-/* Анимация для перехода НАЗАД - зеркальная */
-html::view-transition-old(root):is([style*='navigation-type: back']) {
-    animation: slideOutRight 300ms forwards ease-out;
-}
-
-html::view-transition-new(root):is([style*='navigation-type: back']) {
-    animation: slideInLeft 300ms forwards ease-out;
 }
 
 @keyframes slideOutLeft {
@@ -98,24 +88,6 @@ html::view-transition-new(root):is([style*='navigation-type: back']) {
 @keyframes slideInRight {
     from {
         transform: translateX(100%);
-        opacity: 0.5;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-@keyframes slideOutRight {
-    to {
-        transform: translateX(100%);
-        opacity: 0.5;
-    }
-}
-
-@keyframes slideInLeft {
-    from {
-        transform: translateX(-100%);
         opacity: 0.5;
     }
     to {
