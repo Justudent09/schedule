@@ -15,35 +15,3 @@
     margin: 0 auto 10px;
     font-size: 25px;
 }
-
-@view-transition {
-    navigation: auto;
-}
-
-::view-transition-old(root) {
-    animation: slideOutLeft 300ms forwards ease-out;
-    z-index: 1;
-}
-
-::view-transition-new(root) {
-    animation: slideInRight 300ms forwards ease-out;
-    z-index: 2;
-}
-
-@keyframes slideOutLeft {
-    to {
-        transform: translateX(-100%);
-        opacity: 0.5;
-    }
-}
-
-@keyframes slideInRight {
-    from {
-        transform: translateX(100%);
-        opacity: 0.5;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
