@@ -12,13 +12,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
 </head>
 <body>
-    <div class="preloader">
-        <div class="preloader__row">
-            <div class="preloader__item"></div>
-            <div class="preloader__item"></div>
-        </div>
-    </div>
-
     <main>
         <div class="animation-container" id="animation-container"></div>
         <div class="block" style="color: var(--accent-text-color); padding-bottom: 0; padding-top: 6vw; border-radius: 10px 10px 0 0;">
@@ -42,15 +35,6 @@
             Нажмите "Выход" и зарегистрируйтесь заново, чтобы поменять ваш статус, направление или курс
         </div>
     </main>
-    <script>
-        window.onload = function () {
-    document.body.classList.add('loaded_hiding');
-    window.setTimeout(function () {
-      document.body.classList.add('loaded');
-      document.body.classList.remove('loaded_hiding');
-            }, 500);
-        }
-    </script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="js/setting.js"></script>
 </body>
