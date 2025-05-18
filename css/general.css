@@ -11,6 +11,15 @@
     --subtitle-text-color: var(--tg-theme-subtitle-text-color);
 }
 
+@media (prefers-color-scheme: dark) {
+    @supports (padding-top: env(safe-area-inset-top)) {
+        :root {
+            --bg-color: var(--tg-theme-bg-color);
+            --secondary-bg-color: var(--tg-theme-secondary-bg-color);
+        }
+    }
+}
+
 * {
     -webkit-tap-highlight-color: transparent;
     -webkit-user-select: none;
