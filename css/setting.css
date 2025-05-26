@@ -1,7 +1,3 @@
-main {
-    margin-bottom: var(--tg-safe-area-inset-bottom);
-}
-
 .animation-container {
     display: flex;
     justify-content: center;
