@@ -7,6 +7,7 @@ main {
 }
 
 .test {
+
     color: var(--hint-color); 
     font-size: 20px; 
 }
