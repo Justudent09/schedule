@@ -7,10 +7,6 @@ main {
 }
 
 .test {
-    margin: 10vw;
-    height: 100%;
-    width: 100%;
-    background-color: var(--tg-theme-section-bg-color);
     color: var(--hint-color); 
     font-size: 20px; 
 }
