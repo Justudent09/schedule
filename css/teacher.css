@@ -2,8 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 180px;
-    height: 180px;
+    width: 60vw;
+    height: auto;
     margin: 10vw auto 0;
     overflow: hidden;
 }
