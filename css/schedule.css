@@ -35,16 +35,18 @@
     transition: background-color 0.3s ease;
 }
 
+.news {
+    position: absolute;
+    margin: 5vw;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 1vw 2vw;
+    z-index: 10;
+    color: var(--text-color);
+}
+
 @media (prefers-color-scheme: dark) {
     .news {
-        position: absolute;
-        margin: 5vw;
-        font-weight: bold;
-        border-radius: 8px;
-        padding: 1vw 2vw;
-        z-index: 10;
-        color: white;
-    
         background: rgba(0, 0, 0, 0.4); 
         backdrop-filter: blur(10px); 
         -webkit-backdrop-filter: blur(10px); 
@@ -54,14 +56,6 @@
 
 @media (prefers-color-scheme: light) {
     .news {
-        position: absolute;
-        margin: 5vw;
-        font-weight: bold;
-        border-radius: 8px;
-        padding: 1vw 2vw;
-        z-index: 10;
-        color: white;
-    
         background: rgba(255, 255, 255, 0.2); 
         backdrop-filter: blur(10px); 
         -webkit-backdrop-filter: blur(10px); 
