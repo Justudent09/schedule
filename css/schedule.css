@@ -58,6 +58,35 @@
     line-height: 1.2;
 }
 
+#app {
+    position: absolute;
+    height: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+    display: flex;
+    gap: 6px;
+    z-index: 10;
+    margin-top: calc(40vw + 2.5vw - 3px);
+}
+
+.button {
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: 0.3s ease width;
+}
+
+.button:last-child {
+    margin-right: 0;
+}
+
+.button.active {
+    width: 18px;
+    cursor: auto; 
+}
+
 .news {
     position: absolute;
     margin: 5vw;
@@ -75,10 +104,23 @@
         -webkit-backdrop-filter: blur(10px); 
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
+    
+    .button {
+        background: rgba(0, 0, 0, 0.4); 
+        backdrop-filter: blur(10px); 
+        -webkit-backdrop-filter: blur(10px); 
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
 }
 
 @media (prefers-color-scheme: light) {
     .news {
+        background: rgba(255, 255, 255, 0.2); 
+        backdrop-filter: blur(10px); 
+        -webkit-backdrop-filter: blur(10px); 
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .button {
         background: rgba(255, 255, 255, 0.2); 
         backdrop-filter: blur(10px); 
         -webkit-backdrop-filter: blur(10px); 
