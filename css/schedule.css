@@ -8,7 +8,7 @@
     overflow-wrap: break-word;
     align-items: end;
     font-weight: bold;
-    color: white;
+    color: var(--text-color);
 }
 
 .animation-container {
@@ -48,7 +48,6 @@
     height: 45vw; 
     display: flex;
     flex-direction: row;    
-    font-size: 16px;
     scroll-snap-align: start; 
     scroll-snap-stop: always; 
     box-sizing: border-box; 
