@@ -11,7 +11,8 @@ Telegram.WebApp.SettingsButton.onClick(function(){
 
 const animations = [
     'assets/DuckEmojiPodcast.json',
-    'assets/DuckEmojiGaming.json'
+    'assets/DuckEmojiGaming.json',
+    'assets/DuckEmojiUpdate.json'
 ];
     
 animations.forEach((animationUrl, index) => {
