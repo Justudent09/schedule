@@ -2,7 +2,7 @@
     display: flex;
     height: 45vw;
     width: 45vw;
-    padding: 5vw;
+    padding: 5vw 0 5vw 5vw;
     white-space: normal; 
     word-wrap: break-word; 
     overflow-wrap: break-word;
