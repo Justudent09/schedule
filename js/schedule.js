@@ -40,3 +40,20 @@ animations.forEach((animationUrl, index) => {
         console.warn(`Контейнер ${containerId} не найден`);
     }
 });
+
+const scrollContainer = document.getElementById('horizontal-scroll');
+const scrollItems = document.querySelectorAll('.scroll-item');
+const buttons = document.querySelectorAll('#app .button');
+
+if (scrollContainer) {
+    scrollContainer.addEventListener('scroll', () => {
+        const containerWidth = scrollContainer.offsetWidth;
+        const scrollLeft = scrollContainer.scrollLeft;
+        const index = Math.round(scrollLeft / containerWidth);
+
+        scrollItems.forEach((item, i) => item.classList.toggle('active', i === index));
+        buttons.forEach((button, i) => button.classList.toggle('active', i === index));
+    });
+} else {
+    Telegram.WebApp.showAlert('⚠️ Контейнер прокрутки не найден');
+}
