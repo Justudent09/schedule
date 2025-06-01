@@ -186,7 +186,7 @@
     width: 60vw;
     height: auto;
     margin-top: calc(var(--tg-content-safe-area-inset-top) + var(--tg-safe-area-inset-top));
-    margin-left: 20vw;
+    margin-left: 10vw;
 }
 
 @view-transition {
