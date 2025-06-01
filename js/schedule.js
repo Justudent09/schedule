@@ -91,9 +91,6 @@ function openFullscreen(index) {
                     animationData: animationData
                 });
             });
-
-    const bgColor = scrollItems[index].style.backgroundColor;
-    fullscreenContent.style.backgroundColor = bgColor;
     
     fullscreenOverlay.classList.add('show');
     setTimeout(() => {
