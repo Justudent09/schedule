@@ -120,6 +120,8 @@ scrollItems.forEach((item, index) => {
 });
 
 function openFullscreen(index) {
+    const scrollItemAnim = document.querySelectorAll('.animation-container')[index];
+    scrollItemAnim.innerHTML = ''; 
     document.getElementById('fullscreen-text').innerHTML = fullDetails[index];
             
     fetch(animations[index], { cache: 'default' })
