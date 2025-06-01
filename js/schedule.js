@@ -69,7 +69,6 @@ const fullscreenOverlay = document.getElementById('fullscreen-overlay');
 const fullscreenContent = document.getElementById('fullscreen-content');
 const fullscreenAnimation = document.getElementById('fullscreen-animation');
 const fullscreenText = document.getElementById('fullscreen-text');
-const closeBtn = document.getElementById('close-btn');
 
 scrollItems.forEach((item, index) => {
     item.addEventListener('click', () => {
@@ -102,7 +101,6 @@ function openFullscreen(index) {
     }, 10);
 }
 
-closeBtn.addEventListener('click', closeFullscreen);
 fullscreenOverlay.addEventListener('click', (e) => {
     if (e.target === fullscreenOverlay) {
         closeFullscreen();
