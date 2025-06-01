@@ -106,7 +106,5 @@ fullscreenOverlay.addEventListener('click', (e) => {
 
 function closeFullscreen() {
     fullscreenContent.classList.remove('show');
-    setTimeout(() => {
-        fullscreenOverlay.classList.remove('show');
-    }, 300);
+    fullscreenOverlay.classList.remove('show');
 }
