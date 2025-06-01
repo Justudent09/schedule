@@ -14,6 +14,12 @@ const animations = [
     'assets/DuckEmojiGaming.json',
     'assets/DuckEmojiUpdate.json'
 ];
+
+const fullDetails = [
+    "Полная информация о лайфхаках для зачётной недели. Здесь может быть подробный текст с советами от отличников, как эффективно подготовиться к экзаменам и успешно сдать все зачёты.",
+    "Подробности о киберспортивном турнире по CS2 в вашем вузе. Узнайте даты проведения, правила участия и призы для победителей. Регистрация уже открыта!",
+    "Все новости о глобальном обновлении 47Par. Новые функции, исправления ошибок и улучшения производительности. Обновите приложение сейчас!"
+];
     
 animations.forEach((animationUrl, index) => {
     const containerId = `animation-container-${index + 1}`;
@@ -57,4 +63,55 @@ if (scrollContainer) {
     });
 } else {
     Telegram.WebApp.showAlert('⚠️ Контейнер прокрутки не найден');
+}
+
+const fullscreenOverlay = document.getElementById('fullscreen-overlay');
+const fullscreenContent = document.getElementById('fullscreen-content');
+const fullscreenAnimation = document.getElementById('fullscreen-animation');
+const fullscreenText = document.getElementById('fullscreen-text');
+const closeBtn = document.getElementById('close-btn');
+
+scrollItems.forEach((item, index) => {
+    item.addEventListener('click', () => {
+        openFullscreen(index);
+    });
+});
+
+function openFullscreen(index) {
+    fullscreenText.textContent = fullDetails[index];
+            
+    fetch(animations[index], { cache: 'default' })
+        .then(response => response.json())
+        .then(animationData => {
+            fullscreenAnimation.innerHTML = '';
+                lottie.loadAnimation({
+                    container: fullscreenAnimation,
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    animationData: animationData
+                });
+            });
+
+    const bgColor = scrollItems[index].style.backgroundColor;
+    fullscreenContent.style.backgroundColor = bgColor;
+    
+    fullscreenOverlay.classList.add('show');
+    setTimeout(() => {
+        fullscreenContent.classList.add('show');
+    }, 10);
+}
+
+closeBtn.addEventListener('click', closeFullscreen);
+fullscreenOverlay.addEventListener('click', (e) => {
+    if (e.target === fullscreenOverlay) {
+        closeFullscreen();
+    }
+});
+
+function closeFullscreen() {
+    fullscreenContent.classList.remove('show');
+    setTimeout(() => {
+        fullscreenOverlay.classList.remove('show');
+    }, 300);
 }
