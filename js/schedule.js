@@ -123,7 +123,7 @@ function openFullscreen(index) {
     fullscreenOverlay.dataset.currentIndex = index;
 
     const scrollItemAnim = document.querySelectorAll('.animation-container')[index];
-    scrollItemAnim.style.display = 'none'; 
+    scrollItemAnim.style.opacity = '0'; 
     document.getElementById('fullscreen-text').innerHTML = fullDetails[index];
             
     fetch(animations[index], { cache: 'default' })
@@ -148,7 +148,7 @@ function openFullscreen(index) {
 fullscreenOverlay.addEventListener('click', () => {
     const index = fullscreenOverlay.dataset.currentIndex;
     const scrollItemAnim = document.querySelectorAll('.animation-container')[index];
-    scrollItemAnim.style.display = 'flex';
+    scrollItemAnim.style.opacity = '1';
     
     closeFullscreen();
 });
