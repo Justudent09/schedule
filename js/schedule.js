@@ -155,6 +155,15 @@ fullscreenOverlay.addEventListener('click', () => {
 
 function closeFullscreen() {
     fullscreenAnimation.innerHTML = '';
+    
     fullscreenContent.classList.remove('show');
-    fullscreenOverlay.classList.remove('show');
+    setTimeout(() => {
+        fullscreenOverlay.classList.remove('show');
+        
+        const index = fullscreenOverlay.dataset.currentIndex;
+        if (index !== undefined) {
+            const scrollItemAnim = document.querySelectorAll('.animation-container')[index];
+            scrollItemAnim.style.opacity = '1';
+        }
+    }, 10);
 }
