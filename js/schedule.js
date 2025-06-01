@@ -141,10 +141,8 @@ function openFullscreen(index) {
     }, 10);
 }
 
-fullscreenOverlay.addEventListener('click', (e) => {
-    if (e.target === fullscreenOverlay) {
-        closeFullscreen();
-    }
+fullscreenOverlay.addEventListener('click', () => {
+    closeFullscreen();
 });
 
 function closeFullscreen() {
