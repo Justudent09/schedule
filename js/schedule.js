@@ -154,6 +154,7 @@ fullscreenOverlay.addEventListener('click', () => {
 });
 
 function closeFullscreen() {
+    fullscreenAnimation.innerHTML = '';
     fullscreenContent.classList.remove('show');
     fullscreenOverlay.classList.remove('show');
 }
