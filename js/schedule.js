@@ -166,6 +166,9 @@ scrollItems.forEach((item, index) => {
 function openFullscreen(index) {
     fullscreenOverlay.dataset.currentIndex = index;
 
+    const overlay = document.getElementById('fullscreen-overlay');
+    overlay.scrollTop = 0;
+
     const scrollItemAnim = document.querySelectorAll('.animation-container')[index];
     scrollItemAnim.style.opacity = '0'; 
     document.getElementById('fullscreen-text').innerHTML = fullDetails[index];
@@ -203,9 +206,6 @@ function closeFullscreen() {
     fullscreenContent.classList.remove('show');
     setTimeout(() => {
         fullscreenOverlay.classList.remove('show');
-
-        const overlay = document.getElementById('fullscreen-overlay');
-        overlay.scrollTop = 0;
         
         const index = fullscreenOverlay.dataset.currentIndex;
         if (index !== undefined) {
