@@ -203,6 +203,9 @@ function closeFullscreen() {
     fullscreenContent.classList.remove('show');
     setTimeout(() => {
         fullscreenOverlay.classList.remove('show');
+
+        const overlay = document.getElementById('fullscreen-overlay');
+        overlay.scrollTop = 0;
         
         const index = fullscreenOverlay.dataset.currentIndex;
         if (index !== undefined) {
@@ -210,7 +213,4 @@ function closeFullscreen() {
             scrollItemAnim.style.opacity = '1';
         }
     }, 10);
-
-    const overlay = document.getElementById('fullscreen-overlay');
-    overlay.scrollTop = 0;
 }
