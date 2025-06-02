@@ -164,6 +164,8 @@ scrollItems.forEach((item, index) => {
 });
 
 function openFullscreen(index) {
+    fullscreenContent.scrollTop = 0;
+
     fullscreenOverlay.dataset.currentIndex = index;
 
     const scrollItemAnim = document.querySelectorAll('.animation-container')[index];
