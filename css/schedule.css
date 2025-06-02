@@ -163,12 +163,17 @@
     width: 80vw;
     color: var(--text-color);
     position: relative;
-    transform: scale(0.9);
-    transition: transform 0.5s ease;
+    transform: translateY(20px);
+    opacity: 0; 
+    transition: 
+        transform 0.4s cubic-bezier(0.2, 0.8, 0.4, 1),
+        opacity 0.3s ease;
+    will-change: transform, opacity; 
 }
-        
+
 .fullscreen-content.show {
-    transform: scale(1);
+    transform: translateY(0);
+    opacity: 1;
 }
         
 .fullscreen-overlay.show {
