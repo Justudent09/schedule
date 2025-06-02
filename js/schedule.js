@@ -211,8 +211,6 @@ function closeFullscreen() {
         }
     }, 10);
 
-    setTimeout(() => {
-        const overlay = document.getElementById('fullscreen-overlay');
-        overlay.scrollTop = 0;
-    }, 300);
+    const overlay = document.getElementById('fullscreen-overlay');
+    overlay.scrollTop = 0;
 }
