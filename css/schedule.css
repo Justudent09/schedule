@@ -184,7 +184,7 @@
         
 .fullscreen-animation {
     width: 60vw;
-    height: auto;
+    height: 60vw;
     margin-top: calc(var(--tg-content-safe-area-inset-top) + var(--tg-safe-area-inset-top));
     margin-left: 10vw;
 }
