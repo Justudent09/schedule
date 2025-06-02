@@ -164,7 +164,7 @@ scrollItems.forEach((item, index) => {
 });
 
 function openFullscreen(index) {
-    fullscreenContent.scrollTop = 0;
+    fullscreenOverlay.scrollTop = 0;
 
     fullscreenOverlay.dataset.currentIndex = index;
 
