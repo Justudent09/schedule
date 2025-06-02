@@ -211,6 +211,10 @@ function closeFullscreen() {
         }
     }, 10);
 
+    fullScreenTopZero();
+}
+
+function fullScreenTopZero() {
     const overlay = document.getElementById('fullscreen-overlay');
     overlay.scrollTop = 0;
 }
