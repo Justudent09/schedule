@@ -218,5 +218,5 @@ function fullScreenTopZero() {
     setTimeout(() => {
         const overlay = document.getElementById('fullscreen-overlay');
         overlay.scrollTop = 0;
-    }, 1000);
+    }, 300);
 }
