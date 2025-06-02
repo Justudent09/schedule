@@ -210,4 +210,7 @@ function closeFullscreen() {
             scrollItemAnim.style.opacity = '1';
         }
     }, 10);
+
+    const overlay = document.getElementById('fullscreen-overlay');
+    overlay.scrollTop = 0;
 }
