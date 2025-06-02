@@ -164,7 +164,7 @@ scrollItems.forEach((item, index) => {
 });
 
 function openFullscreen(index) {
-    fullscreenOverlay.scrollTo({ top: 0, behavior: 'instant' });
+    fullscreenContent.scrollTo({ top: 0, behavior: 'instant' });
 
     fullscreenOverlay.dataset.currentIndex = index;
 
