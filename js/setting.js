@@ -68,6 +68,7 @@ if (window.Telegram && Telegram.WebApp) {
 }
 
 Telegram.WebApp.BackButton.onClick(function(){ 
+    document.documentElement.classList.add("back-transition");
     window.location.href = 'schedule.html'; 
 });
 
