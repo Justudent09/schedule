@@ -6,7 +6,6 @@ if (window.Telegram && Telegram.WebApp) {
 }
 
 Telegram.WebApp.SettingsButton.onClick(function(){ 
-    document.documentElement.classList.remove("back-transition");
     window.location.href = 'setting.html'; 
 });
 
