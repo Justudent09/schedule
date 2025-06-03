@@ -58,22 +58,12 @@
 }
 
 ::view-transition-old(root) {
-    animation: slideOutLeft 300ms ease-out forwards;
+    animation: slideOutLeft 300ms forwards ease-out;
     z-index: 1;
 }
 
 ::view-transition-new(root) {
-    animation: slideInRight 300ms ease-out forwards;
-    z-index: 2;
-}
-
-.back-transition::view-transition-old(root) {
-    animation: slideOutRight 300ms ease-out forwards;
-    z-index: 1;
-}
-
-.back-transition::view-transition-new(root) {
-    animation: slideInLeft 300ms ease-out forwards;
+    animation: slideInRight 300ms forwards ease-out;
     z-index: 2;
 }
 
@@ -83,14 +73,5 @@
 
 @keyframes slideInRight {
     from { transform: translateX(100%); opacity: 0.5; }
-    to { transform: translateX(0); opacity: 1; }
-}
-
-@keyframes slideOutRight {
-    to { transform: translateX(100%); opacity: 0.5; }
-}
-
-@keyframes slideInLeft {
-    from { transform: translateX(-100%); opacity: 0.5; }
     to { transform: translateX(0); opacity: 1; }
 }
