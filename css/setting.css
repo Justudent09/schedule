@@ -1,3 +1,7 @@
+main {
+    overflow-y: auto;
+}
+
 .animation-container {
     display: flex;
     justify-content: center;
