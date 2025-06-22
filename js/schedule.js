@@ -16,9 +16,9 @@ const shortTitles = [
 ];
 
 const newsColors = [
+    'color-mix(in srgb, var(--accent-text-color) 50%, var(--destructive-text-color) 50%)',
     'var(--accent-text-color)',
-    'var(--destructive-text-color)', 
-    'color-mix(in srgb, var(--accent-text-color) 50%, var(--destructive-text-color) 50%)' 
+    'var(--destructive-text-color)'
 ];
 
 const animations = [
