@@ -15,6 +15,12 @@ const shortTitles = [
     "47Par: глобальное обновление вышло!"
 ];
 
+const newsColors = [
+    'var(--accent-text-color)',
+    'var(--destructive-text-color)', 
+    'color-mix(in srgb, var(--accent-text-color) 50%, var(--destructive-text-color) 50%)' 
+];
+
 const animations = [
     'assets/DuckEmojiPodcast.json',
     'assets/DuckEmojiGaming.json',
@@ -149,6 +155,10 @@ const buttons = document.querySelectorAll('#app .button');
 const textBlocks = document.querySelectorAll('.scroll-item .text');
 textBlocks.forEach((block, index) => {
     block.textContent = shortTitles[index];
+});
+
+scrollItems.forEach((item, index) => {
+    item.style.backgroundColor = newsColors[index];
 });
 
 if (scrollContainer) {
