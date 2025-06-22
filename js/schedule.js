@@ -9,6 +9,12 @@ Telegram.WebApp.SettingsButton.onClick(function(){
     window.location.href = 'setting.html'; 
 });
 
+const shortTitles = [
+    "Зачётная неделя: лайфхаки от отличников.",
+    "Киберспорт в вузе: CS2 соберёт лучших игроков.",
+    "47Par: глобальное обновление вышло!"
+];
+
 const animations = [
     'assets/DuckEmojiPodcast.json',
     'assets/DuckEmojiGaming.json',
@@ -108,6 +114,11 @@ const fullDetails = [
 
     `Все новости о глобальном обновлении 47Par. Новые функции, исправления ошибок и улучшения производительности. Обновите приложение сейчас!`
 ];
+
+const textBlocks = document.querySelectorAll('.scroll-item .text');
+textBlocks.forEach((block, index) => {
+    block.textContent = shortTitles[index];
+});
     
 animations.forEach((animationUrl, index) => {
     const containerId = `animation-container-${index + 1}`;
