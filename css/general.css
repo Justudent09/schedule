@@ -34,7 +34,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     color-scheme: var(--color-scheme);
-    touch-action: none;
+    touch-action: pan-y;
     overflow: hidden;
     overflow-y: auto;
     margin: 0;
