@@ -114,11 +114,6 @@ const fullDetails = [
 
     `Все новости о глобальном обновлении 47Par. Новые функции, исправления ошибок и улучшения производительности. Обновите приложение сейчас!`
 ];
-
-const textBlocks = document.querySelectorAll('.scroll-item .text');
-textBlocks.forEach((block, index) => {
-    block.textContent = shortTitles[index];
-});
     
 animations.forEach((animationUrl, index) => {
     const containerId = `animation-container-${index + 1}`;
@@ -150,6 +145,11 @@ animations.forEach((animationUrl, index) => {
 const scrollContainer = document.getElementById('horizontal-scroll');
 const scrollItems = document.querySelectorAll('.scroll-item');
 const buttons = document.querySelectorAll('#app .button');
+
+const textBlocks = document.querySelectorAll('.scroll-item .text');
+textBlocks.forEach((block, index) => {
+    block.textContent = shortTitles[index];
+});
 
 if (scrollContainer) {
     scrollContainer.addEventListener('scroll', () => {
