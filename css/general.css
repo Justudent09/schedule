@@ -36,6 +36,7 @@ body {
     color-scheme: var(--color-scheme);
     touch-action: none;
     overflow: hidden;
+    overflow-y: auto;
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
