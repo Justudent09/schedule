@@ -45,5 +45,5 @@ body {
 main {
     margin-top: calc(var(--tg-content-safe-area-inset-top) + var(--tg-safe-area-inset-top));
     overflow: hidden;
-    touch-action: none;
+    touch-action: pan-y;
 }
