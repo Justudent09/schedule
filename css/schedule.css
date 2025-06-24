@@ -105,8 +105,7 @@
 }
 
 .block {
-    margin-left: 5vw;
-    width: 90vw;
+    width: 100%;
     background-color: var(--secondary-bg-color);
     padding: 4vw 6vw;
     display: flex;
