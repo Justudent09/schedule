@@ -104,7 +104,14 @@
     margin-top: 5vw;
 }
 
-
+.block {
+    margin-left: 5vw;
+    width: 90vw;
+    background-color: var(--secondary-bg-color);
+    padding: 4vw 6vw;
+    display: flex;
+    align-items: center;
+}
 
 .fullscreen-overlay {
     position: fixed;
