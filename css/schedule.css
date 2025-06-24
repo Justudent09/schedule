@@ -98,6 +98,14 @@
     color: var(--text-color);
 }
 
+.schedule {
+    width: 90vw;
+    margin-left: 5vw;
+    margin-top: 5vw;
+}
+
+
+
 .fullscreen-overlay {
     position: fixed;
     top: 0;
