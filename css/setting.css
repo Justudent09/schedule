@@ -34,7 +34,7 @@
 .button { 
     margin-left: 5vw;
     width: 90vw; 
-    margin-top: 4vw;
+    margin-top: 5vw;
     background-color: var(--secondary-bg-color); 
     color: var(--destructive-text-color); 
     padding: 4vw 6vw; 
