@@ -28,7 +28,7 @@
     background: linear-gradient(to right, var(--secondary-bg-color) 16vw, var(--bg-color) 1px);
     margin-left: 5vw;
     width: 90vw;
-    height: 0.7px;
+    height: 0.8px;
 }
 
 .button { 
