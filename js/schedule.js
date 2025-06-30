@@ -73,8 +73,6 @@ scrollItems.forEach((item, index) => {
 });
 
 function openFullscreen(index) {
-    document.body.style.overflow = 'hidden';      
-    document.body.style.touchAction = 'none';
 
     fullscreenOverlay.dataset.currentIndex = index;
 
@@ -112,8 +110,6 @@ fullscreenOverlay.addEventListener('click', () => {
 });
 
 function closeFullscreen() {
-    document.body.style.overflow = ''; 
-    document.body.style.touchAction = '';
 
     fullscreenAnimation.innerHTML = '';
     
