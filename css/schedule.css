@@ -19,6 +19,16 @@
     padding: 5vw;
 }
 
+.mood {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+    height: 50vw;
+    margin: 0 auto 0;
+    overflow: hidden;
+}
+
 .horizontal-scroll {
     width: 90vw;
     height: 45vw;
