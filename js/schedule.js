@@ -36,28 +36,6 @@ animations.forEach((animationUrl, index) => {
     }
 });
 
-const mood = document.getElementById('mood');
-
-if (mood) {
-    fetch('assets/DuckEmojiSkeleton.json', { cache: 'default' })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(animationData => {
-            lottie.loadAnimation({
-                container: mood,
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
-                animationData: animationData
-            });
-        })
-} else {
-    Telegram.WebApp.showAlert('⚠️ Контейнер анимации не найден');
-}
 
 const scrollContainer = document.getElementById('horizontal-scroll');
 const scrollItems = document.querySelectorAll('.scroll-item');
