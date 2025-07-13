@@ -110,6 +110,7 @@
 
 .schedule {
     width: 100vw;
+    height: 100vh;
     margin-top: 5vw;
     background-color: var(--secondary-bg-color);
     border-radius: 6vw 6vw 0 0;
