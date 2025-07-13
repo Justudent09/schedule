@@ -36,22 +36,6 @@ animations.forEach((animationUrl, index) => {
     }
 });
 
-const scheduleData = [
-    { lesson: "Математический анализ", teacher: "Иванов И.И.", classroom: "101" },
-    { lesson: "Физика", teacher: "Петров П.П.", classroom: "205" },
-    { lesson: "Химия", teacher: "Сидоров С.С.", classroom: "310" },
-    { lesson: "Литература", teacher: "Кузнецова Е.В.", classroom: "412" },
-    { lesson: "История", teacher: "Смирнов А.А.", classroom: "208" }
-];
-
-for (let i = 0; i < 5; i++) {
-    if (scheduleData[i]) {
-        document.getElementById(`lesson${i+1}-name`).textContent = scheduleData[i].lesson;
-        document.getElementById(`teacher${i+1}-name`).textContent = scheduleData[i].teacher;
-        document.getElementById(`classroom${i+1}`).textContent = scheduleData[i].classroom;
-    }
-}
-
 const mood = document.getElementById('mood');
 
 if (mood) {
