@@ -112,16 +112,9 @@
     width: 100vw;
     height: 100vh;
     margin-top: 5vw;
+    padding: 5vw;
     background-color: var(--secondary-bg-color);
     border-radius: 6vw 6vw 0 0;
-}
-
-.block {
-    width: 100%;
-    background-color: var(--secondary-bg-color);
-    padding: 4vw 6vw;
-    display: flex;
-    align-items: center;
 }
 
 .fullscreen-overlay {
