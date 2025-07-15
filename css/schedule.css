@@ -161,7 +161,7 @@
     }
 
     .arrow-rect {
-        fill: #454545;
+        fill: color-mix(in srgb, var(--secondary-bg-color) 70%, var(--bg-color) 30%);
     }
 }
 
@@ -187,7 +187,7 @@
     }
     
     .arrow-rect {
-        fill: #AAAAAA;
+        fill: color-mix(in srgb, var(--secondary-bg-color) 70%, var(--bg-color) 30%);
     }
 }
         
