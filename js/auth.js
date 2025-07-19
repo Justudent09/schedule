@@ -30,13 +30,13 @@ if (animationContainer) {
 
 const inactiveSVG = `
 <svg width="4vw" height="4vw" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="10" cy="10" r="9" fill="none" stroke="var(--tg-theme-hint-color)" stroke-width="2"/>
+    <circle cx="2vw" cy="2vw" r="1.8vw" fill="none" stroke="var(--tg-theme-hint-color)" stroke-width="0.4vw"/>
 </svg>`;
 
 const activeSVG = `
 <svg width="4vw" height="4vw" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="10" cy="10" r="9" fill="none" stroke="var(--tg-theme-accent-text-color)" stroke-width="2"/>
-    <circle cx="10" cy="10" r="5" fill="var(--tg-theme-accent-text-color)"/>
+    <circle cx="2vw" cy="2vw" r="1.8vw" fill="none" stroke="var(--tg-theme-accent-text-color)" stroke-width="0.4vw"/>
+    <circle cx="2vw" cy="2vw" r="1vw" fill="var(--tg-theme-accent-text-color)"/>
 </svg>`;
 
 document.querySelectorAll('.option').forEach(option => {
