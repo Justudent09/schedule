@@ -6,10 +6,10 @@
     color: var(--button-text-color);
     border: none;
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    padding: 15px;
-    font-size: 24px;
+    width: 15vw;
+    height: 15vw;
+    padding: 4vw;
+    font-size: 6vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,7 +20,7 @@
 .container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 4vw;
     margin: 10vw auto 0;
     width: 70vw;
 }
@@ -39,22 +39,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto 20px;
-    font-size: 25px;
+    margin: 0 auto 4vw;
+    font-size: 6vw;
+    font-weight: bold;
 }
 
 .option {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 4vw;
     cursor: pointer;
     color: var(--hint-color);
-    font-size: 16px;
+    font-size: 4vw;
 }
 
 .icon svg {
-    width: 20px;
-    height: 20px;
+    width: 4vw;
+    height: 4vw;
     display: block;
     vertical-align: middle;
     margin: auto 0;
