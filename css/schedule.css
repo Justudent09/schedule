@@ -19,16 +19,6 @@
     padding: 5vw;
 }
 
-.mood {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50vw;
-    height: 50vw;
-    margin: 0 auto 0;
-    overflow: hidden;
-}
-
 .horizontal-scroll {
     width: 90vw;
     height: 45vw;
@@ -124,6 +114,34 @@
 
 .arrow-rect {
     fill: var(--bg-color);
+}
+
+.schedule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+        
+.schedule-text {
+    font-size: 6vw;
+    font-weight: bold;
+}
+        
+.date {
+    margin-top: 1vw;
+    font-size: 3vw;
+    font-weight: bold;
+    color: var(--hint-color);
+}
+
+.animation-mood {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15vw;
+    height: 15vw;
+    margin-right: 0;
+    overflow: hidden;
 }
 
 .fullscreen-overlay {
