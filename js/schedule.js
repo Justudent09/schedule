@@ -125,3 +125,41 @@ function closeFullscreen() {
         }
     }, 10);
 }
+
+
+function formatDate(date) {
+            const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+            const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+            
+            const dayOfWeek = days[date.getDay()];
+            const dayOfMonth = date.getDate();
+            const month = months[date.getMonth()];
+            
+            return `${dayOfWeek}, ${dayOfMonth} ${month}`;
+        }
+        
+        document.getElementById('current-date').textContent = formatDate(new Date());
+        
+        
+const animationMood = document.getElementById('animation-mood');
+
+if (animationMood) {
+    fetch('https://raw.githubusercontent.com/Justudent09/schedule/refs/heads/main/assets/DuckEmojiSkeleton.json', { cache: 'default' })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(animationData => {
+            lottie.loadAnimation({
+                container: animationMood,
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                animationData: animationData
+            });
+        })
+} else {
+    Telegram.WebApp.showAlert('⚠️ Контейнер анимации не найден');
+}
