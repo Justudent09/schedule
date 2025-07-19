@@ -29,12 +29,12 @@ if (animationContainer) {
 }
 
 const inactiveSVG = `
-<svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="4vw" height="4vw" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="10" cy="10" r="9" fill="none" stroke="var(--tg-theme-hint-color)" stroke-width="2"/>
 </svg>`;
 
 const activeSVG = `
-<svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="4vw" height="4vw" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="10" cy="10" r="9" fill="none" stroke="var(--tg-theme-accent-text-color)" stroke-width="2"/>
     <circle cx="10" cy="10" r="5" fill="var(--tg-theme-accent-text-color)"/>
 </svg>`;
