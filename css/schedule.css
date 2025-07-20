@@ -145,6 +145,50 @@
     overflow: hidden;
 }
 
+.schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5vw;
+}
+
+.lesson-block {
+    display: flex;
+    align-items: center;
+}
+
+.auditorium {
+    width: 15vw;
+    height: 15vw;
+    border-radius: 7.5vw;
+    background-color: var(--bg-color);
+    padding: 1vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--hint-color);
+    font-size: 4vw;
+    font-weight: bold;
+}
+
+.subject-name {
+    font-size: 4.5vw;
+    font-weight: bold;
+}
+
+.lecturer {
+    font-size: 2vw;
+    font-weight: bold;
+    color: var(--hint-color);
+}
+
+.time-lesson {
+    display: flex;
+    justify-content: center;
+    color: var(--hint-color);
+    font-size: 4vw;
+    font-weight: bold;
+}
+
 .fullscreen-overlay {
     position: fixed;
     top: 0;
