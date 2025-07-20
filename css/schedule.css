@@ -156,20 +156,6 @@
     align-items: center;
 }
 
-.auditorium {
-    width: 15vw;
-    height: 15vw;
-    border-radius: 7.5vw;
-    background-color: var(--bg-color);
-    padding: 1vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--hint-color);
-    font-size: 4vw;
-    font-weight: bold;
-}
-
 .subject-name {
     font-size: 4.5vw;
     font-weight: bold;
@@ -187,6 +173,50 @@
     color: var(--hint-color);
     font-size: 4vw;
     font-weight: bold;
+}
+
+.auditorium {
+    width: 15vw;
+    height: 15vw;
+    border-radius: 50%;
+    background-color: var(--bg-color);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4vw;
+    font-weight: bold;
+    overflow: hidden;
+}
+
+.auditorium .aud-text {
+    position: absolute;
+    color: var(--hint-color);
+}
+
+.circle-progress {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.circle-progress .bg {
+    fill: none;
+    stroke: var(--bg-color);
+    stroke-width: 3;
+}
+
+.circle-progress .fg {
+    fill: none;
+    stroke: var(--accent-color);
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+.auditorium:has(.checkmark) {
+    background-color: var(--accent-color);
 }
 
 .fullscreen-overlay {
