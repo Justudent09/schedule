@@ -5,28 +5,13 @@ if (window.Telegram && Telegram.WebApp) {
     Telegram.WebApp.BackButton.hide();
 }
 
-const animationContainer = document.getElementById('animation-container');
-
-if (animationContainer) {
-    fetch('assets/DuckEmojiStudent.json', { cache: 'default' })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(animationData => {
-            lottie.loadAnimation({
-                container: animationContainer,
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
-                animationData: animationData
-            });
-        })
-} else {
-    Telegram.WebApp.showAlert('⚠️ Контейнер анимации не найден');
-}
+lottie.loadAnimation({
+    container: document.getElementById('animation-container'),
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: 'assets/DuckEmojiStudent.json'
+});
 
 const scrollContainer = document.getElementById('horizontal-scroll');
 const scrollItems = document.querySelectorAll('.scroll-item');
