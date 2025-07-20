@@ -1,3 +1,11 @@
+lottie.loadAnimation({
+    container: document.getElementById('animation-mood'),
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: 'assets/DuckEmojiSkeleton.json'
+});
+
 const scheduleData = [
     {
         room: "2Л1",
