@@ -210,13 +210,13 @@
 
 .circle-progress .fg {
     fill: none;
-    stroke: var(--accent-color);
+    stroke: var(--accent-text-color);
     stroke-width: 3;
     stroke-linecap: round;
 }
 
 .auditorium:has(.checkmark) {
-    background-color: var(--accent-color);
+    background-color: var(--accent-text-color);
 }
 
 .fullscreen-overlay {
