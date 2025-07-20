@@ -5,28 +5,13 @@ if (window.Telegram && Telegram.WebApp) {
     Telegram.WebApp.BackButton.hide();
 }
 
-const animationContainer = document.getElementById('animation-container');
-
-if (animationContainer) {
-    fetch('assets/DuckEmojiWay.json', { cache: 'default' })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(animationData => {
-            lottie.loadAnimation({
-                container: animationContainer,
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
-                animationData: animationData
-            });
-        })
-} else {
-    Telegram.WebApp.showAlert('⚠️ Контейнер анимации не найден');
-}
+lottie.loadAnimation({
+    container: document.getElementById('animation-container'),
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: 'assets/DuckEmojiWay.json'
+});
 
 const inactiveSVG = `
 <svg width="6vw" height="6vw" fill="none" xmlns="http://www.w3.org/2000/svg">
