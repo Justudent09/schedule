@@ -139,27 +139,3 @@ function formatDate(date) {
         }
         
         document.getElementById('current-date').textContent = formatDate(new Date());
-        
-        
-const animationMood = document.getElementById('animation-mood');
-
-if (animationMood) {
-    fetch('assets/DuckEmojiSkeleton.json', { cache: 'default' })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(animationData => {
-            lottie.loadAnimation({
-                container: animationMood,
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
-                animationData: animationData
-            });
-        })
-} else {
-    Telegram.WebApp.showAlert('⚠️ Контейнер анимации не найден');
-}
