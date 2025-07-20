@@ -144,7 +144,7 @@ function formatDate(date) {
 const animationMood = document.getElementById('animation-mood');
 
 if (animationMood) {
-    fetch('https://raw.githubusercontent.com/Justudent09/schedule/refs/heads/main/assets/DuckEmojiSkeleton.json', { cache: 'default' })
+    fetch('assets/DuckEmojiSkeleton.json', { cache: 'default' })
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
