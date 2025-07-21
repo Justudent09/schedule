@@ -78,19 +78,40 @@ function createLessonBlock(item, index) {
     </div>`;
 }
 
-async function renderSchedule() {
-  try {
-    const scheduleData = await fetchScheduleData();
-    
-    scheduleList.innerHTML = scheduleData.map(createLessonBlock).join("");
-    
-  } catch (error) {
-    console.error("Ошибка рендеринга:", error);
-  }
+lottie.loadAnimation({
+    container: document.getElementById('loader-animation'),
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: 'assets/DuckEmojiLoading.json'
+});
+
+async function renderSchedule(initialLoad = false) {
+    try {
+        if (initialLoad) {
+            document.getElementById('loader').classList.remove('hidden');
+        }
+        
+        const scheduleData = await fetchScheduleData();
+        
+        scheduleList.innerHTML = scheduleData.map(createLessonBlock).join("");
+        
+        if (initialLoad) {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 500);
+        }
+        
+    } catch (error) {
+        console.error("Ошибка рендеринга:", error);
+        if (initialLoad) {
+            document.getElementById('loader').classList.add('hidden');
+        }
+    }
 }
 
 (async function init() {
-  await renderSchedule();
-  
-  setInterval(renderSchedule, 1000);
+    await renderSchedule(true);
+    
+    setInterval(() => renderSchedule(false), 1000);
 })();
