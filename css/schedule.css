@@ -147,19 +147,19 @@
 }
 
 .fade-schedule {
-    height: calc(100vh - 85vw - var(--tg-content-safe-area-inset-top) - var(--tg-safe-area-inset-top));
+    height: calc(100vh - 80vw - var(--tg-content-safe-area-inset-top) - var(--tg-safe-area-inset-top));
     mask-image: linear-gradient(
         to bottom,
         transparent 0%,
-        black 10%,
-        black 90%,
+        black 5vw,
+        black calc(100vh - 85vw - var(--tg-content-safe-area-inset-top) - var(--tg-safe-area-inset-top)),
         transparent 100%
     );
     -webkit-mask-image: linear-gradient(
         to bottom,
         transparent 0%,
-        black 10%,
-        black 90%,
+        black 5vw,
+        black calc(100vh - 85vw - var(--tg-content-safe-area-inset-top) - var(--tg-safe-area-inset-top)),
         transparent 100%
     );
     overflow-y: auto;
@@ -168,7 +168,7 @@
 .schedule-list {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 85vw - var(--tg-content-safe-area-inset-top) - var(--tg-safe-area-inset-top));
+    height: calc(100vh - 80vw - var(--tg-content-safe-area-inset-top) - var(--tg-safe-area-inset-top));
     padding-top: 5vw;
 }
 
