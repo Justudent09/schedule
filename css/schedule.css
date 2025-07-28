@@ -122,7 +122,6 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 5vw;
 }
         
 .schedule-text {
@@ -147,11 +146,30 @@
     overflow: hidden;
 }
 
+.fade-schedule {
+    height: calc(100vh - 85vw - var(--tg-content-safe-area-inset-top) - var(--tg-safe-area-inset-top));
+    mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        black 10%,
+        black 90%,
+        transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        black 10%,
+        black 90%,
+        transparent 100%
+    );
+    overflow-y: auto;
+}
+
 .schedule-list {
     display: flex;
     flex-direction: column;
     height: calc(100vh - 85vw - var(--tg-content-safe-area-inset-top) - var(--tg-safe-area-inset-top));
-    overflow-y: auto;
+    padding-top: 5vw;
 }
 
 .lesson-block {
