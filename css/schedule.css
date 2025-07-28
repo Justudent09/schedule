@@ -168,7 +168,7 @@
 .schedule-list {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 80vw - var(--tg-content-safe-area-inset-top) - var(--tg-safe-area-inset-top));
+    height: auto;
     padding: 5vw 0vw;
 }
 
