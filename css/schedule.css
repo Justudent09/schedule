@@ -110,6 +110,8 @@
 .arrow {
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: 5vw;
 }
 
 .arrow-rect {
@@ -148,7 +150,7 @@
 .schedule-list {
     display: flex;
     flex-direction: column;
-    gap: 5vw;
+    height: calc(100vh - 85vw - var(--tg-content-safe-area-inset-top) - var(--tg-safe-area-inset-top))
     overflow-y: auto;
 }
 
