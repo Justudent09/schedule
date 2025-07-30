@@ -107,6 +107,24 @@
     border-radius: 8vw 8vw 0 0;
 }
 
+.blur-schedule {
+    position: absolute;
+    top: calc(55vw + var(--tg-content-safe-area-inset-top) + var(--tg-safe-area-inset-top));    
+    left: 0;    
+    height: 30vw;
+    width: 100vw;
+    border-radius: 8vw 8vw 0 0;
+    z-index: 10;
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.schedule-top {
+    position: relative;
+    z-index: 10;
+}
+
 .arrow {
     display: flex;
     justify-content: center;
@@ -148,20 +166,6 @@
 
 .fade-schedule {
     height: calc(100vh - 80vw - var(--tg-content-safe-area-inset-top) - var(--tg-safe-area-inset-top));
-    mask-image: linear-gradient(
-        to bottom,
-        transparent 0%,
-        black 5vw,
-        black calc(100vh - 85vw - var(--tg-content-safe-area-inset-top) - var(--tg-safe-area-inset-top)),
-        transparent 100%
-    );
-    -webkit-mask-image: linear-gradient(
-        to bottom,
-        transparent 0%,
-        black 5vw,
-        black calc(100vh - 85vw - var(--tg-content-safe-area-inset-top) - var(--tg-safe-area-inset-top)),
-        transparent 100%
-    );
     overflow-y: auto;
 }
 
