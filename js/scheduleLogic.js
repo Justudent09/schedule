@@ -16,15 +16,15 @@ async function fetchScheduleData() {
         const RANGE = "A:E"; 
 
         const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}!${RANGE}?key=${API_KEY}`;
-
+        
         const response = await fetch(url);
         if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
-
+        
         const data = await response.json();
         if (!data.values || data.values.length < 2) throw new Error("Нет данных в таблице");
-
+        
         const [headers, ...rows] = data.values;
-
+        
         return rows.map(row => ({
             room: row[0] || "",
             subject: row[1] || "",
@@ -32,13 +32,13 @@ async function fetchScheduleData() {
             start: row[3] || "",
             end: row[4] || ""
         }));
-
+        
     } catch (error) {
         console.error("Ошибка загрузки расписания:", error);
     }
 }
 
-function createLessonBlock(item, index) {
+function createLessonBlock(item, index, array) {
     const now = new Date();
     const [startH, startM] = item.start.split(":").map(Number);
     const [endH, endM] = item.end.split(":").map(Number);
@@ -75,7 +75,8 @@ function createLessonBlock(item, index) {
                 <div class="time-lesson">${item.start}</div>
                 <div class="time-lesson">${item.end}</div>
             </div>
-        </div>`;
+        </div>
+        ${index < array.length - 1 ? '<div class="line"></div>' : ''}`;
 }
 
 lottie.loadAnimation({
@@ -91,17 +92,18 @@ async function renderSchedule(initialLoad = false) {
         if (initialLoad) {
             document.getElementById('loader').classList.remove('hidden');
         }
-
+        
         const scheduleData = await fetchScheduleData();
-
-        scheduleList.innerHTML = scheduleData.map(createLessonBlock).join("");
-
+        
+        scheduleList.innerHTML = scheduleData.map((item, index, array) => 
+            createLessonBlock(item, index, array)).join("");
+        
         if (initialLoad) {
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
             }, 500);
         }
-
+        
     } catch (error) {
         console.error("Ошибка рендеринга:", error);
         if (initialLoad) {
@@ -112,6 +114,6 @@ async function renderSchedule(initialLoad = false) {
 
 (async function init() {
     await renderSchedule(true);
-
+    
     setInterval(() => renderSchedule(false), 1000);
 })();
