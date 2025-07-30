@@ -66,6 +66,7 @@ if (scrollContainer) {
 const fullscreenOverlay = document.getElementById('fullscreen-overlay');
 const fullscreenContent = document.getElementById('fullscreen-content');
 const fullscreenAnimation = document.getElementById('fullscreen-animation');
+const fadeElement = document.querySelector('.fade'); 
 
 scrollItems.forEach((item, index) => {
     item.addEventListener('click', () => {
@@ -99,7 +100,7 @@ function openFullscreen(index) {
         fullscreenContent.classList.add('show');
     }, 10);
 
-    fullscreenOverlay.scrollTop = 0;
+    fadeElement.scrollTop = 0;
 }
 
 fullscreenOverlay.addEventListener('click', () => {
