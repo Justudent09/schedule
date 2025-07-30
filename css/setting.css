@@ -25,9 +25,9 @@
 }
 
 .line {
-    background: linear-gradient(to right, var(--secondary-bg-color) 16vw, var(--bg-color) 1px);
-    margin-left: 5vw;
-    width: 90vw;
+    background-color: var(--bg-color);
+    margin-left: 21vw;
+    width: 74vw;
     height: 0.2vw;
 }
 
