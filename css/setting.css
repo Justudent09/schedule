@@ -25,9 +25,9 @@
 }
 
 .line {
-    background-color: var(--bg-color);
-    margin-left: 21vw;
-    width: 74vw;
+    background-color: var(--secondary-bg-color);
+    margin-left: 5vw;
+    width: 16vw;
     height: 0.2vw;
 }
 
