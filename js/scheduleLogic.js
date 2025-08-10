@@ -16,15 +16,15 @@ async function fetchScheduleData() {
         const RANGE = "A:E"; 
 
         const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}!${RANGE}?key=${API_KEY}`;
-        
+
         const response = await fetch(url);
         if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
-        
+
         const data = await response.json();
         if (!data.values || data.values.length < 2) throw new Error("Нет данных в таблице");
-        
+
         const [headers, ...rows] = data.values;
-        
+
         return rows.map(row => ({
             room: row[0] || "",
             subject: row[1] || "",
@@ -32,7 +32,7 @@ async function fetchScheduleData() {
             start: row[3] || "",
             end: row[4] || ""
         }));
-        
+
     } catch (error) {
         console.error("Ошибка загрузки расписания:", error);
     }
@@ -79,41 +79,17 @@ function createLessonBlock(item, index, array) {
         ${index < array.length - 1 ? '<div class="line"></div>' : ''}`;
 }
 
-lottie.loadAnimation({
-    container: document.getElementById('loader-animation'),
-    renderer: 'svg',
-    loop: true,
-    autoplay: true,
-    path: 'assets/DuckEmojiLoading.json'
-});
-
-async function renderSchedule(initialLoad = false) {
+async function renderSchedule() {
     try {
-        if (initialLoad) {
-            document.getElementById('loader').classList.remove('hidden');
-        }
-        
         const scheduleData = await fetchScheduleData();
-        
         scheduleList.innerHTML = scheduleData.map((item, index, array) => 
             createLessonBlock(item, index, array)).join("");
-        
-        if (initialLoad) {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hidden');
-            }, 500);
-        }
-        
     } catch (error) {
         console.error("Ошибка рендеринга:", error);
-        if (initialLoad) {
-            document.getElementById('loader').classList.add('hidden');
-        }
     }
 }
 
 (async function init() {
-    await renderSchedule(true);
-    
-    setInterval(() => renderSchedule(false), 1000);
+    await renderSchedule();
+    setInterval(renderSchedule, 1000);
 })();
