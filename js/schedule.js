@@ -129,14 +129,14 @@ function closeFullscreen() {
 
 
 function formatDate(date) {
-            const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-            const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
-            
-            const dayOfWeek = days[date.getDay()];
-            const dayOfMonth = date.getDate();
-            const month = months[date.getMonth()];
-            
-            return `${dayOfWeek}, ${dayOfMonth} ${month}`;
-        }
-        
-        document.getElementById('current-date').textContent = formatDate(new Date());
+    const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+    const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+
+    const dayOfWeek = days[date.getDay()];
+    const dayOfMonth = date.getDate();
+    const month = months[date.getMonth()];
+
+    return `${dayOfWeek}, ${dayOfMonth} ${month}`;
+}
+
+document.getElementById('current-date').textContent = formatDate(new Date());
