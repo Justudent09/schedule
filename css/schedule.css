@@ -110,8 +110,6 @@
 .schedule-top {
     position: relative;
     z-index: 10;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
     padding: 5vw;
     margin: -5vw -5vw 0 -5vw;
     border-radius: 8vw 8vw 0 0;
@@ -277,6 +275,12 @@
         -webkit-backdrop-filter: blur(20px); 
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
+
+    .schedule-top {
+        background: rgba(0, 0, 0, 0.4); 
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
 }
 
 @media (prefers-color-scheme: light) {
@@ -298,6 +302,12 @@
         backdrop-filter: blur(20px); 
         -webkit-backdrop-filter: blur(20px); 
         box-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.1);
+    }
+
+    .schedule-top {
+        background: rgba(255, 255, 255, 0.2); 
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
     }
 }
 
