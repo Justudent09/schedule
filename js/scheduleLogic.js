@@ -16,7 +16,11 @@ async function getUserSettings() {
             Telegram.WebApp.CloudStorage.getItem('userRole', (_, role) => {
                 Telegram.WebApp.CloudStorage.getItem('userDirection', (_, direction) => {
                     Telegram.WebApp.CloudStorage.getItem('userYear', (_, year) => {
-                        resolve({ role, direction, year });
+                        resolve({ 
+                            role: role || 'student',
+                            direction: direction || 'pmi',
+                            year: year || new Date().getFullYear().toString()
+                        });
                     });
                 });
             });
@@ -30,27 +34,56 @@ async function getUserSettings() {
     };
 }
 
-// Функция для определения диапазона столбцов на основе направления
-function getRangeForDirection(direction) {
-    const ranges = {
+// Функция для определения номера курса
+function calculateCourse(year) {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1;
+    return currentMonth <= 6 ? currentYear - year : currentYear - year + 1;
+}
+
+// Функция для получения имени листа на основе курса
+function getSheetNameForCourse(course) {
+    const courses = {
+        1: "1-й курс",
+        2: "2-й курс",
+        3: "3-й курс",
+        4: "4-й курс",
+        5: "5-й курс",
+        6: "6-й курс"
+    };
+    return courses[course] || "1-й курс"; // По умолчанию 1-й курс
+}
+
+// Функция для определения столбцов на основе направления
+function getColumnsForDirection(direction) {
+    const columns = {
         pmi: "A:E",   // ПМИ
         mng: "F:J",   // Менеджмент
         jur: "K:O",   // Юристы
         phr: "P:T",   // Фармацевты
         bio: "U:Y"    // Биологи
     };
-    return ranges[direction] || "A:E"; // По умолчанию ПМИ
+    return columns[direction] || "A:E"; // По умолчанию ПМИ
 }
 
 async function fetchScheduleData() {
     try {
         const userSettings = await getUserSettings();
+        
+        // Если преподаватель - используем специальный лист
+        if (userSettings.role === 'teacher') {
+            return fetchTeacherSchedule();
+        }
+
+        // Для студентов определяем курс и соответствующий лист
+        const course = calculateCourse(parseInt(userSettings.year));
+        const sheetName = getSheetNameForCourse(course);
+        const columnsRange = getColumnsForDirection(userSettings.direction);
+
         const SPREADSHEET_ID = "15BumXRAA6-mLpiHGsX63VKaAv1rl-wV_o4fG6zWXTU4";
         const API_KEY = "AIzaSyDy-aIidgGD3IpahjjY7Yvfj_K86xp_mW8";
-        const SHEET_NAME = "Лист1";
-        const RANGE = getRangeForDirection(userSettings.direction); 
-
-        const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}!${RANGE}?key=${API_KEY}`;
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${sheetName}!${columnsRange}?key=${API_KEY}`;
 
         const response = await fetch(url);
         if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
@@ -70,12 +103,44 @@ async function fetchScheduleData() {
 
     } catch (error) {
         console.error("Ошибка загрузки расписания:", error);
-        return []; // Возвращаем пустой массив в случае ошибки
+        return [];
     }
 }
 
-// Остальные функции (createLessonBlock, renderSchedule) остаются без изменений
-function createLessonBlock(item, index, array) {
+// Отдельная функция для расписания преподавателей
+async function fetchTeacherSchedule() {
+    try {
+        const SPREADSHEET_ID = "15BumXRAA6-mLpiHGsX63VKaAv1rl-wV_o4fG6zWXTU4";
+        const API_KEY = "AIzaSyDy-aIidgGD3IpahjjY7Yvfj_K86xp_mW8";
+        const SHEET_NAME = "Преподаватели";
+        const RANGE = "A:E";
+
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}!${RANGE}?key=${API_KEY}`;
+
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
+
+        const data = await response.json();
+        if (!data.values || data.values.length < 2) throw new Error("Нет данных в таблице");
+
+        const [headers, ...rows] = data.values;
+
+        return rows.map(row => ({
+            room: row[0] || "",
+            subject: row[1] || "",
+            group: row[2] || "", // Для преподавателей добавляем группу
+            start: row[3] || "",
+            end: row[4] || ""
+        }));
+
+    } catch (error) {
+        console.error("Ошибка загрузки расписания преподавателей:", error);
+        return [];
+    }
+}
+
+// Функция создания блока занятия (адаптирована для преподавателей)
+function createLessonBlock(item, index, array, isTeacher = false) {
     const now = new Date();
     const [startH, startM] = item.start.split(":").map(Number);
     const [endH, endM] = item.end.split(":").map(Number);
@@ -104,9 +169,9 @@ function createLessonBlock(item, index, array) {
                     </svg>
                     <div class="aud-text">${item.room}</div>`}
             </div>
-            <div style="width: 60vw; padding: 0 5vw;">
+            <div style="width: ${isTeacher ? '50vw' : '60vw'}; padding: 0 5vw;">
                 <div class="subject-name">${item.subject}</div>
-                <div class="lecturer">${item.lecturer}</div>
+                <div class="lecturer">${isTeacher ? item.group : item.lecturer}</div>
             </div>
             <div style="width: 15vw;">
                 <div class="time-lesson">${item.start}</div>
@@ -118,13 +183,18 @@ function createLessonBlock(item, index, array) {
 
 async function renderSchedule() {
     try {
+        const userSettings = await getUserSettings();
         const scheduleData = await fetchScheduleData();
+        
         if (scheduleData.length === 0) {
             scheduleList.innerHTML = '<div class="no-data">Расписание не найдено</div>';
             return;
         }
+
+        const isTeacher = userSettings.role === 'teacher';
         scheduleList.innerHTML = scheduleData.map((item, index, array) => 
-            createLessonBlock(item, index, array)).join("");
+            createLessonBlock(item, index, array, isTeacher)).join("");
+            
     } catch (error) {
         console.error("Ошибка рендеринга:", error);
         scheduleList.innerHTML = '<div class="error">Ошибка загрузки расписания</div>';
@@ -132,7 +202,7 @@ async function renderSchedule() {
 }
 
 // Инициализация
-(async function init() {    
+(async function init() {
     await renderSchedule();
-    setInterval(renderSchedule, 60000); // Обновляем каждую минуту
+    setInterval(renderSchedule, 1000); // Обновляем каждую минуту
 })();
