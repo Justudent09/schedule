@@ -8,12 +8,47 @@ lottie.loadAnimation({
 
 const scheduleList = document.getElementById("schedule-list");
 
+// Функция для получения параметров пользователя
+async function getUserSettings() {
+    // Если в Telegram - берём из CloudStorage
+    if (window.Telegram?.WebApp) {
+        return new Promise((resolve) => {
+            Telegram.WebApp.CloudStorage.getItem('userRole', (_, role) => {
+                Telegram.WebApp.CloudStorage.getItem('userDirection', (_, direction) => {
+                    Telegram.WebApp.CloudStorage.getItem('userYear', (_, year) => {
+                        resolve({ role, direction, year });
+                    });
+                });
+            });
+        });
+    }
+    // Если не в Telegram - можно взять из localStorage или использовать значения по умолчанию
+    return {
+        role: localStorage.getItem('userRole') || 'student',
+        direction: localStorage.getItem('userDirection') || 'pmi',
+        year: localStorage.getItem('userYear') || new Date().getFullYear().toString()
+    };
+}
+
+// Функция для определения диапазона столбцов на основе направления
+function getRangeForDirection(direction) {
+    const ranges = {
+        pmi: "A:E",   // ПМИ
+        mng: "F:J",   // Менеджмент
+        jur: "K:O",   // Юристы
+        phr: "P:T",   // Фармацевты
+        bio: "U:Y"    // Биологи
+    };
+    return ranges[direction] || "A:E"; // По умолчанию ПМИ
+}
+
 async function fetchScheduleData() {
     try {
+        const userSettings = await getUserSettings();
         const SPREADSHEET_ID = "15BumXRAA6-mLpiHGsX63VKaAv1rl-wV_o4fG6zWXTU4";
         const API_KEY = "AIzaSyDy-aIidgGD3IpahjjY7Yvfj_K86xp_mW8";
         const SHEET_NAME = "Лист1";
-        const RANGE = "A:E"; 
+        const RANGE = getRangeForDirection(userSettings.direction); 
 
         const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}!${RANGE}?key=${API_KEY}`;
 
@@ -35,9 +70,11 @@ async function fetchScheduleData() {
 
     } catch (error) {
         console.error("Ошибка загрузки расписания:", error);
+        return []; // Возвращаем пустой массив в случае ошибки
     }
 }
 
+// Остальные функции (createLessonBlock, renderSchedule) остаются без изменений
 function createLessonBlock(item, index, array) {
     const now = new Date();
     const [startH, startM] = item.start.split(":").map(Number);
@@ -82,14 +119,20 @@ function createLessonBlock(item, index, array) {
 async function renderSchedule() {
     try {
         const scheduleData = await fetchScheduleData();
+        if (scheduleData.length === 0) {
+            scheduleList.innerHTML = '<div class="no-data">Расписание не найдено</div>';
+            return;
+        }
         scheduleList.innerHTML = scheduleData.map((item, index, array) => 
             createLessonBlock(item, index, array)).join("");
     } catch (error) {
         console.error("Ошибка рендеринга:", error);
+        scheduleList.innerHTML = '<div class="error">Ошибка загрузки расписания</div>';
     }
 }
 
-(async function init() {
+// Инициализация
+(async function init() {    
     await renderSchedule();
-    setInterval(renderSchedule, 1000);
+    setInterval(renderSchedule, 60000); // Обновляем каждую минуту
 })();
