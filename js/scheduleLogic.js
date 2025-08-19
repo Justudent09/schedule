@@ -8,9 +8,7 @@ lottie.loadAnimation({
 
 const scheduleList = document.getElementById("schedule-list");
 
-// Функция для получения параметров пользователя
 async function getUserSettings() {
-    // Если в Telegram - берём из CloudStorage
     if (window.Telegram?.WebApp) {
         return new Promise((resolve) => {
             Telegram.WebApp.CloudStorage.getItem('userRole', (_, role) => {
@@ -26,7 +24,6 @@ async function getUserSettings() {
             });
         });
     }
-    // Если не в Telegram - можно взять из localStorage или использовать значения по умолчанию
     return {
         role: localStorage.getItem('userRole') || 'student',
         direction: localStorage.getItem('userDirection') || 'pmi',
@@ -34,7 +31,6 @@ async function getUserSettings() {
     };
 }
 
-// Функция для определения номера курса
 function calculateCourse(year) {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
@@ -42,7 +38,6 @@ function calculateCourse(year) {
     return currentMonth <= 6 ? currentYear - year : currentYear - year + 1;
 }
 
-// Функция для получения имени листа на основе курса
 function getSheetNameForCourse(course) {
     const courses = {
         1: "1-й курс",
@@ -52,10 +47,9 @@ function getSheetNameForCourse(course) {
         5: "5-й курс",
         6: "6-й курс"
     };
-    return courses[course] || "1-й курс"; // По умолчанию 1-й курс
+    return courses[course]; 
 }
 
-// Функция для определения столбцов на основе направления
 function getColumnsForDirection(direction) {
     const columns = {
         pmi: "A:E",   // ПМИ
@@ -64,19 +58,17 @@ function getColumnsForDirection(direction) {
         phr: "P:T",   // Фармацевты
         bio: "U:Y"    // Биологи
     };
-    return columns[direction] || "A:E"; // По умолчанию ПМИ
+    return columns[direction]; 
 }
 
 async function fetchScheduleData() {
     try {
         const userSettings = await getUserSettings();
         
-        // Если преподаватель - используем специальный лист
         if (userSettings.role === 'teacher') {
             return fetchTeacherSchedule();
         }
 
-        // Для студентов определяем курс и соответствующий лист
         const course = calculateCourse(parseInt(userSettings.year));
         const sheetName = getSheetNameForCourse(course);
         const columnsRange = getColumnsForDirection(userSettings.direction);
@@ -107,7 +99,6 @@ async function fetchScheduleData() {
     }
 }
 
-// Отдельная функция для расписания преподавателей
 async function fetchTeacherSchedule() {
     try {
         const SPREADSHEET_ID = "15BumXRAA6-mLpiHGsX63VKaAv1rl-wV_o4fG6zWXTU4";
@@ -139,7 +130,6 @@ async function fetchTeacherSchedule() {
     }
 }
 
-// Функция создания блока занятия (адаптирована для преподавателей)
 function createLessonBlock(item, index, array, isTeacher = false) {
     const now = new Date();
     const [startH, startM] = item.start.split(":").map(Number);
@@ -201,8 +191,7 @@ async function renderSchedule() {
     }
 }
 
-// Инициализация
 (async function init() {
     await renderSchedule();
-    setInterval(renderSchedule, 1000); // Обновляем каждую минуту
+    setInterval(renderSchedule, 1000);
 })();
