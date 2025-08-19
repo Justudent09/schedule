@@ -119,7 +119,7 @@ async function fetchTeacherSchedule() {
         return rows.map(row => ({
             room: row[0] || "",
             subject: row[1] || "",
-            group: row[2] || "", // Для преподавателей добавляем группу
+            group: row[2] || "", 
             start: row[3] || "",
             end: row[4] || ""
         }));
