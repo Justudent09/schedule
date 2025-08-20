@@ -1,52 +1,12 @@
-// Кэш для расписания
-let scheduleCache = null;
-let cacheTimestamp = 0;
-const CACHE_DURATION = 5 * 60 * 1000; // 5 минут
-
-// Загрузка анимации скелетона
-const moodAnimationContainer = document.getElementById('animation-mood');
-if (moodAnimationContainer) {
-    lottie.loadAnimation({
-        container: moodAnimationContainer,
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: 'assets/DuckEmojiSkeleton.json'
-    });
-}
+lottie.loadAnimation({
+    container: document.getElementById('animation-mood'),
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: 'assets/DuckEmojiSkeleton.json'
+});
 
 const scheduleList = document.getElementById("schedule-list");
-
-// Функция для отображения скелетона загрузки
-function showSkeleton() {
-    if (!scheduleList) return;
-    
-    scheduleList.innerHTML = `
-        <div class="lesson-block skeleton">
-            <div class="auditorium skeleton"></div>
-            <div style="width: 60vw; padding: 0 5vw;">
-                <div class="subject-name skeleton"></div>
-                <div class="lecturer skeleton"></div>
-            </div>
-            <div style="width: 15vw;">
-                <div class="time-lesson skeleton"></div>
-                <div class="time-lesson skeleton"></div>
-            </div>
-        </div>
-        <div class="line"></div>
-        <div class="lesson-block skeleton">
-            <div class="auditorium skeleton"></div>
-            <div style="width: 60vw; padding: 0 5vw;">
-                <div class="subject-name skeleton"></div>
-                <div class="lecturer skeleton"></div>
-            </div>
-            <div style="width: 15vw;">
-                <div class="time-lesson skeleton"></div>
-                <div class="time-lesson skeleton"></div>
-            </div>
-        </div>
-    `;
-}
 
 async function getUserSettings() {
     if (window.Telegram?.WebApp) {
@@ -92,60 +52,50 @@ function getSheetNameForCourse(course) {
 
 function getColumnsForDirection(direction) {
     const columns = {
-        pmi: "A:E",
-        mng: "F:J", 
-        jur: "K:O",
-        phr: "P:T",
-        bio: "U:Y"
+        pmi: "A:E",   // ПМИ
+        mng: "F:J",   // Менеджмент
+        jur: "K:O",   // Юристы
+        phr: "P:T",   // Фармацевты
+        bio: "U:Y"    // Биологи
     };
     return columns[direction]; 
 }
 
 async function fetchScheduleData() {
-    const now = Date.now();
-    
-    // Возвращаем кэшированные данные, если они актуальны
-    if (scheduleCache && now - cacheTimestamp < CACHE_DURATION) {
-        return scheduleCache;
-    }
-
     try {
         const userSettings = await getUserSettings();
 
         if (userSettings.role === 'teacher') {
-            scheduleCache = await fetchTeacherSchedule();
-        } else {
-            const course = calculateCourse(parseInt(userSettings.year));
-            const sheetName = getSheetNameForCourse(course);
-            const columnsRange = getColumnsForDirection(userSettings.direction);
-
-            const SPREADSHEET_ID = "15BumXRAA6-mLpiHGsX63VKaAv1rl-wV_o4fG6zWXTU4";
-            const API_KEY = "AIzaSyDy-aIidgGD3IpahjjY7Yvfj_K86xp_mW8";
-            const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${sheetName}!${columnsRange}?key=${API_KEY}`;
-
-            const response = await fetch(url);
-            if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
-
-            const data = await response.json();
-            if (!data.values || data.values.length < 2) throw new Error("Нет данных в таблице");
-
-            const [headers, ...rows] = data.values;
-
-            scheduleCache = rows.map(row => ({
-                room: row[0] || "",
-                subject: row[1] || "",
-                lecturer: row[2] || "",
-                start: row[3] || "",
-                end: row[4] || ""
-            }));
+            return fetchTeacherSchedule();
         }
 
-        cacheTimestamp = now;
-        return scheduleCache;
+        const course = calculateCourse(parseInt(userSettings.year));
+        const sheetName = getSheetNameForCourse(course);
+        const columnsRange = getColumnsForDirection(userSettings.direction);
+
+        const SPREADSHEET_ID = "15BumXRAA6-mLpiHGsX63VKaAv1rl-wV_o4fG6zWXTU4";
+        const API_KEY = "AIzaSyDy-aIidgGD3IpahjjY7Yvfj_K86xp_mW8";
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${sheetName}!${columnsRange}?key=${API_KEY}`;
+
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
+
+        const data = await response.json();
+        if (!data.values || data.values.length < 2) throw new Error("Нет данных в таблице");
+
+        const [headers, ...rows] = data.values;
+
+        return rows.map(row => ({
+            room: row[0] || "",
+            subject: row[1] || "",
+            lecturer: row[2] || "",
+            start: row[3] || "",
+            end: row[4] || ""
+        }));
 
     } catch (error) {
         console.error("Ошибка загрузки расписания:", error);
-        return scheduleCache || []; // Возвращаем старые данные при ошибке
+        return [];
     }
 }
 
@@ -222,11 +172,7 @@ function createLessonBlock(item, index, array, isTeacher = false) {
 }
 
 async function renderSchedule() {
-    if (!scheduleList) return;
-    
     try {
-        showSkeleton(); // Показываем скелетон сразу
-
         const userSettings = await getUserSettings();
         const scheduleData = await fetchScheduleData();
 
@@ -245,8 +191,7 @@ async function renderSchedule() {
     }
 }
 
-// Инициализация с увеличенным интервалом обновления
 (async function init() {
     await renderSchedule();
-    setInterval(renderSchedule, 1000); // 1 раз в минуту вместо секунды
+    setInterval(renderSchedule, 1000);
 })();
