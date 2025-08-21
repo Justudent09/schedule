@@ -176,11 +176,6 @@ async function renderSchedule() {
         const userSettings = await getUserSettings();
         const scheduleData = await fetchScheduleData();
 
-        if (scheduleData.length === 0) {
-            scheduleList.innerHTML = '<div class="no-data">Расписание не найдено</div>';
-            return;
-        }
-
         const isTeacher = userSettings.role === 'teacher';
         scheduleList.innerHTML = scheduleData.map((item, index, array) => 
             createLessonBlock(item, index, array, isTeacher)).join("");
