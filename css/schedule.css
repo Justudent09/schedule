@@ -355,6 +355,23 @@
     margin-left: 10vw;
 }
 
+.loading-container {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.schedule-list {
+    position: relative;
+    min-height: 30vh;
+}
+
+/* Уберите старые анимации из CSS, они теперь управляются через JS */
+
 @view-transition {
     navigation: auto;
 }
@@ -377,38 +394,3 @@
     from { transform: translateX(100%); opacity: 0.5; }
     to { transform: translateX(0); opacity: 1; }
 }
-
-.loading-container {
-    opacity: 1;
-    transition: opacity 0.5s ease;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-}
-
-.schedule-list {
-    position: relative;
-    min-height: 30vh;
-}
-
-/* Анимация появления контента */
-.lesson-block {
-    animation: fadeInUp 0.5s ease forwards;
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.lesson-block:nth-child(1) { animation-delay: 0.1s; }
-.lesson-block:nth-child(2) { animation-delay: 0.2s; }
-.lesson-block:nth-child(3) { animation-delay: 0.3s; }
-.lesson-block:nth-child(4) { animation-delay: 0.4s; }
-.lesson-block:nth-child(5) { animation-delay: 0.5s; }
