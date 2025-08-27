@@ -1,4 +1,3 @@
-
 lottie.loadAnimation({
     container: document.getElementById('animation-mood'),
     renderer: 'svg',
@@ -14,7 +13,7 @@ let loadingAnimation = null;
 function showLoadingAnimation() {
     scheduleList.innerHTML = `
         <div class="loading-container" style="display: flex; justify-content: center; align-items: center; height: 100%;">
-            <div id="loading-animation" style="width: 20vw; height: 20vw;"></div>
+            <div id="loading-animation" style="width: 30vw; height: 30vw;"></div>
         </div>
     `;
     
