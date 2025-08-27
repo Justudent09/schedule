@@ -9,6 +9,7 @@ lottie.loadAnimation({
 });
 
 const scheduleList = document.getElementById("schedule-list");
+let loadingAnimation = null;
 
 // Функция для отображения индикатора загрузки
 function showLoadingAnimation() {
@@ -19,7 +20,7 @@ function showLoadingAnimation() {
     `;
     
     // Загружаем анимацию загрузки
-    lottie.loadAnimation({
+    loadingAnimation = lottie.loadAnimation({
         container: document.getElementById('loading-animation'),
         renderer: 'svg',
         loop: true,
@@ -29,18 +30,27 @@ function showLoadingAnimation() {
 }
 
 // Функция для плавного скрытия анимации загрузки
-function hideLoadingAnimation() {
+function hideLoadingAnimation(callback) {
     const loadingContainer = document.querySelector('.loading-container');
     if (loadingContainer) {
         loadingContainer.style.opacity = '0';
         loadingContainer.style.transition = 'opacity 0.5s ease';
+        
+        // Останавливаем анимацию
+        if (loadingAnimation) {
+            loadingAnimation.destroy();
+            loadingAnimation = null;
+        }
         
         // Удаляем элемент после завершения анимации
         setTimeout(() => {
             if (loadingContainer.parentNode) {
                 loadingContainer.parentNode.removeChild(loadingContainer);
             }
+            if (callback) callback();
         }, 500);
+    } else {
+        if (callback) callback();
     }
 }
 
@@ -185,7 +195,7 @@ function createLessonBlock(item, index, array, isTeacher = false) {
     const isStarted = currentTime >= startTime;
 
     return `
-        <div class="lesson-block">
+        <div class="lesson-block" style="opacity: 0; transform: translateY(20px);">
             <div class="auditorium">
                 ${isEnded ? `
                     <svg class="checkmark" width="15vw" height="15vw" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -207,7 +217,27 @@ function createLessonBlock(item, index, array, isTeacher = false) {
                 <div class="time-lesson">${item.end}</div>
             </div>
         </div>
-        ${index < array.length - 1 ? '<div class="line"></div>' : ''}`;
+        ${index < array.length - 1 ? '<div class="line" style="opacity: 0;"></div>' : ''}`;
+}
+
+function animateScheduleItems() {
+    const lessonBlocks = document.querySelectorAll('.lesson-block');
+    const lines = document.querySelectorAll('.line');
+    
+    lessonBlocks.forEach((block, index) => {
+        setTimeout(() => {
+            block.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            block.style.opacity = '1';
+            block.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
+    
+    lines.forEach((line, index) => {
+        setTimeout(() => {
+            line.style.transition = 'opacity 0.5s ease';
+            line.style.opacity = '1';
+        }, (index + lessonBlocks.length) * 100);
+    });
 }
 
 async function renderSchedule() {
@@ -217,25 +247,30 @@ async function renderSchedule() {
 
         const isTeacher = userSettings.role === 'teacher';
         
-        // Сначала скрываем анимацию загрузки
-        hideLoadingAnimation();
-        
-        // Ждем завершения анимации перед отображением контента
-        setTimeout(() => {
+        // Сначала скрываем анимацию загрузки, затем показываем контент
+        hideLoadingAnimation(() => {
             if (scheduleData.length === 0) {
-                scheduleList.innerHTML = '<div style="text-align: center; padding: 20vw; color: var(--hint-color);">Расписание не найдено</div>';
+                scheduleList.innerHTML = '<div style="text-align: center; padding: 20vw; color: var(--hint-color); opacity: 0; transition: opacity 0.5s ease;">Расписание не найдено</div>';
+                setTimeout(() => {
+                    document.querySelector('.schedule-list > div').style.opacity = '1';
+                }, 50);
             } else {
                 scheduleList.innerHTML = scheduleData.map((item, index, array) => 
                     createLessonBlock(item, index, array, isTeacher)).join("");
+                
+                // Анимируем появление элементов после небольшой задержки
+                setTimeout(animateScheduleItems, 50);
             }
-        }, 500); // Ждем завершения анимации исчезновения
+        });
 
     } catch (error) {
         console.error("Ошибка рендеринга:", error);
-        hideLoadingAnimation();
-        setTimeout(() => {
-            scheduleList.innerHTML = '<div class="error" style="text-align: center; padding: 20vw; color: var(--destructive-text-color);">Ошибка загрузки расписания</div>';
-        }, 500);
+        hideLoadingAnimation(() => {
+            scheduleList.innerHTML = '<div class="error" style="text-align: center; padding: 20vw; color: var(--destructive-text-color); opacity: 0; transition: opacity 0.5s ease;">Ошибка загрузки расписания</div>';
+            setTimeout(() => {
+                document.querySelector('.schedule-list > div').style.opacity = '1';
+            }, 50);
+        });
     }
 }
 
