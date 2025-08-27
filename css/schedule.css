@@ -365,11 +365,6 @@
     z-index: 10;
 }
 
-.schedule-list {
-    position: relative;
-    min-height: 30vh;
-}
-
 @view-transition {
     navigation: auto;
 }
