@@ -370,8 +370,6 @@
     min-height: 30vh;
 }
 
-/* Уберите старые анимации из CSS, они теперь управляются через JS */
-
 @view-transition {
     navigation: auto;
 }
