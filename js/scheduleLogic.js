@@ -1,3 +1,5 @@
+// scheduleLogic.js
+
 lottie.loadAnimation({
     container: document.getElementById('animation-mood'),
     renderer: 'svg',
@@ -7,6 +9,27 @@ lottie.loadAnimation({
 });
 
 const scheduleList = document.getElementById("schedule-list");
+
+// Функция для отображения индикатора загрузки
+function showLoadingAnimation() {
+    scheduleList.innerHTML = `
+        <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+            <div id="loading-animation" style="width: 20vw; height: 20vw;"></div>
+        </div>
+    `;
+    
+    // Загружаем анимацию загрузки
+    lottie.loadAnimation({
+        container: document.getElementById('loading-animation'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'assets/DuckEmojiLoading.json'
+    });
+}
+
+// Показываем загрузку сразу при запуске
+showLoadingAnimation();
 
 async function getUserSettings() {
     if (window.Telegram?.WebApp) {
@@ -177,16 +200,22 @@ async function renderSchedule() {
         const scheduleData = await fetchScheduleData();
 
         const isTeacher = userSettings.role === 'teacher';
-        scheduleList.innerHTML = scheduleData.map((item, index, array) => 
-            createLessonBlock(item, index, array, isTeacher)).join("");
+        
+        if (scheduleData.length === 0) {
+            scheduleList.innerHTML = '<div style="text-align: center; padding: 20vw; color: var(--hint-color);">Расписание не найдено</div>';
+        } else {
+            scheduleList.innerHTML = scheduleData.map((item, index, array) => 
+                createLessonBlock(item, index, array, isTeacher)).join("");
+        }
 
     } catch (error) {
         console.error("Ошибка рендеринга:", error);
-        scheduleList.innerHTML = '<div class="error">Ошибка загрузки расписания</div>';
+        scheduleList.innerHTML = '<div class="error" style="text-align: center; padding: 20vw; color: var(--destructive-text-color);">Ошибка загрузки расписания</div>';
     }
 }
 
 (async function init() {
+    // Показываем загрузку сразу, затем рендерим расписание
     await renderSchedule();
-    setInterval(renderSchedule, 1000);
+    setInterval(renderSchedule, 60000); // Обновляем каждую минуту вместо каждой секунды
 })();
