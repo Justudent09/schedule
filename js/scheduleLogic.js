@@ -13,7 +13,7 @@ const scheduleList = document.getElementById("schedule-list");
 // Функция для отображения индикатора загрузки
 function showLoadingAnimation() {
     scheduleList.innerHTML = `
-        <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+        <div class="loading-container" style="display: flex; justify-content: center; align-items: center; height: 100%;">
             <div id="loading-animation" style="width: 20vw; height: 20vw;"></div>
         </div>
     `;
@@ -26,6 +26,22 @@ function showLoadingAnimation() {
         autoplay: true,
         path: 'assets/DuckEmojiLoading.json'
     });
+}
+
+// Функция для плавного скрытия анимации загрузки
+function hideLoadingAnimation() {
+    const loadingContainer = document.querySelector('.loading-container');
+    if (loadingContainer) {
+        loadingContainer.style.opacity = '0';
+        loadingContainer.style.transition = 'opacity 0.5s ease';
+        
+        // Удаляем элемент после завершения анимации
+        setTimeout(() => {
+            if (loadingContainer.parentNode) {
+                loadingContainer.parentNode.removeChild(loadingContainer);
+            }
+        }, 500);
+    }
 }
 
 // Показываем загрузку сразу при запуске
@@ -201,16 +217,25 @@ async function renderSchedule() {
 
         const isTeacher = userSettings.role === 'teacher';
         
-        if (scheduleData.length === 0) {
-            scheduleList.innerHTML = '<div style="text-align: center; padding: 20vw; color: var(--hint-color);">Расписание не найдено</div>';
-        } else {
-            scheduleList.innerHTML = scheduleData.map((item, index, array) => 
-                createLessonBlock(item, index, array, isTeacher)).join("");
-        }
+        // Сначала скрываем анимацию загрузки
+        hideLoadingAnimation();
+        
+        // Ждем завершения анимации перед отображением контента
+        setTimeout(() => {
+            if (scheduleData.length === 0) {
+                scheduleList.innerHTML = '<div style="text-align: center; padding: 20vw; color: var(--hint-color);">Расписание не найдено</div>';
+            } else {
+                scheduleList.innerHTML = scheduleData.map((item, index, array) => 
+                    createLessonBlock(item, index, array, isTeacher)).join("");
+            }
+        }, 500); // Ждем завершения анимации исчезновения
 
     } catch (error) {
         console.error("Ошибка рендеринга:", error);
-        scheduleList.innerHTML = '<div class="error" style="text-align: center; padding: 20vw; color: var(--destructive-text-color);">Ошибка загрузки расписания</div>';
+        hideLoadingAnimation();
+        setTimeout(() => {
+            scheduleList.innerHTML = '<div class="error" style="text-align: center; padding: 20vw; color: var(--destructive-text-color);">Ошибка загрузки расписания</div>';
+        }, 500);
     }
 }
 
