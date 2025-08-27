@@ -1,4 +1,3 @@
-// scheduleLogic.js
 
 lottie.loadAnimation({
     container: document.getElementById('animation-mood'),
