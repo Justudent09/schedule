@@ -1,3 +1,7 @@
+document.getElementById('arrow').addEventListener('click', function() {
+    this.classList.toggle('flipped');
+});
+
 lottie.loadAnimation({
     container: document.getElementById('animation-mood'),
     renderer: 'svg',
