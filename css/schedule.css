@@ -33,8 +33,7 @@
     touch-action: pan-x;
     border-radius: 3vw;
     background-color: var(--secondary-bg-color);
-    transition: transform 0.6s; 
-    will-change: transform;
+    
 }
 
 .horizontal-scroll.expanded {
