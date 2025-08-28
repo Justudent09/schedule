@@ -19,7 +19,7 @@ function showLoadingAnimation() {
             <div id="loading-animation" style="width: 30vw; height: 30vw;"></div>
         </div>
     `;
-    
+
     loadingAnimation = lottie.loadAnimation({
         container: document.getElementById('loading-animation'),
         renderer: 'svg',
@@ -34,12 +34,12 @@ function hideLoadingAnimation(callback) {
     if (loadingContainer) {
         loadingContainer.style.opacity = '0';
         loadingContainer.style.transition = 'opacity 0.5s ease';
-        
+
         if (loadingAnimation) {
             loadingAnimation.destroy();
             loadingAnimation = null;
         }
-        
+
         setTimeout(() => {
             if (loadingContainer.parentNode) {
                 loadingContainer.parentNode.removeChild(loadingContainer);
@@ -176,34 +176,9 @@ async function fetchTeacherSchedule() {
 }
 
 function createLessonBlock(item, index, array, isTeacher = false) {
-    const now = new Date();
-    const [startH, startM] = item.start.split(":").map(Number);
-    const [endH, endM] = item.end.split(":").map(Number);
-    const startTime = new Date(now.setHours(startH, startM, 0, 0));
-    const endTime = new Date(now.setHours(endH, endM, 0, 0));
-    const currentTime = new Date();
-
-    const total = endTime - startTime;
-    const elapsed = currentTime - startTime;
-    const percent = Math.min(100, Math.max(0, (elapsed / total) * 100));
-
-    const isEnded = currentTime >= endTime;
-    const isStarted = currentTime >= startTime;
-
     return `
-        <div class="lesson-block" style="opacity: 0; transform: translateY(20px);">
-            <div class="auditorium">
-                ${isEnded ? `
-                    <svg class="checkmark" width="15vw" height="15vw" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 12L10.5 13.5C10.7761 13.7761 11.2239 13.7761 11.5 13.5L15 10" 
-                            stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>` : `
-                    <svg class="circle-progress" viewBox="0 0 36 36">
-                        <path class="bg" d="M18 2 a 16 16 0 1 1 0 32 a 16 16 0 1 1 0 -32" />
-                        ${isStarted ? `<path class="fg" stroke-dasharray="${percent}, 100" d="M18 2 a 16 16 0 1 1 0 32 a 16 16 0 1 1 0 -32" />` : ''}
-                    </svg>
-                    <div class="aud-text">${item.room}</div>`}
-            </div>
+        <div class="lesson-block" data-room="${item.room}" style="opacity: 0; transform: translateY(20px);">
+            <div class="auditorium"></div>
             <div style="width: ${isTeacher ? '50vw' : '60vw'}; padding: 0 5vw;">
                 <div class="subject-name">${item.subject}</div>
                 <div class="lecturer">${isTeacher ? item.group : item.lecturer}</div>
@@ -219,7 +194,7 @@ function createLessonBlock(item, index, array, isTeacher = false) {
 function animateScheduleItems() {
     const lessonBlocks = document.querySelectorAll('.lesson-block');
     const lines = document.querySelectorAll('.line');
-    
+
     lessonBlocks.forEach((block, index) => {
         setTimeout(() => {
             block.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
@@ -227,7 +202,7 @@ function animateScheduleItems() {
             block.style.transform = 'translateY(0)';
         }, index * 100);
     });
-    
+
     lines.forEach((line, index) => {
         setTimeout(() => {
             line.style.transition = 'opacity 0.5s ease';
@@ -242,7 +217,7 @@ async function renderSchedule() {
         const scheduleData = await fetchScheduleData();
 
         const isTeacher = userSettings.role === 'teacher';
-        
+
         hideLoadingAnimation(() => {
             if (scheduleData.length === 0) {
                 scheduleList.innerHTML = '<div style="text-align: center; padding: 20vw; color: var(--hint-color); opacity: 0; transition: opacity 0.5s ease;">Расписание не найдено</div>';
@@ -252,8 +227,11 @@ async function renderSchedule() {
             } else {
                 scheduleList.innerHTML = scheduleData.map((item, index, array) => 
                     createLessonBlock(item, index, array, isTeacher)).join("");
-                
-                setTimeout(animateScheduleItems, 50);
+
+                setTimeout(() => {
+                    animateScheduleItems();
+                    updateLessonProgress(); // первая отрисовка прогресса
+                }, 50);
             }
         });
 
@@ -268,7 +246,55 @@ async function renderSchedule() {
     }
 }
 
+function updateLessonProgress() {
+    const lessonBlocks = document.querySelectorAll('.lesson-block');
+
+    lessonBlocks.forEach(block => {
+        const start = block.querySelector('.time-lesson:nth-child(1)')?.textContent;
+        const end = block.querySelector('.time-lesson:nth-child(2)')?.textContent;
+        const auditorium = block.querySelector('.auditorium');
+
+        if (!start || !end || !auditorium) return;
+
+        const now = new Date();
+        const [startH, startM] = start.split(":").map(Number);
+        const [endH, endM] = end.split(":").map(Number);
+
+        const startTime = new Date();
+        startTime.setHours(startH, startM, 0, 0);
+
+        const endTime = new Date();
+        endTime.setHours(endH, endM, 0, 0);
+
+        const total = endTime - startTime;
+        const elapsed = now - startTime;
+        const percent = Math.min(100, Math.max(0, (elapsed / total) * 100));
+
+        const isEnded = now >= endTime;
+        const isStarted = now >= startTime;
+
+        auditorium.innerHTML = '';
+
+        if (isEnded) {
+            auditorium.innerHTML = `
+                <svg class="checkmark" width="15vw" height="15vw" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 12L10.5 13.5C10.7761 13.7761 11.2239 13.7761 11.5 13.5L15 10" 
+                        stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            `;
+        } else {
+            auditorium.innerHTML = `
+                <svg class="circle-progress" viewBox="0 0 36 36">
+                    <path class="bg" d="M18 2 a 16 16 0 1 1 0 32 a 16 16 0 1 1 0 -32" />
+                    ${isStarted ? `<path class="fg" stroke-dasharray="${percent}, 100" d="M18 2 a 16 16 0 1 1 0 32 a 16 16 0 1 1 0 -32" />` : ''}
+                </svg>
+                <div class="aud-text">${block.dataset.room || ''}</div>
+            `;
+        }
+    });
+}
+
 (async function init() {
-    await renderSchedule();
-    setInterval(renderSchedule, 1000);
+    await renderSchedule();               // один раз загружаем расписание
+    setInterval(updateLessonProgress, 1000); // обновляем прогресс каждую секунду
 })();
