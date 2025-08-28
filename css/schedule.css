@@ -144,6 +144,10 @@
     cursor: pointer;
 }
 
+.arrow-wrapper.expanded {
+    margin-top: calc(var(--tg-safe-area-inset-top) - 5vw);
+}
+
 .arrow-rect {
     position: absolute;
     width: 6vw;
