@@ -138,21 +138,21 @@
 }
 
 .arrow-part-1 {
-    transform: translate(-50%, -50%) translateX(2.3vw) rotate(30deg);
+    transform: translate(-50%, -50%) translateX(2.3vw) translateY(-1.125vw) rotate(30deg);
     transform-origin: 0.75vw 0.75vw;
 }
 
 .arrow-part-2 {
-    transform: translate(-50%, -50%) translateX(-2.3vw) rotate(-30deg);
+    transform: translate(-50%, -50%) translateX(-2.3vw) translateY(-1.125vw) rotate(-30deg);
     transform-origin: 5.25vw 0.75vw;
 }
 
 .arrow-wrapper.flipped .arrow-part-1 {
-    transform: translate(-50%, -50%) translateX(2.3vw) rotate(-30deg);
+    transform: translate(-50%, -50%) translateX(2.3vw) translateY(1.125vw) rotate(-30deg);
 }
 
 .arrow-wrapper.flipped .arrow-part-2 {
-    transform: translate(-50%, -50%) translateX(-2.3vw) rotate(30deg);
+    transform: translate(-50%, -50%) translateX(-2.3vw) translateY(1.125vw) rotate(30deg);
 }
 
 .schedule-header {
