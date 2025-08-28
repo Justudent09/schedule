@@ -13,7 +13,6 @@ lottie.loadAnimation({
 const scheduleList = document.getElementById("schedule-list");
 let loadingAnimation = null;
 
-// Функция для отображения индикатора загрузки
 function showLoadingAnimation() {
     scheduleList.innerHTML = `
         <div class="loading-container" style="display: flex; justify-content: center; align-items: center; height: 100%;">
@@ -21,7 +20,6 @@ function showLoadingAnimation() {
         </div>
     `;
     
-    // Загружаем анимацию загрузки
     loadingAnimation = lottie.loadAnimation({
         container: document.getElementById('loading-animation'),
         renderer: 'svg',
@@ -31,20 +29,17 @@ function showLoadingAnimation() {
     });
 }
 
-// Функция для плавного скрытия анимации загрузки
 function hideLoadingAnimation(callback) {
     const loadingContainer = document.querySelector('.loading-container');
     if (loadingContainer) {
         loadingContainer.style.opacity = '0';
         loadingContainer.style.transition = 'opacity 0.5s ease';
         
-        // Останавливаем анимацию
         if (loadingAnimation) {
             loadingAnimation.destroy();
             loadingAnimation = null;
         }
         
-        // Удаляем элемент после завершения анимации
         setTimeout(() => {
             if (loadingContainer.parentNode) {
                 loadingContainer.parentNode.removeChild(loadingContainer);
@@ -56,7 +51,6 @@ function hideLoadingAnimation(callback) {
     }
 }
 
-// Показываем загрузку сразу при запуске
 showLoadingAnimation();
 
 async function getUserSettings() {
@@ -249,7 +243,6 @@ async function renderSchedule() {
 
         const isTeacher = userSettings.role === 'teacher';
         
-        // Сначала скрываем анимацию загрузки, затем показываем контент
         hideLoadingAnimation(() => {
             if (scheduleData.length === 0) {
                 scheduleList.innerHTML = '<div style="text-align: center; padding: 20vw; color: var(--hint-color); opacity: 0; transition: opacity 0.5s ease;">Расписание не найдено</div>';
@@ -260,7 +253,6 @@ async function renderSchedule() {
                 scheduleList.innerHTML = scheduleData.map((item, index, array) => 
                     createLessonBlock(item, index, array, isTeacher)).join("");
                 
-                // Анимируем появление элементов после небольшой задержки
                 setTimeout(animateScheduleItems, 50);
             }
         });
@@ -277,7 +269,6 @@ async function renderSchedule() {
 }
 
 (async function init() {
-    // Показываем загрузку сразу, затем рендерим расписание
     await renderSchedule();
-    setInterval(renderSchedule, 60000); // Обновляем каждую минуту вместо каждой секунды
+    setInterval(renderSchedule, 1000);
 })();
