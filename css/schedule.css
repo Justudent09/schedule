@@ -142,6 +142,7 @@
     height: 5vw;
     position:relative;
     cursor: pointer;
+    background-color: red;
 }
 
 .arrow-wrapper.expanded {
