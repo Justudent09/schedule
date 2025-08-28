@@ -9,15 +9,16 @@ function toggleSchedule(forceExpand) {
     if (forceExpand === true) {
         schedule.classList.add('expanded');
         scroll.classList.add('expanded');
-        arrow.classList.add('flipped');
+        arrow.classList.add('flipped', 'expanded');
     } else if (forceExpand === false) {
         schedule.classList.remove('expanded');
         scroll.classList.remove('expanded');
-        arrow.classList.remove('flipped');
+        arrow.classList.remove('flipped', 'expanded');
     } else {
         schedule.classList.toggle('expanded');
         scroll.classList.toggle('expanded');
         arrow.classList.toggle('flipped');
+        arrow.classList.toggle('expanded');
     }
 }
 
