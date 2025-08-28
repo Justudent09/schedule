@@ -145,7 +145,7 @@
 }
 
 .arrow-wrapper.expanded {
-    margin-top: calc(var(--tg-safe-area-inset-top) - 5vw);
+    margin-top: calc(var(--tg-content-safe-area-inset-top) + var(--tg-safe-area-inset-top) - 5vw);
 }
 
 .arrow-rect {
