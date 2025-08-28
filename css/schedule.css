@@ -110,7 +110,7 @@
     right: 0;
     bottom: 0;
     height: calc(100vh - 55vw - var(--tg-content-safe-area-inset-top) - var(--tg-safe-area-inset-top)); 
-    background-color: white;
+    background-color: var(--secondary-bg-color);
     border-radius: 8vw 8vw 0 0;
     padding: 5vw;
     padding-bottom: 0;
