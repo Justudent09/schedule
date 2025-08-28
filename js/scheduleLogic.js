@@ -1,6 +1,45 @@
-document.getElementById('arrow').addEventListener('click', function() {
-    this.classList.toggle('flipped');
+const arrow = document.querySelector('.arrow-wrapper');
+const schedule = document.querySelector('.schedule');
+const scroll = document.querySelector('.horizontal-scroll');
+
+let startY = 0;
+let endY = 0;
+
+function toggleSchedule(forceExpand) {
+    if (forceExpand === true) {
+        schedule.classList.add('expanded');
+        scroll.classList.add('expanded');
+        arrow.classList.add('flipped');
+    } else if (forceExpand === false) {
+        schedule.classList.remove('expanded');
+        scroll.classList.remove('expanded');
+        arrow.classList.remove('flipped');
+    } else {
+        schedule.classList.toggle('expanded');
+        scroll.classList.toggle('expanded');
+        arrow.classList.toggle('flipped');
+    }
+}
+
+arrow.addEventListener('click', () => toggleSchedule());
+
+arrow.addEventListener('touchstart', (e) => {
+    startY = e.touches[0].clientY;
 });
+
+arrow.addEventListener('touchend', (e) => {
+    endY = e.changedTouches[0].clientY;
+    let diffY = startY - endY;
+
+    if (Math.abs(diffY) > 50) {
+        if (diffY > 0) {
+            toggleSchedule(true);
+        } else {
+            toggleSchedule(false);
+        }
+    }
+});
+
 
 lottie.loadAnimation({
     container: document.getElementById('animation-mood'),
