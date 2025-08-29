@@ -6,36 +6,24 @@ let startY = 0;
 let endY = 0;
 
 function toggleSchedule(forceExpand) {
-    // Сначала убираем прошлые анимационные классы
-    schedule.classList.remove("expanding", "collapsing");
-    arrow.classList.remove("expanding", "collapsing");
-
-    if (forceExpand === true || !schedule.classList.contains("expanded")) {
-        // Запускаем "открывающую" анимацию
-        schedule.classList.add("expanding");
-        arrow.classList.add("expanding");
-        scroll.classList.add("expanded");
-
-        schedule.addEventListener("animationend", () => {
-            schedule.classList.add("expanded");
-        }, { once: true });
-
+    if (forceExpand === true) {
+        schedule.classList.add('expanded');
+        scroll.classList.add('expanded');
+        arrow.classList.add('flipped', 'expanded');
+    } else if (forceExpand === false) {
+        schedule.classList.remove('expanded');
+        scroll.classList.remove('expanded');
+        arrow.classList.remove('flipped', 'expanded');
     } else {
-        // Запускаем "закрывающую" анимацию
-        schedule.classList.add("collapsing");
-        arrow.classList.add("collapsing");
-        scroll.classList.remove("expanded");
-
-        schedule.addEventListener("animationend", () => {
-            schedule.classList.remove("expanded");
-        }, { once: true });
+        schedule.classList.toggle('expanded');
+        scroll.classList.toggle('expanded');
+        arrow.classList.toggle('flipped');
+        arrow.classList.toggle('expanded');
     }
 }
 
-// Клик по стрелке
 arrow.addEventListener('click', () => toggleSchedule());
 
-// Свайпы (touch)
 arrow.addEventListener('touchstart', (e) => {
     startY = e.touches[0].clientY;
 });
@@ -46,9 +34,9 @@ arrow.addEventListener('touchend', (e) => {
 
     if (Math.abs(diffY) > 50) {
         if (diffY > 0) {
-            toggleSchedule(true);  // свайп вверх → открыть
+            toggleSchedule(true);
         } else {
-            toggleSchedule(false); // свайп вниз → закрыть
+            toggleSchedule(false);
         }
     }
 });
