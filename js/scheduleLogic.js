@@ -6,24 +6,36 @@ let startY = 0;
 let endY = 0;
 
 function toggleSchedule(forceExpand) {
-    if (forceExpand === true) {
-        schedule.classList.add('expanded');
-        scroll.classList.add('expanded');
-        arrow.classList.add('flipped', 'expanded');
-    } else if (forceExpand === false) {
-        schedule.classList.remove('expanded');
-        scroll.classList.remove('expanded');
-        arrow.classList.remove('flipped', 'expanded');
+    // Сначала убираем прошлые анимационные классы
+    schedule.classList.remove("expanding", "collapsing");
+    arrow.classList.remove("expanding", "collapsing");
+
+    if (forceExpand === true || !schedule.classList.contains("expanded")) {
+        // Запускаем "открывающую" анимацию
+        schedule.classList.add("expanding");
+        arrow.classList.add("expanding");
+        scroll.classList.add("expanded");
+
+        schedule.addEventListener("animationend", () => {
+            schedule.classList.add("expanded");
+        }, { once: true });
+
     } else {
-        schedule.classList.toggle('expanded');
-        scroll.classList.toggle('expanded');
-        arrow.classList.toggle('flipped');
-        arrow.classList.toggle('expanded');
+        // Запускаем "закрывающую" анимацию
+        schedule.classList.add("collapsing");
+        arrow.classList.add("collapsing");
+        scroll.classList.remove("expanded");
+
+        schedule.addEventListener("animationend", () => {
+            schedule.classList.remove("expanded");
+        }, { once: true });
     }
 }
 
+// Клик по стрелке
 arrow.addEventListener('click', () => toggleSchedule());
 
+// Свайпы (touch)
 arrow.addEventListener('touchstart', (e) => {
     startY = e.touches[0].clientY;
 });
@@ -34,9 +46,9 @@ arrow.addEventListener('touchend', (e) => {
 
     if (Math.abs(diffY) > 50) {
         if (diffY > 0) {
-            toggleSchedule(true);
+            toggleSchedule(true);  // свайп вверх → открыть
         } else {
-            toggleSchedule(false);
+            toggleSchedule(false); // свайп вниз → закрыть
         }
     }
 });
