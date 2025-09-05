@@ -1,0 +1,91 @@
+.banner {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: relative;
+}
+
+.animation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60vw;
+  height: 60vw;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.horizontal-scroll {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-container {
+  display: flex;
+  height: 100%;
+}
+
+.scroll-item {
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 10vw;
+  scroll-snap-align: start;
+}
+
+.slide-title {
+  font-size: 6vw;
+  font-weight: bold;
+  margin-bottom: 2vw;
+  color: var(--text-color);
+}
+
+.scroll-item div:not(.slide-title) {
+  font-size: 4vw;
+  color: var(--hint-color);
+  line-height: 1.4;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 2vw;
+  padding: 4vw 0;
+}
+
+.pagination .button {
+  width: 2vw;
+  height: 2vw;
+  border-radius: 50%;
+  background-color: var(--hint-color);
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+}
+
+.pagination .button.active {
+  opacity: 1;
+  background-color: var(--accent-text-color);
+}
+
+.bannerButton {
+  position: fixed;
+  bottom: 10vw;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--button-color);
+  color: var(--button-text-color);
+  border: none;
+  border-radius: 8vw;
+  padding: 4vw 8vw;
+  font-size: 4vw;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1000;
+  min-width: 30vw;
+}

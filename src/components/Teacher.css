@@ -1,0 +1,27 @@
+.teacher {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 10vw;
+  text-align: center;
+}
+
+.animation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60vw;
+  height: 60vw;
+  margin: 0 auto 5vw;
+  overflow: hidden;
+}
+
+.question {
+  font-size: 6vw;
+  font-weight: bold;
+  color: var(--text-color);
+  margin: 1vw 0;
+  line-height: 1.2;
+}

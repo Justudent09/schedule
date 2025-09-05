@@ -1,0 +1,82 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 5vw;
+  gap: 0;
+}
+
+.animation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60vw;
+  height: 60vw;
+  margin: 0 auto 5vw;
+  overflow: hidden;
+}
+
+.profile-header {
+  color: var(--accent-text-color);
+  padding: 6vw 4vw 0;
+  border-radius: 3vw 3vw 0 0;
+  font-weight: bold;
+  font-size: 5vw;
+}
+
+.block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4vw;
+  background-color: var(--secondary-bg-color);
+  font-size: 4vw;
+  color: var(--text-color);
+}
+
+.block:last-of-type {
+  border-radius: 0 0 3vw 3vw;
+}
+
+.info {
+  color: var(--hint-color);
+  font-weight: bold;
+}
+
+.line {
+  height: 0.2vw;
+  background-color: var(--bg-color);
+  margin: 0 4vw;
+}
+
+.button {
+  background-color: var(--destructive-text-color);
+  color: var(--button-text-color);
+  border: none;
+  border-radius: 3vw;
+  padding: 4vw 8vw;
+  font-size: 4vw;
+  font-weight: bold;
+  margin: 5vw auto;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  min-width: 30vw;
+}
+
+.button:hover {
+  transform: scale(1.05);
+}
+
+.button:active {
+  transform: scale(0.95);
+}
+
+.info-text {
+  color: var(--subtitle-text-color);
+  background-color: var(--bg-color);
+  font-size: 3vw;
+  text-align: center;
+  line-height: 1.4;
+  border-radius: 3vw;
+  margin-top: 2vw;
+}
